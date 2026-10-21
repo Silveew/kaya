@@ -1,6 +1,9 @@
 //! Tauri commands for native ONNX inference and related functionality
 
 mod download;
+// Not glob re-exported: its helpers (read, write, ...) would clash. lib.rs
+// registers the commands through the module path.
+pub mod library;
 mod pytorch;
 mod updater;
 mod upload;

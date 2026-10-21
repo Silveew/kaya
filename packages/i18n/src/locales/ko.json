@@ -333,7 +333,15 @@
     "downloadItems": "{{count}}개 다운로드",
     "deleteItems": "{{count}}개 삭제",
     "create": "생성",
-    "unsavedChangesIndicator": "저장되지 않은 변경사항"
+    "unsavedChangesIndicator": "저장되지 않은 변경사항",
+    "location": {
+      "title": "라이브러리 위치",
+      "appStorage": "Kaya 앱 저장소",
+      "description": "라이브러리를 컴퓨터 폴더에 .sgf 파일로 보관하여 백업하거나 git으로 버전 관리하거나 다른 프로그램에서 기보를 열 수 있습니다. Kaya 밖에서 바꾼 내용은 앱으로 돌아오면 반영됩니다.",
+      "existingGamesHint": "앱 저장소에 있던 기보는 그대로 남습니다. 폴더로 옮기려면 먼저 ZIP으로 내보내세요.",
+      "chooseFolder": "폴더 선택…",
+      "useAppStorage": "앱 저장소 사용"
+    }
   },
   "updater": {
     "checkForUpdates": "업데이트 확인...",

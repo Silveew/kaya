@@ -333,7 +333,15 @@
     "downloadItems": "下载 {{count}} 项",
     "deleteItems": "删除 {{count}} 项",
     "create": "创建",
-    "unsavedChangesIndicator": "未保存的更改"
+    "unsavedChangesIndicator": "未保存的更改",
+    "location": {
+      "title": "棋谱库位置",
+      "appStorage": "Kaya 应用内存储",
+      "description": "将棋谱库以 .sgf 文件保存在电脑上的文件夹中，便于备份、用 git 管理版本，或在其他程序中打开。在 Kaya 之外所做的修改会在你回到应用时显示。",
+      "existingGamesHint": "已在应用内存储中的棋谱会保留在那里。如需放入文件夹，请先导出为 ZIP。",
+      "chooseFolder": "选择文件夹…",
+      "useAppStorage": "使用应用内存储"
+    }
   },
   "updater": {
     "checkForUpdates": "检查更新...",

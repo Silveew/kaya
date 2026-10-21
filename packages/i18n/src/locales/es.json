@@ -333,7 +333,15 @@
     "downloadItems": "Descargar {{count}}",
     "deleteItems": "Eliminar {{count}}",
     "create": "Crear",
-    "unsavedChangesIndicator": "Cambios sin guardar"
+    "unsavedChangesIndicator": "Cambios sin guardar",
+    "location": {
+      "title": "Ubicación de la biblioteca",
+      "appStorage": "Almacenamiento de la aplicación Kaya",
+      "description": "Guarda tu biblioteca como archivos .sgf en una carpeta de tu ordenador, para hacer copias de seguridad, versionarla con git o abrir las partidas en otros programas. Los cambios hechos fuera de Kaya aparecen al volver a la aplicación.",
+      "existingGamesHint": "Las partidas que ya están en el almacenamiento de la aplicación se quedan ahí. Expórtalas primero como ZIP si las quieres en la carpeta.",
+      "chooseFolder": "Elegir carpeta…",
+      "useAppStorage": "Usar el almacenamiento de la aplicación"
+    }
   },
   "updater": {
     "checkForUpdates": "Buscar actualizaciones...",

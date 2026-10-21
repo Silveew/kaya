@@ -66,7 +66,7 @@ kaya/
     ├── board-recognition/   Photo → SGF (classic CV + Moku AI)
     ├── i18n/                react-i18next + 8 locales
     ├── themes/              Board theme system + 6 built-in themes
-    ├── game-library/        IndexedDB-backed SGF storage
+    ├── game-library/        SGF storage: IndexedDB, or a folder on disk (desktop)
     ├── platform/            File save, clipboard, Tauri detection
     ├── gtp/                 GTP protocol (legacy, folded into ai-engine)
     └── ui/                  Shared React components, contexts, hooks

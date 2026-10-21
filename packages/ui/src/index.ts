@@ -123,6 +123,19 @@ export { setTauriClipboardAPI } from '@kaya/platform';
 export type { TauriSaveAPI } from '@kaya/platform';
 export { readClipboardText, writeClipboardText } from '@kaya/platform';
 export { requestPersistentStorage } from '@kaya/platform';
+export {
+  setLibraryFolderAPI,
+  isLibraryFolderSupported,
+  getActiveLibraryFolder,
+  type LibraryFolderAPI,
+} from './services/libraryLocation';
+export {
+  FolderBackendError,
+  type FolderBackend,
+  type FolderBackendErrorCode,
+  type FolderEntry,
+  type FolderReadResult,
+} from '@kaya/game-library';
 
 // Hooks
 export { useGameSounds, setSoundInitErrorHandler } from './useGameSounds';

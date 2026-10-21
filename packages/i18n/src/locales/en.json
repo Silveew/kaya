@@ -333,7 +333,15 @@
     "downloadItems": "Download {{count}} Items",
     "deleteItems": "Delete {{count}} Items",
     "create": "Create",
-    "unsavedChangesIndicator": "Unsaved changes"
+    "unsavedChangesIndicator": "Unsaved changes",
+    "location": {
+      "title": "Library location",
+      "appStorage": "Kaya app storage",
+      "description": "Keep your library as .sgf files in a folder on your computer, so you can back it up, version it with git, or open the games in other programs. Changes made outside Kaya show up when you return to the app.",
+      "existingGamesHint": "Games already in app storage stay there. Export them as a ZIP first if you want them in the folder.",
+      "chooseFolder": "Choose folder…",
+      "useAppStorage": "Use app storage"
+    }
   },
   "updater": {
     "checkForUpdates": "Check for Updates...",

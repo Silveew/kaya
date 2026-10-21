@@ -333,7 +333,15 @@
     "downloadItems": "{{count}} herunterladen",
     "deleteItems": "{{count}} löschen",
     "create": "Erstellen",
-    "unsavedChangesIndicator": "Nicht gespeicherte Änderungen"
+    "unsavedChangesIndicator": "Nicht gespeicherte Änderungen",
+    "location": {
+      "title": "Speicherort der Bibliothek",
+      "appStorage": "Kaya-App-Speicher",
+      "description": "Bewahre deine Bibliothek als .sgf-Dateien in einem Ordner auf deinem Computer auf, um sie zu sichern, mit git zu versionieren oder die Partien in anderen Programmen zu öffnen. Änderungen außerhalb von Kaya erscheinen, sobald du zur App zurückkehrst.",
+      "existingGamesHint": "Partien, die schon im App-Speicher liegen, bleiben dort. Exportiere sie zuerst als ZIP, wenn du sie im Ordner haben möchtest.",
+      "chooseFolder": "Ordner wählen…",
+      "useAppStorage": "App-Speicher verwenden"
+    }
   },
   "updater": {
     "checkForUpdates": "Nach Updates suchen...",

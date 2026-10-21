@@ -333,7 +333,15 @@
     "downloadItems": "Scarica {{count}}",
     "deleteItems": "Elimina {{count}}",
     "create": "Crea",
-    "unsavedChangesIndicator": "Modifiche non salvate"
+    "unsavedChangesIndicator": "Modifiche non salvate",
+    "location": {
+      "title": "Posizione della libreria",
+      "appStorage": "Archivio dell'app Kaya",
+      "description": "Conserva la libreria come file .sgf in una cartella del tuo computer, per farne il backup, versionarla con git o aprire le partite in altri programmi. Le modifiche fatte fuori da Kaya compaiono quando torni nell'app.",
+      "existingGamesHint": "Le partite già nell'archivio dell'app restano lì. Esportale prima come ZIP se le vuoi nella cartella.",
+      "chooseFolder": "Scegli cartella…",
+      "useAppStorage": "Usa l'archivio dell'app"
+    }
   },
   "updater": {
     "checkForUpdates": "Controlla aggiornamenti...",

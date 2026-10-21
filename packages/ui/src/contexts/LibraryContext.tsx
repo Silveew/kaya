@@ -15,6 +15,7 @@ import React, {
 } from 'react';
 import type { LibraryItem, LibraryItemId, LibraryStats } from '@kaya/game-library';
 import { getLibraryStorage, initializeLibraryStorage } from '@kaya/game-library';
+import { applyLibraryLocation, getActiveLibraryFolder } from '../services/libraryLocation';
 import {
   UnsavedChangesDialog,
   type UnsavedChangesAction,
@@ -87,6 +88,7 @@ export function LibraryProvider({
   useEffect(() => {
     const init = async () => {
       try {
+        applyLibraryLocation();
         await initializeLibraryStorage();
         setIsInitialized(true);
         setError(null);
@@ -122,6 +124,17 @@ export function LibraryProvider({
     if (isInitialized) {
       refresh();
     }
+  }, [isInitialized, refresh]);
+
+  // A library folder can change outside Kaya (git pull, another editor), so
+  // rescan it whenever the window comes back into focus.
+  useEffect(() => {
+    if (!isInitialized || !getActiveLibraryFolder()) return;
+    const onFocus = () => {
+      refresh();
+    };
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
   }, [isInitialized, refresh]);
 
   // File operations (download, import/export, duplicate)

@@ -7,6 +7,8 @@
 export * from './types';
 export * from './utils';
 export { IndexedDBStorage } from './indexeddb-storage';
+export { FolderStorage } from './folder-storage';
+export * from './folder-backend';
 
 import { IndexedDBStorage } from './indexeddb-storage';
 import type { LibraryStorage } from './types';
@@ -23,6 +25,14 @@ export function getLibraryStorage(): LibraryStorage {
     storageInstance = new IndexedDBStorage();
   }
   return storageInstance;
+}
+
+/**
+ * Use a different storage, e.g. a FolderStorage on desktop.
+ * Must be called before the library is initialized.
+ */
+export function setLibraryStorage(storage: LibraryStorage): void {
+  storageInstance = storage;
 }
 
 /**

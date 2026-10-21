@@ -8,14 +8,20 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { Tree } from 'react-arborist';
-import { LuFolderPlus, LuUpload, LuDownload, LuTrash2, LuCopy } from 'react-icons/lu';
+import { LuFolderPlus, LuUpload, LuDownload, LuTrash2, LuCopy, LuHardDrive } from 'react-icons/lu';
 import { useLibrary } from '../../contexts/LibraryContext';
 import { useTauriDrag } from '../../contexts/TauriDragContext';
 import type { LibraryItemId } from '@kaya/game-library';
 import { formatFileSize } from '@kaya/game-library';
 import { BoardRecognitionDialog } from '../dialogs/board-recognition/BoardRecognitionDialog';
 import { LibraryContextMenu } from './LibraryContextMenu';
-import { NewFolderDialog, ConfirmDialog } from './LibraryDialogs';
+import { NewFolderDialog, ConfirmDialog, LibraryLocationDialog } from './LibraryDialogs';
+import {
+  getActiveLibraryFolder,
+  isLibraryFolderSupported,
+  pickLibraryFolder,
+  switchLibraryLocation,
+} from '../../services/libraryLocation';
 import { useLibraryActions } from './useLibraryActions';
 import {
   type TreeNode,
@@ -46,7 +52,30 @@ export function LibraryPanel({ collapsed = false, onCollapseChange }: LibraryPan
     error,
     clearSelection,
     exportZip,
+    checkUnsavedChanges,
   } = useLibrary();
+
+  const activeFolder = getActiveLibraryFolder();
+  const [showLocationDialog, setShowLocationDialog] = useState(false);
+
+  const changeLocation = useCallback(
+    async (folder: string | null) => {
+      setShowLocationDialog(false);
+      if (folder === activeFolder) return;
+      // Switching reloads the window, so settle unsaved edits first.
+      if (await checkUnsavedChanges()) {
+        switchLibraryLocation(folder);
+      }
+    },
+    [activeFolder, checkUnsavedChanges]
+  );
+
+  const handleChooseFolder = useCallback(async () => {
+    const folder = await pickLibraryFolder();
+    if (folder) {
+      await changeLocation(folder);
+    }
+  }, [changeLocation]);
 
   const { isTauriDragging, isOverLibrary: isTauriOverLibrary } = useTauriDrag();
 
@@ -213,16 +242,39 @@ export function LibraryPanel({ collapsed = false, onCollapseChange }: LibraryPan
           >
             <LuDownload size={16} />
           </button>
-          <button
-            className="library-btn danger"
-            onClick={handleClearLibrary}
-            title={t('library.clearLibrary')}
-            disabled={items.length === 0}
-          >
-            <LuTrash2 size={16} />
-          </button>
+          {isLibraryFolderSupported() && (
+            <button
+              className="library-btn"
+              onClick={() => setShowLocationDialog(true)}
+              title={t('library.location.title')}
+            >
+              <LuHardDrive size={16} />
+            </button>
+          )}
+          {/* Clearing a folder would delete the user's own files */}
+          {!activeFolder && (
+            <button
+              className="library-btn danger"
+              onClick={handleClearLibrary}
+              title={t('library.clearLibrary')}
+              disabled={items.length === 0}
+            >
+              <LuTrash2 size={16} />
+            </button>
+          )}
         </div>
       </div>
+
+      {activeFolder && (
+        <div
+          className="library-location-bar"
+          title={activeFolder}
+          onClick={() => setShowLocationDialog(true)}
+        >
+          <LuHardDrive size={12} />
+          <span>{activeFolder}</span>
+        </div>
+      )}
 
       {/* Content */}
       <div className="library-content" ref={contentRef} onContextMenu={handleEmptySpaceContextMenu}>
@@ -381,6 +433,17 @@ export function LibraryPanel({ collapsed = false, onCollapseChange }: LibraryPan
       {confirmDialog &&
         createPortal(
           <ConfirmDialog dialog={confirmDialog} onClose={() => setConfirmDialog(null)} />,
+          document.body
+        )}
+
+      {showLocationDialog &&
+        createPortal(
+          <LibraryLocationDialog
+            activeFolder={activeFolder}
+            onChooseFolder={handleChooseFolder}
+            onUseAppStorage={() => changeLocation(null)}
+            onClose={() => setShowLocationDialog(false)}
+          />,
           document.body
         )}
 

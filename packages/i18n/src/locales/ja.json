@@ -333,7 +333,15 @@
     "downloadItems": "{{count}}件をダウンロード",
     "deleteItems": "{{count}}件を削除",
     "create": "作成",
-    "unsavedChangesIndicator": "未保存の変更"
+    "unsavedChangesIndicator": "未保存の変更",
+    "location": {
+      "title": "ライブラリの保存場所",
+      "appStorage": "Kaya アプリ内ストレージ",
+      "description": "ライブラリをコンピューター上のフォルダーに .sgf ファイルとして保存します。バックアップや git での管理、他のソフトでの閲覧ができます。Kaya 以外で加えた変更は、アプリに戻ったときに反映されます。",
+      "existingGamesHint": "アプリ内ストレージにある棋譜はそのまま残ります。フォルダーに移したい場合は、先に ZIP でエクスポートしてください。",
+      "chooseFolder": "フォルダーを選択…",
+      "useAppStorage": "アプリ内ストレージを使用"
+    }
   },
   "updater": {
     "checkForUpdates": "アップデートを確認...",

@@ -97,7 +97,7 @@ kaya/
     ├── board-recognition/ # Photo → SGF (classic CV + Moku AI RT-DETR)
     ├── i18n/            # Internationalization (8 languages)
     ├── themes/          # Board theme system (6 built-in themes)
-    ├── game-library/    # IndexedDB-based SGF file storage
+    ├── game-library/    # SGF file storage: IndexedDB, or a folder on disk (desktop)
     ├── platform/        # File save, clipboard, Tauri detection
     └── ui/              # Shared React components, contexts, and hooks
 ```
