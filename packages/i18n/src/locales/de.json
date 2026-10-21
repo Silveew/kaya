@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "Spiel von OGS geladen ({{gameId}})!",
     "gameLoadedFromClipboard": "Spiel aus Zwischenablage geladen!",
     "failedToPaste": "Einfügen fehlgeschlagen: {{error}}",
-    "failedToLoadSgf": "SGF-Datei laden fehlgeschlagen: {{error}}"
+    "failedToLoadSgf": "SGF-Datei laden fehlgeschlagen: {{error}}",
+    "positionExported": "Stellung gespeichert unter {{folder}}/{{filename}}",
+    "positionExportFailed": "Stellung konnte nicht exportiert werden: {{error}}"
   },
   "loading": {
     "loading": "Wird geladen…",
@@ -853,5 +855,12 @@
     "install": "Installieren",
     "installPrompt": "Installieren Sie Kaya für ein besseres Erlebnis",
     "iosTapShare": "Tippen Sie auf Teilen und dann \"Zum Home-Bildschirm\" zum Installieren"
+  },
+  "exportPosition": {
+    "menuItem": "Stellung exportieren…",
+    "title": "Stellung exportieren",
+    "titleLabel": "Titel (optional)",
+    "hint": "Wird als neue Partie im Ordner {{folder}} der Bibliothek gespeichert, mit dem restlichen Baum ab diesem Zug.",
+    "export": "Exportieren"
   }
 }

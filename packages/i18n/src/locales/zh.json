@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "已从 OGS 加载对局（{{gameId}}）！",
     "gameLoadedFromClipboard": "已从剪贴板加载对局！",
     "failedToPaste": "粘贴失败：{{error}}",
-    "failedToLoadSgf": "加载 SGF 文件失败：{{error}}"
+    "failedToLoadSgf": "加载 SGF 文件失败：{{error}}",
+    "positionExported": "局面已保存到 {{folder}}/{{filename}}",
+    "positionExportFailed": "导出局面失败：{{error}}"
   },
   "loading": {
     "loading": "加载中…",
@@ -853,5 +855,12 @@
     "install": "安装",
     "installPrompt": "安装 Kaya 以获得更好的体验",
     "iosTapShare": "点击分享然后选择「添加到主屏幕」来安装"
+  },
+  "exportPosition": {
+    "menuItem": "导出局面…",
+    "title": "导出局面",
+    "titleLabel": "标题（可选）",
+    "hint": "将作为新棋谱保存到棋库的 {{folder}} 文件夹，并包含从这一手开始的其余棋谱树。",
+    "export": "导出"
   }
 }

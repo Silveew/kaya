@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "Partie chargée depuis OGS ({{gameId}}) !",
     "gameLoadedFromClipboard": "Partie chargée depuis le presse-papiers !",
     "failedToPaste": "Échec du collage : {{error}}",
-    "failedToLoadSgf": "Échec du chargement SGF : {{error}}"
+    "failedToLoadSgf": "Échec du chargement SGF : {{error}}",
+    "positionExported": "Position enregistrée dans {{folder}}/{{filename}}",
+    "positionExportFailed": "Échec de l'export de la position : {{error}}"
   },
   "loading": {
     "loading": "Chargement…",
@@ -853,5 +855,12 @@
     "install": "Installer",
     "installPrompt": "Installez Kaya pour une meilleure expérience",
     "iosTapShare": "Appuyez sur Partager puis \"Sur l'écran d'accueil\" pour installer"
+  },
+  "exportPosition": {
+    "menuItem": "Exporter la position…",
+    "title": "Exporter la position",
+    "titleLabel": "Titre (facultatif)",
+    "hint": "Enregistrée comme nouvelle partie dans le dossier {{folder}} de la bibliothèque, avec le reste de l'arbre à partir de ce coup.",
+    "export": "Exporter"
   }
 }

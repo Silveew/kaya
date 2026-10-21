@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "Partita caricata da OGS ({{gameId}})!",
     "gameLoadedFromClipboard": "Partita caricata dagli appunti!",
     "failedToPaste": "Incolla fallito: {{error}}",
-    "failedToLoadSgf": "Caricamento file SGF fallito: {{error}}"
+    "failedToLoadSgf": "Caricamento file SGF fallito: {{error}}",
+    "positionExported": "Posizione salvata in {{folder}}/{{filename}}",
+    "positionExportFailed": "Impossibile esportare la posizione: {{error}}"
   },
   "loading": {
     "loading": "Caricamento…",
@@ -853,5 +855,12 @@
     "install": "Installa",
     "installPrompt": "Installa Kaya per un'esperienza migliore",
     "iosTapShare": "Tocca Condividi e poi \"Aggiungi alla schermata Home\" per installare"
+  },
+  "exportPosition": {
+    "menuItem": "Esporta posizione…",
+    "title": "Esporta posizione",
+    "titleLabel": "Titolo (facoltativo)",
+    "hint": "Salvata come nuova partita nella cartella {{folder}} della libreria, con il resto dell'albero da questa mossa.",
+    "export": "Esporta"
   }
 }

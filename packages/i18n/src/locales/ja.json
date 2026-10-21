@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "OGSから対局を読み込みました（{{gameId}}）！",
     "gameLoadedFromClipboard": "クリップボードから対局を読み込みました！",
     "failedToPaste": "貼り付けに失敗: {{error}}",
-    "failedToLoadSgf": "SGFファイルの読み込みに失敗: {{error}}"
+    "failedToLoadSgf": "SGFファイルの読み込みに失敗: {{error}}",
+    "positionExported": "局面を {{folder}}/{{filename}} に保存しました",
+    "positionExportFailed": "局面をエクスポートできませんでした: {{error}}"
   },
   "loading": {
     "loading": "読み込み中…",
@@ -853,5 +855,12 @@
     "install": "インストール",
     "installPrompt": "Kayaをインストールしてより快適に",
     "iosTapShare": "共有をタップし「ホーム画面に追加」でインストール"
+  },
+  "exportPosition": {
+    "menuItem": "局面をエクスポート…",
+    "title": "局面をエクスポート",
+    "titleLabel": "タイトル（任意）",
+    "hint": "この手以降のツリーを含め、ライブラリの {{folder}} フォルダに新しい棋譜として保存します。",
+    "export": "エクスポート"
   }
 }
