@@ -95,6 +95,8 @@ export interface GameSettings {
    * Clamped to [COMMENT_FONT_SCALE_MIN, COMMENT_FONT_SCALE_MAX].
    */
   commentFontScale: number;
+  /** Badge every marked stone on the board, not just the current move (Moves tab toggle) */
+  showAllMoveMarks: boolean;
   /** Source of the Moku detection ONNX model: 'default' or 'custom' */
   detectionModelSource: 'default' | 'custom';
   /** Name of the uploaded custom detection model file (display only) */

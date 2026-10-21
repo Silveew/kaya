@@ -736,7 +736,8 @@
   "aboutVersionNotAvailable": "Informazioni sulla versione non disponibili",
   "analysisPanel": {
     "graphTab": "Grafico",
-    "reportTab": "Rapporto"
+    "reportTab": "Rapporto",
+    "movesTab": "Mosse"
   },
   "performanceReport": {
     "black": "Nero",
@@ -890,5 +891,17 @@
       "even": "Posizione pari",
       "unclear": "Posizione incerta"
     }
+  },
+  "moves": {
+    "start": "Inizio",
+    "pass": "Passo",
+    "previousMark": "Segno precedente",
+    "nextMark": "Segno successivo",
+    "markedOnly": "Solo segnate",
+    "allMarksOnBoard": "Tutti i segni sul goban",
+    "noMoves": "Ancora nessuna mossa",
+    "noMarkedMoves": "Nessuna mossa segnata in questo ramo",
+    "black": "Nero",
+    "white": "Bianco"
   }
 }

@@ -19,6 +19,7 @@ import {
   useGameTreeAI,
   useGameTreeEdit,
   useGameTreeNavigation,
+  useGameTreeCore,
 } from '../../contexts/selectors';
 import { useBoardNavigation } from '../../contexts/BoardNavigationContext';
 import { useFuzzyPlacement } from '../../useFuzzyPlacement';
@@ -189,7 +190,15 @@ export const GameBoard: React.FC = memo(() => {
 
   // Get last move from current node
   const lastMove = useLastMove(currentNode);
-  const annotationMap = useAnnotationMap(currentNode, lastMove, boardWidth, boardHeight);
+  const { gameTree, currentNodeId } = useGameTreeCore();
+  const annotationMap = useAnnotationMap({
+    gameTree,
+    currentNodeId,
+    currentNode,
+    lastMove,
+    signMap: currentBoard.signMap,
+    showAll: gameSettings.showAllMoveMarks,
+  });
 
   const vertexSize = useVertexSize(
     containerRef,

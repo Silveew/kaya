@@ -13,6 +13,7 @@ const DEFAULT_GAME_SETTINGS: GameSettings = {
   showBoardControls: true, // Show board controls by default
   problemMode: false, // Off by default; opt-in for tsumego study
   commentFontScale: COMMENT_FONT_SCALE_DEFAULT, // Default comment text size
+  showAllMoveMarks: false, // Only the current move's mark on the board by default
   detectionModelSource: 'default', // Use built-in Moku model by default
 };
 
@@ -48,6 +49,10 @@ export function loadGameSettings(): GameSettings {
           typeof parsed.commentFontScale === 'number'
             ? clampCommentFontScale(parsed.commentFontScale)
             : DEFAULT_GAME_SETTINGS.commentFontScale,
+        showAllMoveMarks:
+          typeof parsed.showAllMoveMarks === 'boolean'
+            ? parsed.showAllMoveMarks
+            : DEFAULT_GAME_SETTINGS.showAllMoveMarks,
         detectionModelSource:
           parsed.detectionModelSource === 'custom'
             ? 'custom'

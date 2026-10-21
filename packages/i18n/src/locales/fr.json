@@ -736,7 +736,8 @@
   "aboutVersionNotAvailable": "Informations de version non disponibles",
   "analysisPanel": {
     "graphTab": "Graphique",
-    "reportTab": "Rapport"
+    "reportTab": "Rapport",
+    "movesTab": "Coups"
   },
   "performanceReport": {
     "black": "Noir",
@@ -890,5 +891,17 @@
       "even": "Position équilibrée",
       "unclear": "Position confuse"
     }
+  },
+  "moves": {
+    "start": "Début",
+    "pass": "Passe",
+    "previousMark": "Annotation précédente",
+    "nextMark": "Annotation suivante",
+    "markedOnly": "Annotés seulement",
+    "allMarksOnBoard": "Toutes les annotations sur le goban",
+    "noMoves": "Aucun coup pour l'instant",
+    "noMarkedMoves": "Aucun coup annoté dans cette variante",
+    "black": "Noir",
+    "white": "Blanc"
   }
 }

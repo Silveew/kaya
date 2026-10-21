@@ -2,19 +2,20 @@
  * Analysis Panel with Tabs
  *
  * Container component that provides tabbed navigation between
- * the analysis graph and performance report views.
+ * the analysis graph, performance report and moves list views.
  */
 
 import React, { useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useCloseOnBack } from '../../hooks/useCloseOnBack';
-import { LuChartLine, LuChartBar, LuInfo, LuX } from 'react-icons/lu';
+import { LuChartLine, LuChartBar, LuListOrdered, LuInfo, LuX } from 'react-icons/lu';
 import { AnalysisGraphPanel } from './AnalysisGraphPanel';
 import { PerformanceReportTab, getCategoryColor } from './PerformanceReportTab';
+import { MovesTab } from './MovesTab';
 import './AnalysisPanel.css';
 
-export type AnalysisPanelTab = 'graph' | 'report';
+export type AnalysisPanelTab = 'graph' | 'report' | 'moves';
 
 export interface AnalysisPanelProps {
   className?: string;
@@ -62,6 +63,17 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
           <LuChartBar size={14} />
           <span>{t('analysisPanel.reportTab')}</span>
         </button>
+        <button
+          className={`analysis-panel-tab ${activeTab === 'moves' ? 'active' : ''}`}
+          onClick={() => handleTabChange('moves')}
+          title={t('analysisPanel.movesTab')}
+          aria-selected={activeTab === 'moves'}
+          role="tab"
+          tabIndex={-1}
+        >
+          <LuListOrdered size={14} />
+          <span>{t('analysisPanel.movesTab')}</span>
+        </button>
         {activeTab === 'report' && (
           <button
             className="analysis-panel-help-button"
@@ -77,6 +89,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
       <div className="analysis-panel-content" role="tabpanel">
         {activeTab === 'graph' && <AnalysisGraphPanel />}
         {activeTab === 'report' && <PerformanceReportTab />}
+        {activeTab === 'moves' && <MovesTab />}
       </div>
 
       {/* Help Modal - rendered via portal to document body */}

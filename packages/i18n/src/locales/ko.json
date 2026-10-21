@@ -736,7 +736,8 @@
   "aboutVersionNotAvailable": "버전 정보를 사용할 수 없습니다",
   "analysisPanel": {
     "graphTab": "그래프",
-    "reportTab": "보고서"
+    "reportTab": "보고서",
+    "movesTab": "수순"
   },
   "performanceReport": {
     "black": "흑",
@@ -890,5 +891,17 @@
       "even": "호각",
       "unclear": "불분명"
     }
+  },
+  "moves": {
+    "start": "시작",
+    "pass": "패스",
+    "previousMark": "이전 표시",
+    "nextMark": "다음 표시",
+    "markedOnly": "표시된 수만",
+    "allMarksOnBoard": "모든 표시를 바둑판에",
+    "noMoves": "아직 수가 없습니다",
+    "noMarkedMoves": "이 분기에 표시된 수가 없습니다",
+    "black": "흑",
+    "white": "백"
   }
 }

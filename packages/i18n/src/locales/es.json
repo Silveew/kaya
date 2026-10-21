@@ -736,7 +736,8 @@
   "aboutVersionNotAvailable": "Información de versión no disponible",
   "analysisPanel": {
     "graphTab": "Gráfico",
-    "reportTab": "Informe"
+    "reportTab": "Informe",
+    "movesTab": "Jugadas"
   },
   "performanceReport": {
     "black": "Negro",
@@ -890,5 +891,17 @@
       "even": "Posición igualada",
       "unclear": "Posición incierta"
     }
+  },
+  "moves": {
+    "start": "Inicio",
+    "pass": "Pasar",
+    "previousMark": "Marca anterior",
+    "nextMark": "Marca siguiente",
+    "markedOnly": "Solo marcadas",
+    "allMarksOnBoard": "Todas las marcas en el tablero",
+    "noMoves": "Aún no hay jugadas",
+    "noMarkedMoves": "No hay jugadas marcadas en esta rama",
+    "black": "Negro",
+    "white": "Blanco"
   }
 }

@@ -736,7 +736,8 @@
   "aboutVersionNotAvailable": "Version information not available",
   "analysisPanel": {
     "graphTab": "Graph",
-    "reportTab": "Report"
+    "reportTab": "Report",
+    "movesTab": "Moves"
   },
   "performanceReport": {
     "black": "Black",
@@ -890,5 +891,17 @@
       "even": "Even position",
       "unclear": "Unclear position"
     }
+  },
+  "moves": {
+    "start": "Start",
+    "pass": "Pass",
+    "previousMark": "Previous mark",
+    "nextMark": "Next mark",
+    "markedOnly": "Marked only",
+    "allMarksOnBoard": "All marks on board",
+    "noMoves": "No moves yet",
+    "noMarkedMoves": "No marked moves on this branch",
+    "black": "Black",
+    "white": "White"
   }
 }
