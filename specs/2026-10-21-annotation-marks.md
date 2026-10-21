@@ -57,6 +57,7 @@ other editors often carry them, and reviewing a game means adding them.
 
 ## Limitations
 
-- Only the current move's mark shows on the board. A Moves list that shows
-  every mark (and badges all marked stones) is planned as a follow-up.
+- By default only the current move's mark shows on the board; the Moves panel
+  can turn on badges for every marked stone
+  ([2026-10-21-moves-list.md](2026-10-21-moves-list.md)).
 - Position marks have no default shortcut.

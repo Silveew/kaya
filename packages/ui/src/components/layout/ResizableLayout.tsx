@@ -8,11 +8,13 @@ import {
   LuInfo,
   LuMessageSquare,
   LuChartLine,
+  LuListOrdered,
 } from 'react-icons/lu';
 import { useLayoutMode, useOrientation } from '../../hooks/useMediaQuery';
 import type { MobileTab } from './MobileTabBar';
 import { useLayoutPanels } from './useLayoutPanels';
 import { CollapsibleSectionHeader } from './CollapsibleSectionHeader';
+import { SidebarSection } from './SidebarSection';
 import { ResizableLayoutMobile } from './ResizableLayoutMobile';
 import './ResizableLayout.css';
 import './ResizableLayoutMobile.css';
@@ -22,6 +24,8 @@ interface ResizableLayoutProps {
   analysisGraphContent?: React.ReactNode;
   boardContent?: React.ReactNode;
   gameTreeContent?: React.ReactNode;
+  /** Moves list, shown under the game tree. */
+  movesContent?: React.ReactNode;
   gameInfoContent?: React.ReactNode;
   commentContent?: React.ReactNode;
   gameTreeHeaderActions?: React.ReactNode;
@@ -42,6 +46,7 @@ export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   analysisGraphContent,
   boardContent,
   gameTreeContent,
+  movesContent,
   gameInfoContent,
   commentContent,
   gameTreeHeaderActions,
@@ -87,6 +92,7 @@ export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
       <ResizableLayoutMobile
         boardContent={boardContent}
         gameTreeContent={gameTreeContent}
+        movesContent={movesContent}
         gameInfoContent={gameInfoContent}
         gameInfoHeaderActions={gameInfoHeaderActions}
         commentContent={commentContent}
@@ -231,114 +237,69 @@ export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
             className="panel sidebar-panel"
           >
             <PanelGroup direction="vertical" id="sidebar-group" autoSaveId="kaya-sidebar-group">
-              {/* Game Tree Section */}
-              {panelVisibility.gameTree ? (
-                <>
-                  <Panel
-                    id="game-tree-panel"
-                    order={1}
-                    defaultSize={getDefaultSize(panelVisibility.gameTree, 'gameTree')}
-                    minSize={10}
-                    className="panel game-tree-section"
-                  >
-                    <div className="sidebar-section">
-                      <CollapsibleSectionHeader
-                        title={t('panels.gameTree')}
-                        icon={<LuGitBranch size={14} />}
-                        isVisible={panelVisibility.gameTree}
-                        onToggle={() => togglePanel('gameTree')}
-                        headerActions={gameTreeHeaderActions}
-                      />
-                      <div className="sidebar-section-content">
-                        {gameTreeContent || <div className="placeholder">Tree Placeholder</div>}
-                      </div>
-                    </div>
-                  </Panel>
-                  {(panelVisibility.gameInfo || panelVisibility.comment) && (
-                    <PanelResizeHandle className="resize-handle resize-handle-horizontal" />
-                  )}
-                </>
-              ) : (
-                <div className="collapsed-section-bar">
-                  <CollapsibleSectionHeader
-                    title={t('panels.gameTree')}
-                    icon={<LuGitBranch size={14} />}
-                    isVisible={false}
-                    onToggle={() => togglePanel('gameTree')}
-                  />
-                </div>
-              )}
+              <SidebarSection
+                id="game-tree-panel"
+                order={1}
+                className="game-tree-section"
+                title={t('panels.gameTree')}
+                icon={<LuGitBranch size={14} />}
+                isVisible={panelVisibility.gameTree}
+                onToggle={() => togglePanel('gameTree')}
+                defaultSize={getDefaultSize(panelVisibility.gameTree, 'gameTree')}
+                headerActions={gameTreeHeaderActions}
+                showResizeHandle={
+                  (!!movesContent && panelVisibility.moves) ||
+                  panelVisibility.gameInfo ||
+                  panelVisibility.comment
+                }
+              >
+                {gameTreeContent || <div className="placeholder">Tree Placeholder</div>}
+              </SidebarSection>
 
-              {/* Game Info Section */}
-              {panelVisibility.gameInfo ? (
-                <>
-                  <Panel
-                    id="game-info-panel"
-                    order={2}
-                    defaultSize={getDefaultSize(panelVisibility.gameInfo, 'gameInfo')}
-                    minSize={10}
-                    className="panel game-info-section"
-                  >
-                    <div className="sidebar-section">
-                      <CollapsibleSectionHeader
-                        title={t('panels.gameInfo')}
-                        icon={<LuInfo size={14} />}
-                        isVisible={panelVisibility.gameInfo}
-                        onToggle={() => togglePanel('gameInfo')}
-                        headerActions={gameInfoHeaderActions}
-                      />
-                      <div className="sidebar-section-content">
-                        {gameInfoContent || <div className="placeholder">Game Info</div>}
-                      </div>
-                    </div>
-                  </Panel>
-                  {panelVisibility.comment && (
-                    <PanelResizeHandle className="resize-handle resize-handle-horizontal" />
-                  )}
-                </>
-              ) : (
-                <div className="collapsed-section-bar">
-                  <CollapsibleSectionHeader
-                    title={t('panels.gameInfo')}
-                    icon={<LuInfo size={14} />}
-                    isVisible={false}
-                    onToggle={() => togglePanel('gameInfo')}
-                  />
-                </div>
-              )}
-
-              {/* Comment Section */}
-              {panelVisibility.comment ? (
-                <Panel
-                  id="comment-panel"
-                  order={3}
-                  defaultSize={getDefaultSize(panelVisibility.comment, 'comment')}
-                  minSize={10}
-                  className="panel comments-section"
+              {movesContent && (
+                <SidebarSection
+                  id="moves-panel"
+                  order={2}
+                  className="moves-section"
+                  title={t('panels.moves')}
+                  icon={<LuListOrdered size={14} />}
+                  isVisible={panelVisibility.moves}
+                  onToggle={() => togglePanel('moves')}
+                  defaultSize={getDefaultSize(panelVisibility.moves, 'moves')}
+                  showResizeHandle={panelVisibility.gameInfo || panelVisibility.comment}
                 >
-                  <div className="sidebar-section">
-                    <CollapsibleSectionHeader
-                      title={t('panels.comment')}
-                      icon={<LuMessageSquare size={14} />}
-                      isVisible={panelVisibility.comment}
-                      onToggle={() => togglePanel('comment')}
-                      headerActions={commentHeaderActions}
-                    />
-                    <div className="sidebar-section-content">
-                      {commentContent || <div className="placeholder">Comments</div>}
-                    </div>
-                  </div>
-                </Panel>
-              ) : (
-                <div className="collapsed-section-bar">
-                  <CollapsibleSectionHeader
-                    title={t('panels.comment')}
-                    icon={<LuMessageSquare size={14} />}
-                    isVisible={false}
-                    onToggle={() => togglePanel('comment')}
-                  />
-                </div>
+                  {movesContent}
+                </SidebarSection>
               )}
+
+              <SidebarSection
+                id="game-info-panel"
+                order={3}
+                className="game-info-section"
+                title={t('panels.gameInfo')}
+                icon={<LuInfo size={14} />}
+                isVisible={panelVisibility.gameInfo}
+                onToggle={() => togglePanel('gameInfo')}
+                defaultSize={getDefaultSize(panelVisibility.gameInfo, 'gameInfo')}
+                headerActions={gameInfoHeaderActions}
+                showResizeHandle={panelVisibility.comment}
+              >
+                {gameInfoContent || <div className="placeholder">Game Info</div>}
+              </SidebarSection>
+
+              <SidebarSection
+                id="comment-panel"
+                order={4}
+                className="comments-section"
+                title={t('panels.comment')}
+                icon={<LuMessageSquare size={14} />}
+                isVisible={panelVisibility.comment}
+                onToggle={() => togglePanel('comment')}
+                defaultSize={getDefaultSize(panelVisibility.comment, 'comment')}
+                headerActions={commentHeaderActions}
+              >
+                {commentContent || <div className="placeholder">Comments</div>}
+              </SidebarSection>
             </PanelGroup>
           </Panel>
         </>

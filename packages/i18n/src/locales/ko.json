@@ -645,6 +645,7 @@
     "library": "라이브러리",
     "analysis": "분석",
     "gameTree": "기보 트리",
+    "moves": "수순",
     "gameInfo": "대국 정보",
     "comment": "댓글",
     "showLibrary": "라이브러리 표시 (Ctrl+L)",
@@ -890,5 +891,17 @@
       "even": "호각",
       "unclear": "불분명"
     }
+  },
+  "moves": {
+    "start": "시작",
+    "pass": "패스",
+    "previousMark": "이전 표시",
+    "nextMark": "다음 표시",
+    "markedOnly": "표시된 수만",
+    "allMarksOnBoard": "모든 표시를 바둑판에",
+    "noMoves": "아직 수가 없습니다",
+    "noMarkedMoves": "이 분기에 표시된 수가 없습니다",
+    "black": "흑",
+    "white": "백"
   }
 }

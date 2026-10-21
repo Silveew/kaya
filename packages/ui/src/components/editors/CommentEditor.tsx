@@ -17,6 +17,7 @@ import {
   COMMENT_FONT_SCALE_STEP,
   clampCommentFontScale,
 } from '../../utils/commentFontScale';
+import { AnnotationMarkBar } from './AnnotationMarkBar';
 import './CommentEditor.css';
 
 // ============================================================================
@@ -305,17 +306,20 @@ export const CommentEditor: React.FC = () => {
           <div className="comment-hint">{t('comment.enterHint')}</div>
         </div>
       ) : (
-        <div className="comment-display" onClick={handleEdit}>
-          {currentComment ? (
-            <div className="comment-markdown">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={externalLinkComponents}>
-                {currentComment}
-              </ReactMarkdown>
-            </div>
-          ) : (
-            <div className="comment-empty">{t('comment.noComment')}</div>
-          )}
-        </div>
+        <>
+          <AnnotationMarkBar className="comment-mark-bar" />
+          <div className="comment-display" onClick={handleEdit}>
+            {currentComment ? (
+              <div className="comment-markdown">
+                <ReactMarkdown remarkPlugins={[remarkGfm]} components={externalLinkComponents}>
+                  {currentComment}
+                </ReactMarkdown>
+              </div>
+            ) : (
+              <div className="comment-empty">{t('comment.noComment')}</div>
+            )}
+          </div>
+        </>
       )}
     </div>
   );

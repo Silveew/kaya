@@ -645,6 +645,7 @@
     "library": "Biblioteca",
     "analysis": "Análisis",
     "gameTree": "Árbol de juego",
+    "moves": "Jugadas",
     "gameInfo": "Info partida",
     "comment": "Comentario",
     "showLibrary": "Mostrar biblioteca (Ctrl+L)",
@@ -890,5 +891,17 @@
       "even": "Posición igualada",
       "unclear": "Posición incierta"
     }
+  },
+  "moves": {
+    "start": "Inicio",
+    "pass": "Pasar",
+    "previousMark": "Marca anterior",
+    "nextMark": "Marca siguiente",
+    "markedOnly": "Solo marcadas",
+    "allMarksOnBoard": "Todas las marcas en el tablero",
+    "noMoves": "Aún no hay jugadas",
+    "noMarkedMoves": "No hay jugadas marcadas en esta rama",
+    "black": "Negro",
+    "white": "Blanco"
   }
 }

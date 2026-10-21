@@ -1,0 +1,66 @@
+/* Annotation mark toggle buttons (comment panel). */
+
+.annotation-mark-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.2));
+}
+
+.annotation-mark-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.annotation-mark-button {
+  min-width: 26px;
+  height: 24px;
+  padding: 0 3px;
+  border: 1px solid var(--border-color, #3e3e42);
+  border-radius: 4px;
+  background: var(--bg-primary, #1e1e1e);
+  color: var(--text-primary);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+}
+
+.annotation-mark-button:hover:not(:disabled) {
+  background: var(--bg-hover, rgba(128, 128, 128, 0.15));
+}
+
+/* Selected: the badge colour (set inline) with dark text. */
+.annotation-mark-button[aria-pressed='true'] {
+  border-color: transparent;
+  color: #141414;
+}
+
+.annotation-mark-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .annotation-mark-button {
+    min-height: 36px;
+  }
+}
+
+.annotation-mark-popover {
+  position: fixed;
+  z-index: 1000;
+  padding: 4px;
+  border: 1px solid var(--border-color, #3e3e42);
+  border-radius: 6px;
+  background: var(--bg-secondary, #252526);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.annotation-mark-popover .annotation-mark-group {
+  flex-wrap: nowrap;
+}

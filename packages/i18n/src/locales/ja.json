@@ -645,6 +645,7 @@
     "library": "ライブラリ",
     "analysis": "分析",
     "gameTree": "棋譜ツリー",
+    "moves": "手順",
     "gameInfo": "対局情報",
     "comment": "コメント",
     "showLibrary": "ライブラリを表示 (Ctrl+L)",
@@ -890,5 +891,17 @@
       "even": "互角",
       "unclear": "不明"
     }
+  },
+  "moves": {
+    "start": "開始",
+    "pass": "パス",
+    "previousMark": "前の印",
+    "nextMark": "次の印",
+    "markedOnly": "印のみ",
+    "allMarksOnBoard": "盤上にすべての印を表示",
+    "noMoves": "まだ着手がありません",
+    "noMarkedMoves": "この変化に印の付いた手はありません",
+    "black": "黒",
+    "white": "白"
   }
 }

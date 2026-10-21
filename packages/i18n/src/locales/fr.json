@@ -645,6 +645,7 @@
     "library": "Bibliothèque",
     "analysis": "Analyse",
     "gameTree": "Arbre de jeu",
+    "moves": "Coups",
     "gameInfo": "Infos partie",
     "comment": "Commentaire",
     "showLibrary": "Afficher la bibliothèque (Ctrl+L)",
@@ -890,5 +891,17 @@
       "even": "Position équilibrée",
       "unclear": "Position confuse"
     }
+  },
+  "moves": {
+    "start": "Début",
+    "pass": "Passe",
+    "previousMark": "Annotation précédente",
+    "nextMark": "Annotation suivante",
+    "markedOnly": "Annotés seulement",
+    "allMarksOnBoard": "Toutes les annotations sur le goban",
+    "noMoves": "Aucun coup pour l'instant",
+    "noMarkedMoves": "Aucun coup annoté dans cette variante",
+    "black": "Noir",
+    "white": "Blanc"
   }
 }

@@ -645,6 +645,7 @@
     "library": "Bibliothek",
     "analysis": "Analyse",
     "gameTree": "Spielbaum",
+    "moves": "Züge",
     "gameInfo": "Spielinfo",
     "comment": "Kommentar",
     "showLibrary": "Bibliothek anzeigen (Strg+L)",
@@ -890,5 +891,17 @@
       "even": "Ausgeglichene Stellung",
       "unclear": "Unklare Stellung"
     }
+  },
+  "moves": {
+    "start": "Start",
+    "pass": "Passen",
+    "previousMark": "Vorherige Markierung",
+    "nextMark": "Nächste Markierung",
+    "markedOnly": "Nur markierte",
+    "allMarksOnBoard": "Alle Markierungen auf dem Brett",
+    "noMoves": "Noch keine Züge",
+    "noMarkedMoves": "Keine markierten Züge in dieser Variante",
+    "black": "Schwarz",
+    "white": "Weiß"
   }
 }

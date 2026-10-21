@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Header,
   ResizableLayout,
+  MovesPanel,
   GameBoard,
   GameTreeGraph,
   GameTreeControls,
@@ -146,6 +147,7 @@ export function AppContent({
                 showMinimap={showMinimap}
               />
             }
+            movesContent={<MovesPanel />}
             gameTreeHeaderActions={
               <GameTreeControls
                 horizontal={treeLayoutHorizontal}

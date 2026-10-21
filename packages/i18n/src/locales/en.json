@@ -645,6 +645,7 @@
     "library": "Library",
     "analysis": "Analysis",
     "gameTree": "Game Tree",
+    "moves": "Moves",
     "gameInfo": "Game Info",
     "comment": "Comment",
     "showLibrary": "Show Library (Ctrl+L)",
@@ -890,5 +891,17 @@
       "even": "Even position",
       "unclear": "Unclear position"
     }
+  },
+  "moves": {
+    "start": "Start",
+    "pass": "Pass",
+    "previousMark": "Previous mark",
+    "nextMark": "Next mark",
+    "markedOnly": "Marked only",
+    "allMarksOnBoard": "All marks on board",
+    "noMoves": "No moves yet",
+    "noMarkedMoves": "No marked moves on this branch",
+    "black": "Black",
+    "white": "White"
   }
 }

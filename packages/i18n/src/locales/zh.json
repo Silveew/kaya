@@ -645,6 +645,7 @@
     "library": "棋库",
     "analysis": "分析",
     "gameTree": "棋谱树",
+    "moves": "着法",
     "gameInfo": "对局信息",
     "comment": "评论",
     "showLibrary": "显示棋库 (Ctrl+L)",
@@ -890,5 +891,17 @@
       "even": "均势",
       "unclear": "不明"
     }
+  },
+  "moves": {
+    "start": "开始",
+    "pass": "停一手",
+    "previousMark": "上一个标记",
+    "nextMark": "下一个标记",
+    "markedOnly": "仅显示已标记",
+    "allMarksOnBoard": "在棋盘上显示全部标记",
+    "noMoves": "还没有着法",
+    "noMarkedMoves": "此分支没有已标记的着法",
+    "black": "黑",
+    "white": "白"
   }
 }
