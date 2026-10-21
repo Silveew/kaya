@@ -22,12 +22,15 @@ import {
   LuTrash2,
   LuListX,
   LuUnlink,
+  LuBookmarkPlus,
 } from 'react-icons/lu';
 import type { GameTree } from '@kaya/gametree';
 import { StoneNode } from './StoneNode';
 import { GameTreeContextMenu, type GameTreeMenuItem } from './GameTreeContextMenu';
 import { useGameTreeLayout } from './useGameTreeLayout';
 import { useUndoToast } from './useUndoToast';
+import { useExportPosition } from './useExportPosition';
+import { ExportPositionDialog } from './ExportPositionDialog';
 import { useGameTree } from '../../contexts/GameTreeContext';
 import { useGameTreeEdit } from '../../contexts/selectors';
 import { hasOtherBranches, isOnMainLine } from '../../hooks/game/branchOperations';
@@ -75,6 +78,7 @@ export const GameTreeGraph = forwardRef<GameTreeGraphRef, GameTreeGraphProps>(
     } = useGameTreeEdit();
     const [menu, setMenu] = useState<MenuState | null>(null);
     const withUndoToast = useUndoToast();
+    const exportPositionAction = useExportPosition();
 
     const {
       nodes,
@@ -206,6 +210,13 @@ export const GameTreeGraph = forwardRef<GameTreeGraphRef, GameTreeGraphProps>(
           disabled: !hasOtherBranches(gameTree, menu.nodeId),
           danger: true,
           onSelect: withUndoToast(deleteOtherBranches, t('gameTree.otherBranchesDeleted')),
+        },
+        {
+          id: 'export-position',
+          label: t('exportPosition.menuItem'),
+          icon: <LuBookmarkPlus size={14} />,
+          separatorBefore: true,
+          onSelect: exportPositionAction.open,
         }
       );
     }
@@ -286,6 +297,13 @@ export const GameTreeGraph = forwardRef<GameTreeGraphRef, GameTreeGraphProps>(
             onClose={closeMenu}
           />
         )}
+        <ExportPositionDialog
+          isOpen={exportPositionAction.isOpen}
+          defaultName={exportPositionAction.defaultName}
+          folderName={exportPositionAction.folderName}
+          onClose={exportPositionAction.close}
+          onExport={exportPositionAction.confirm}
+        />
       </div>
     );
   }

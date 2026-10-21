@@ -65,3 +65,4 @@ link forward to the replacement. Don't delete history.
 | 2026-09-24 | [Game tree branches: main line, context menu, no splicing](2026-09-24-gametree-branch-management.md)        | shipped    |
 | 2026-09-24 | [Library drag e2e: release once the folder is highlighted](2026-09-24-library-drag-e2e-flake.md)            | shipped    |
 | 2026-10-21 | [Library folder: game library as .sgf files on disk](2026-10-21-library-folder.md)                          | shipped    |
+| 2026-10-21 | [Export position: save a move's position as its own game](2026-10-21-export-position.md)                    | shipped    |

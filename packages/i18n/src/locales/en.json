@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "Game loaded from OGS ({{gameId}})!",
     "gameLoadedFromClipboard": "Game loaded from clipboard!",
     "failedToPaste": "Failed to paste: {{error}}",
-    "failedToLoadSgf": "Failed to load SGF file: {{error}}"
+    "failedToLoadSgf": "Failed to load SGF file: {{error}}",
+    "positionExported": "Position saved to {{folder}}/{{filename}}",
+    "positionExportFailed": "Failed to export position: {{error}}"
   },
   "loading": {
     "loading": "Loading...",
@@ -853,5 +855,12 @@
     "install": "Install",
     "installPrompt": "Install Kaya for a better experience",
     "iosTapShare": "Tap Share then \"Add to Home Screen\" to install"
+  },
+  "exportPosition": {
+    "menuItem": "Export position…",
+    "title": "Export position",
+    "titleLabel": "Title (optional)",
+    "hint": "Saved as a new game in the library's {{folder}} folder, with the rest of the tree from this move.",
+    "export": "Export"
   }
 }

@@ -558,7 +558,9 @@
     "gameLoadedFromOgs": "OGS에서 대국을 불러왔습니다 ({{gameId}})!",
     "gameLoadedFromClipboard": "클립보드에서 대국을 불러왔습니다!",
     "failedToPaste": "붙여넣기 실패: {{error}}",
-    "failedToLoadSgf": "SGF 파일 불러오기 실패: {{error}}"
+    "failedToLoadSgf": "SGF 파일 불러오기 실패: {{error}}",
+    "positionExported": "국면을 {{folder}}/{{filename}}에 저장했습니다",
+    "positionExportFailed": "국면을 내보내지 못했습니다: {{error}}"
   },
   "loading": {
     "loading": "불러오는 중…",
@@ -853,5 +855,12 @@
     "install": "설치",
     "installPrompt": "더 나은 경험을 위해 Kaya를 설치하세요",
     "iosTapShare": "공유를 탭한 후 \"홈 화면에 추가\"를 눌러 설치하세요"
+  },
+  "exportPosition": {
+    "menuItem": "국면 내보내기…",
+    "title": "국면 내보내기",
+    "titleLabel": "제목 (선택)",
+    "hint": "이 수 이후의 트리와 함께 라이브러리의 {{folder}} 폴더에 새 기보로 저장됩니다.",
+    "export": "내보내기"
   }
 }
