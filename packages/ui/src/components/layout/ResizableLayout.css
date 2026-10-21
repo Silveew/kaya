@@ -206,16 +206,10 @@
   min-height: 0;
 }
 
-.game-tree-section {
-  min-height: 100px;
-}
-
-.game-info-section {
-  min-height: 80px;
-}
-
+/* Sidebar sections take no CSS min-height: the panel group's minSize is the
+   only limit, so a dragged handle stays under the pointer instead of fighting a
+   pixel floor the group does not know about. */
 .comments-section {
-  min-height: 80px;
   display: flex;
   flex-direction: column;
 }
@@ -354,8 +348,4 @@
 .library-collapsed-indicator:hover svg {
   opacity: 1;
   color: var(--text-primary);
-}
-
-.moves-section {
-  min-height: 80px;
 }
