@@ -645,6 +645,7 @@
     "library": "Bibliothèque",
     "analysis": "Analyse",
     "gameTree": "Arbre de jeu",
+    "moves": "Coups",
     "gameInfo": "Infos partie",
     "comment": "Commentaire",
     "showLibrary": "Afficher la bibliothèque (Ctrl+L)",
@@ -736,8 +737,7 @@
   "aboutVersionNotAvailable": "Informations de version non disponibles",
   "analysisPanel": {
     "graphTab": "Graphique",
-    "reportTab": "Rapport",
-    "movesTab": "Coups"
+    "reportTab": "Rapport"
   },
   "performanceReport": {
     "black": "Noir",

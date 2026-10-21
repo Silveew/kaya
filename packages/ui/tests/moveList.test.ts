@@ -1,5 +1,5 @@
 /**
- * Tests for the Moves tab rows: the branch, coordinates, marks, mark
+ * Tests for the Moves panel rows: the branch, coordinates, marks, mark
  * navigation and which marked stones keep a badge on the board.
  *
  * See specs/2026-10-21-moves-list.md.

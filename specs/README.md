@@ -67,4 +67,4 @@ link forward to the replacement. Don't delete history.
 | 2026-10-21 | [Library folder: game library as .sgf files on disk](2026-10-21-library-folder.md)                          | shipped    |
 | 2026-10-21 | [Export position: save a move's position as its own game](2026-10-21-export-position.md)                    | shipped    |
 | 2026-10-21 | [Annotation marks: show and set SGF move and position marks](2026-10-21-annotation-marks.md)                | shipped    |
-| 2026-10-21 | [Moves tab: the branch as a list, with annotation marks](2026-10-21-moves-list.md)                          | shipped    |
+| 2026-10-21 | [Moves panel: the branch as a list, with annotation marks](2026-10-21-moves-list.md)                        | shipped    |

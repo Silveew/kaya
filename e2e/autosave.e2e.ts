@@ -62,6 +62,8 @@ test.describe('Auto-save', () => {
     const lastStone = page.locator('.shudan-vertex[data-x="9"][data-y="9"]');
     for (let i = 0; i < 8; i++) await page.keyboard.press('ArrowLeft');
     await expect(lastStone).not.toHaveClass(/shudan-sign_1/);
+    // Navigation keys are throttled (80 ms), so a press right after is dropped.
+    await page.waitForTimeout(100);
     await page.keyboard.press('End');
     await expect(lastStone).toHaveClass(/shudan-sign_1/);
 

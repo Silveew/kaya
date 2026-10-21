@@ -7,7 +7,9 @@
 
 import { test, expect } from '@playwright/test';
 
-test.use({ locale: 'en-US' });
+// Tall enough that the game tree, which shares the sidebar with Moves, shows
+// every node (it only renders nodes in view).
+test.use({ locale: 'en-US', viewport: { width: 1280, height: 900 } });
 
 test('exports a position from the game tree menu to the Positions folder', async ({ page }) => {
   await page.goto('/');

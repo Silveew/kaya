@@ -307,7 +307,7 @@ export const CommentEditor: React.FC = () => {
         </div>
       ) : (
         <>
-          <AnnotationMarkBar className="comment-mark-bar" compact />
+          <AnnotationMarkBar className="comment-mark-bar" />
           <div className="comment-display" onClick={handleEdit}>
             {currentComment ? (
               <div className="comment-markdown">

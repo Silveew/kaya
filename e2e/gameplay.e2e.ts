@@ -67,6 +67,9 @@ test.describe('Playing Moves', () => {
     const vertex3 = page.locator('.shudan-vertex[data-x="3"][data-y="15"]');
     await expect(vertex3).toHaveClass(/shudan-sign_0/);
 
+    // Navigation keys are throttled (80 ms), so a second press right away is dropped.
+    await page.waitForTimeout(100);
+
     // Navigate forward
     await page.keyboard.press('ArrowRight');
 

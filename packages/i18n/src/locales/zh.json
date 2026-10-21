@@ -645,6 +645,7 @@
     "library": "棋库",
     "analysis": "分析",
     "gameTree": "棋谱树",
+    "moves": "着法",
     "gameInfo": "对局信息",
     "comment": "评论",
     "showLibrary": "显示棋库 (Ctrl+L)",
@@ -736,8 +737,7 @@
   "aboutVersionNotAvailable": "版本信息不可用",
   "analysisPanel": {
     "graphTab": "图表",
-    "reportTab": "报告",
-    "movesTab": "着法"
+    "reportTab": "报告"
   },
   "performanceReport": {
     "black": "黑方",

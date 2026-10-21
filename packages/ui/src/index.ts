@@ -106,6 +106,7 @@ export { AIStatusPill } from './components/ai/AIStatusPill';
 export { AnalysisGraphPanel } from './components/analysis/AnalysisGraphPanel';
 export type { AnalysisGraphPanelProps } from './components/analysis/AnalysisGraphPanel';
 export { AnalysisPanel } from './components/analysis/AnalysisPanel';
+export { MovesPanel } from './components/gametree/MovesPanel';
 export type { AnalysisPanelProps, AnalysisPanelTab } from './components/analysis/AnalysisPanel';
 export { PerformanceReportTab } from './components/analysis/PerformanceReportTab';
 export { AnalysisChart } from './components/analysis/AnalysisChart';

@@ -645,6 +645,7 @@
     "library": "라이브러리",
     "analysis": "분석",
     "gameTree": "기보 트리",
+    "moves": "수순",
     "gameInfo": "대국 정보",
     "comment": "댓글",
     "showLibrary": "라이브러리 표시 (Ctrl+L)",
@@ -736,8 +737,7 @@
   "aboutVersionNotAvailable": "버전 정보를 사용할 수 없습니다",
   "analysisPanel": {
     "graphTab": "그래프",
-    "reportTab": "보고서",
-    "movesTab": "수순"
+    "reportTab": "보고서"
   },
   "performanceReport": {
     "black": "흑",

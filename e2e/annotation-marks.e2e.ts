@@ -8,7 +8,9 @@
 
 import { test, expect } from '@playwright/test';
 
-test.use({ locale: 'en-US' });
+// Tall enough that the game tree, which shares the sidebar with Moves, shows
+// every node (it only renders nodes in view).
+test.use({ locale: 'en-US', viewport: { width: 1280, height: 900 } });
 
 test('sets, shows and clears marks from the tree menu and shortcuts', async ({ page }) => {
   await page.goto('/');

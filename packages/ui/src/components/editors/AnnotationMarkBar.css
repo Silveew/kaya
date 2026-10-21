@@ -1,9 +1,10 @@
-/* Annotation mark toggle buttons (comment panel, Moves tab). */
+/* Annotation mark toggle buttons (comment panel). */
 
 .annotation-mark-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 10px;
+  align-items: center;
+  gap: 4px 6px;
   padding: 4px 8px;
   border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.2));
 }
@@ -48,11 +49,6 @@
   .annotation-mark-button {
     min-height: 36px;
   }
-}
-
-.annotation-mark-bar--compact {
-  align-items: center;
-  gap: 4px 6px;
 }
 
 .annotation-mark-popover {

@@ -6,6 +6,7 @@ const LEFT_PANEL_STORAGE_KEY = 'kaya-left-panels';
 
 export interface SidebarPanelVisibility {
   gameTree: boolean;
+  moves: boolean;
   gameInfo: boolean;
   comment: boolean;
 }
@@ -17,8 +18,16 @@ export interface LeftPanelVisibility {
 
 const DEFAULT_VISIBILITY: SidebarPanelVisibility = {
   gameTree: true,
+  moves: true,
   gameInfo: true,
   comment: true,
+};
+
+const PANEL_WEIGHTS: Record<keyof SidebarPanelVisibility, number> = {
+  gameTree: 45,
+  moves: 25,
+  gameInfo: 15,
+  comment: 15,
 };
 
 const DEFAULT_LEFT_VISIBILITY: LeftPanelVisibility = {
@@ -73,28 +82,20 @@ export function useLayoutPanels() {
   // Count visible panels for sizing (right sidebar)
   const visiblePanelCount = [
     panelVisibility.gameTree,
+    panelVisibility.moves,
     panelVisibility.gameInfo,
     panelVisibility.comment,
   ].filter(Boolean).length;
 
-  // Calculate default sizes based on visible panels
-  // Game Tree: 50%, Game Info: 35%, Comment: 15% when all visible
-  const getDefaultSize = (isVisible: boolean, panelName?: 'gameTree' | 'gameInfo' | 'comment') => {
+  // Calculate default sizes based on visible panels. With all four visible:
+  // Game Tree 45%, Moves 25%, Game Info 15%, Comment 15%; otherwise the
+  // visible ones keep these proportions.
+  const getDefaultSize = (isVisible: boolean, panelName: keyof SidebarPanelVisibility) => {
     if (!isVisible) return 0;
-    if (visiblePanelCount === 1) return 100;
-    if (visiblePanelCount === 2) {
-      return 50;
-    }
-    switch (panelName) {
-      case 'gameTree':
-        return 50;
-      case 'gameInfo':
-        return 35;
-      case 'comment':
-        return 15;
-      default:
-        return 100 / visiblePanelCount;
-    }
+    const total = (Object.keys(PANEL_WEIGHTS) as (keyof SidebarPanelVisibility)[])
+      .filter(name => panelVisibility[name])
+      .reduce((sum, name) => sum + PANEL_WEIGHTS[name], 0);
+    return (PANEL_WEIGHTS[panelName] / total) * 100;
   };
 
   // Count visible left panels for sizing

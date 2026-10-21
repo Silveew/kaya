@@ -1,8 +1,7 @@
 /**
  * Toggle buttons for the current node's annotation marks: move marks
- * (! !! !? ?! ? ??) and position marks (+B ++B +W ++W = ∞). Used in the
- * comment panel (compact: position marks behind a "±" button) and the Moves
- * tab.
+ * (! !! !? ?! ? ??) in one row, and position marks (+B ++B +W ++W = ∞) in
+ * a popover from a "±" button. Shown above the comment.
  *
  * See specs/2026-10-21-moves-list.md.
  */
@@ -23,8 +22,6 @@ import './AnnotationMarkBar.css';
 
 export interface AnnotationMarkBarProps {
   className?: string;
-  /** One row: position marks open from a "±" button (comment panel). */
-  compact?: boolean;
 }
 
 interface MarkButtonProps {
@@ -53,10 +50,7 @@ function MarkButton({ mark, label, title, selected, disabled, onClick }: MarkBut
   );
 }
 
-export const AnnotationMarkBar: React.FC<AnnotationMarkBarProps> = ({
-  className = '',
-  compact = false,
-}) => {
+export const AnnotationMarkBar: React.FC<AnnotationMarkBarProps> = ({ className = '' }) => {
   const { t } = useTranslation();
   const { isMove, moveMark, positionMark, toggleMoveMark, togglePositionMark } =
     useAnnotationMarks();
@@ -121,9 +115,7 @@ export const AnnotationMarkBar: React.FC<AnnotationMarkBarProps> = ({
   );
 
   return (
-    <div
-      className={`annotation-mark-bar${compact ? ' annotation-mark-bar--compact' : ''} ${className}`}
-    >
+    <div className={`annotation-mark-bar ${className}`}>
       <div role="group" aria-label={t('annotations.markMove')} className="annotation-mark-group">
         {MOVE_MARKS.map(mark => (
           <MarkButton
@@ -137,32 +129,26 @@ export const AnnotationMarkBar: React.FC<AnnotationMarkBarProps> = ({
           />
         ))}
       </div>
-      {compact ? (
-        <>
-          <button
-            ref={anchorRef}
-            type="button"
-            className="annotation-mark-button"
-            title={positionMark ? t(`annotations.position.${positionMark.id}`) : undefined}
-            aria-label={t('annotations.markPosition')}
-            aria-haspopup="true"
-            aria-expanded={positionsOpen}
-            style={positionMark ? { backgroundColor: MARK_TONE_COLORS.position } : undefined}
-            onClick={() => setPositionsOpen(open => !open)}
-          >
-            {positionMark?.glyph ?? '±'}
-          </button>
-          {positionsOpen &&
-            createPortal(
-              <div ref={popoverRef} className="annotation-mark-popover" style={popoverPosition}>
-                {positionGroup}
-              </div>,
-              document.body
-            )}
-        </>
-      ) : (
-        positionGroup
-      )}
+      <button
+        ref={anchorRef}
+        type="button"
+        className="annotation-mark-button"
+        title={positionMark ? t(`annotations.position.${positionMark.id}`) : undefined}
+        aria-label={t('annotations.markPosition')}
+        aria-haspopup="true"
+        aria-expanded={positionsOpen}
+        style={positionMark ? { backgroundColor: MARK_TONE_COLORS.position } : undefined}
+        onClick={() => setPositionsOpen(open => !open)}
+      >
+        {positionMark?.glyph ?? '±'}
+      </button>
+      {positionsOpen &&
+        createPortal(
+          <div ref={popoverRef} className="annotation-mark-popover" style={popoverPosition}>
+            {positionGroup}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };

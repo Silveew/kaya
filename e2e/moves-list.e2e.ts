@@ -1,7 +1,7 @@
 /**
- * Moves tab: lists the current branch with its annotation marks, sets marks on
- * the current move, jumps between marked moves and can badge every marked
- * stone on the board.
+ * Moves panel (right sidebar, under the game tree): lists the current branch
+ * with its annotation marks, shows marks set from the comment panel, jumps
+ * between marked moves and can badge every marked stone on the board.
  *
  * See specs/2026-10-21-moves-list.md.
  */
@@ -23,28 +23,30 @@ test('lists moves with marks, sets marks and jumps between them', async ({ page 
     await page.locator(`.shudan-vertex[data-x="${x}"][data-y="${y}"]`).click();
   }
 
-  await page.getByRole('tab', { name: 'Moves' }).click();
   const list = page.getByRole('list', { name: 'Moves' });
   const rows = list.getByRole('button');
   await expect(rows).toHaveCount(5);
   await expect(rows.nth(4)).toHaveAttribute('aria-current', 'true');
   await expect(rows.nth(1)).toContainText('D16');
 
-  // Picker on the current (4th) move, then on the 2nd via its row.
-  const tab = page.locator('.moves-tab');
-  const picker = tab.getByRole('group', { name: 'Mark move' });
-  await picker.getByRole('button', { name: 'Bad move', exact: true }).click();
-  await expect(rows.nth(4).locator('.moves-tab-badge')).toHaveText('?');
+  // Marks set from the comment panel's bar show in the list: the current
+  // (4th) move, then the 2nd via its row.
+  const commentBar = page.locator('.comment-mark-bar');
+  const positionButton = commentBar.getByRole('button', { name: 'Mark position' });
+  await commentBar.getByRole('button', { name: 'Bad move', exact: true }).click();
+  await expect(rows.nth(4).locator('.moves-panel-badge')).toHaveText('?');
 
   await rows.nth(2).click();
   await expect(rows.nth(2)).toHaveAttribute('aria-current', 'true');
-  await picker.getByRole('button', { name: 'Good move', exact: true }).click();
-  await tab
-    .getByRole('group', { name: 'Mark position' })
+  await commentBar.getByRole('button', { name: 'Good move', exact: true }).click();
+  await positionButton.click();
+  await page
+    .locator('.annotation-mark-popover')
     .getByRole('button', { name: 'Good for White', exact: true })
     .click();
-  await expect(rows.nth(2).locator('.moves-tab-badge')).toHaveText(['!', '+W']);
-  await expect(picker.getByRole('button', { name: 'Good move', exact: true })).toHaveAttribute(
+  await expect(positionButton).toHaveText('+W');
+  await expect(rows.nth(2).locator('.moves-panel-badge')).toHaveText(['!', '+W']);
+  await expect(commentBar.getByRole('button', { name: 'Good move', exact: true })).toHaveAttribute(
     'aria-pressed',
     'true'
   );
@@ -69,22 +71,10 @@ test('lists moves with marks, sets marks and jumps between them', async ({ page 
   await page.getByRole('button', { name: 'Marked only' }).click();
   await expect(rows).toHaveCount(2);
 
-  // The comment panel has the same buttons for the current node.
-  const commentBar = page.locator('.comment-mark-bar');
+  // Marking from the filtered list's current row updates it in place.
   await commentBar.getByRole('button', { name: 'Interesting move' }).click();
-  await expect(rows.nth(1).locator('.moves-tab-badge')).toHaveText('!?');
+  await expect(rows.nth(1).locator('.moves-panel-badge')).toHaveText('!?');
   await expect(
     page.locator('.shudan-vertex[data-x="15"][data-y="3"] .shudan-annotation-badge')
   ).toHaveText('!?');
-  await commentBar.getByRole('button', { name: 'Mark position' }).click();
-  await page
-    .locator('.annotation-mark-popover')
-    .getByRole('button', { name: 'Unclear position' })
-    .click();
-  await expect(commentBar.getByRole('button', { name: 'Mark position' })).toHaveText('∞');
-  await expect(rows.nth(1).locator('.moves-tab-badge')).toHaveText(['!?', '∞']);
-  await expect(picker.getByRole('button', { name: 'Interesting move' })).toHaveAttribute(
-    'aria-pressed',
-    'true'
-  );
 });

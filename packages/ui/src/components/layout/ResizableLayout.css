@@ -182,8 +182,9 @@
   overscroll-behavior: contain;
 }
 
-/* Game Info fills the panel so the editor is the scrollport. */
-.sidebar-section-content:has(.game-info-editor) {
+/* Game Info and Moves fill the panel so their own list is the scrollport. */
+.sidebar-section-content:has(.game-info-editor),
+.sidebar-section-content:has(.moves-panel) {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -353,4 +354,8 @@
 .library-collapsed-indicator:hover svg {
   opacity: 1;
   color: var(--text-primary);
+}
+
+.moves-section {
+  min-height: 80px;
 }

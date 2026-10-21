@@ -1,10 +1,10 @@
 ---
 date: 2026-10-21
 status: shipped
-scope: ui/analysis, ui/board
+scope: ui/gametree, ui/layout, ui/board
 ---
 
-# Moves tab: the branch as a list, with annotation marks
+# Moves panel: the branch as a list, with annotation marks
 
 ## Context
 
@@ -15,21 +15,22 @@ to the next. Kaya had no move list.
 
 ## Decision
 
-- The analysis panel gets a third tab, **Moves**, next to Graph and Report.
-  It lists the current branch: root, every node up to the current one, and on
-  to the end of the branch along first children (the same path the graph
-  plots). Each row shows the move number, the stone colour, the coordinate
+- The right sidebar gets a **Moves** section directly under the game tree
+  (order: Game tree, Moves, Game info, Comment), collapsible and resizable
+  like the others; its visibility is saved with theirs. On mobile and tablet
+  it sits under the tree on the Tree tab. It lists the current branch: root,
+  every node up to the current one, and on to the end of the branch along
+  first children (the same path the graph plots). Each row shows the move number, the stone colour, the coordinate
   (GTP style, "Pass" for passes, "Start" for the root), the move and position
   mark badges, and the first line of the comment. Clicking a row goes to it;
   the current row stays scrolled into view.
-- A **mark bar** above the list sets the current node's move mark (`! !! !?
-?! ? ??`) and position mark (`+B ++B +W ++W = ∞`). The buttons toggle, like
-  the tree menu and shortcuts. Move marks are disabled on nodes without a
-  move.
-- The **comment panel** gets the same bar in compact form (one row: the six
-  move marks, then a **±** button whose popover holds the position marks), so
-  marks can be set without a right-click. Both bars are
-  `components/editors/AnnotationMarkBar.tsx`; tooltips show the shortcut.
+- The **comment panel** gets a row of mark buttons above the comment: the six
+  move marks (`! !! !? ?! ? ??`), then a **±** button whose popover holds the
+  position marks (`+B ++B +W ++W = ∞`), so marks can be set without a
+  right-click. The buttons toggle, like the tree menu and shortcuts; move
+  marks are disabled on nodes without a move; tooltips show the shortcut
+  (`components/editors/AnnotationMarkBar.tsx`). The Moves panel has no bar of
+  its own, since the comment panel sits in the same sidebar.
 - Toolbar: **Previous mark** / **Next mark** jump to the nearest node on the
   branch with any mark; **Marked only** filters the list; **All marks on
   board** (persisted as `gameSettings.showAllMoveMarks`) badges every marked
@@ -42,11 +43,14 @@ to the next. Kaya had no move list.
 
 ## Alternatives considered
 
-- **A fourth sidebar panel.** Rejected: the sidebar's panel sizes and
-  visibility are persisted per panel, and the analysis panel already has a tab
-  bar where a list fits.
+- **A third tab in the analysis panel** (next to Graph and Report). Tried
+  first and rejected after use: the list belongs next to the game tree it
+  mirrors, and the left panel is often hidden while reviewing.
 - **Picker as a popover on the selected row.** Rejected: hidden when
   "Marked only" filters out the current row; a fixed bar is always reachable.
+- **A second, full-size mark bar in the Moves panel.** Dropped when the list
+  moved next to the comment panel: it duplicated the comment bar and took two
+  rows from an already small section.
 
 ## Limitations
 

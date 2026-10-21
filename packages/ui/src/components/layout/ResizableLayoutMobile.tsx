@@ -1,11 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LuLibrary, LuGitBranch, LuInfo, LuMessageSquare, LuBrain } from 'react-icons/lu';
+import {
+  LuLibrary,
+  LuGitBranch,
+  LuInfo,
+  LuMessageSquare,
+  LuBrain,
+  LuListOrdered,
+} from 'react-icons/lu';
 import { MobileTabBar, type MobileTab } from './MobileTabBar';
 
 interface ResizableLayoutMobileProps {
   boardContent?: React.ReactNode;
   gameTreeContent?: React.ReactNode;
+  movesContent?: React.ReactNode;
   gameInfoContent?: React.ReactNode;
   gameInfoHeaderActions?: React.ReactNode;
   commentContent?: React.ReactNode;
@@ -19,6 +27,7 @@ interface ResizableLayoutMobileProps {
 export const ResizableLayoutMobile: React.FC<ResizableLayoutMobileProps> = ({
   boardContent,
   gameTreeContent,
+  movesContent,
   gameInfoContent,
   gameInfoHeaderActions,
   commentContent,
@@ -79,6 +88,15 @@ export const ResizableLayoutMobile: React.FC<ResizableLayoutMobileProps> = ({
           <div className="mobile-panel-content">
             {gameTreeContent || <div className="placeholder">{t('panels.gameTree')}</div>}
           </div>
+          {movesContent && (
+            <div className="mobile-moves-section">
+              <div className="mobile-section-title">
+                <LuListOrdered size={14} />
+                <span>{t('panels.moves')}</span>
+              </div>
+              {movesContent}
+            </div>
+          )}
         </div>
 
         {/* AI Analysis Panel */}

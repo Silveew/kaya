@@ -645,6 +645,7 @@
     "library": "Library",
     "analysis": "Analysis",
     "gameTree": "Game Tree",
+    "moves": "Moves",
     "gameInfo": "Game Info",
     "comment": "Comment",
     "showLibrary": "Show Library (Ctrl+L)",
@@ -736,8 +737,7 @@
   "aboutVersionNotAvailable": "Version information not available",
   "analysisPanel": {
     "graphTab": "Graph",
-    "reportTab": "Report",
-    "movesTab": "Moves"
+    "reportTab": "Report"
   },
   "performanceReport": {
     "black": "Black",

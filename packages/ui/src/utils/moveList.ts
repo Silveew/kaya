@@ -1,5 +1,5 @@
 /**
- * Rows of the Moves tab: the current branch (root → current node → end of the
+ * Rows of the Moves panel: the current branch (root → current node → end of the
  * branch along first children) with each node's move, annotation marks and
  * comment, plus the board badges for every marked stone still on the board.
  *

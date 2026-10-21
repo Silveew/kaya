@@ -645,6 +645,7 @@
     "library": "Bibliothek",
     "analysis": "Analyse",
     "gameTree": "Spielbaum",
+    "moves": "Züge",
     "gameInfo": "Spielinfo",
     "comment": "Kommentar",
     "showLibrary": "Bibliothek anzeigen (Strg+L)",
@@ -736,8 +737,7 @@
   "aboutVersionNotAvailable": "Versionsinformationen nicht verfügbar",
   "analysisPanel": {
     "graphTab": "Diagramm",
-    "reportTab": "Bericht",
-    "movesTab": "Züge"
+    "reportTab": "Bericht"
   },
   "performanceReport": {
     "black": "Schwarz",

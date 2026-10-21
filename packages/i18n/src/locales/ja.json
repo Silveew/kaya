@@ -645,6 +645,7 @@
     "library": "ライブラリ",
     "analysis": "分析",
     "gameTree": "棋譜ツリー",
+    "moves": "手順",
     "gameInfo": "対局情報",
     "comment": "コメント",
     "showLibrary": "ライブラリを表示 (Ctrl+L)",
@@ -736,8 +737,7 @@
   "aboutVersionNotAvailable": "バージョン情報は利用できません",
   "analysisPanel": {
     "graphTab": "グラフ",
-    "reportTab": "レポート",
-    "movesTab": "手順"
+    "reportTab": "レポート"
   },
   "performanceReport": {
     "black": "黒",
