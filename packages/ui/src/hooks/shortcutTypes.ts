@@ -64,7 +64,15 @@ export type ShortcutId =
   // Edit shortcuts
   | 'edit.undo'
   | 'edit.redo'
-  | 'edit.makeMainBranch';
+  | 'edit.makeMainBranch'
+  // Annotation marks (SGF TE/BM/IT/DO) on the current move
+  | 'mark.good'
+  | 'mark.veryGood'
+  | 'mark.interesting'
+  | 'mark.doubtful'
+  | 'mark.bad'
+  | 'mark.veryBad'
+  | 'mark.clear';
 
 /** Modifier key for the current platform (Cmd on Mac, Ctrl elsewhere) */
 export const isMac =
@@ -215,6 +223,37 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
   'edit.makeMainBranch': {
     category: 'edit',
     defaultBinding: createPlatformBinding('m', { shift: true }),
+  },
+
+  // Annotation marks. Alt/Option + digit: on macOS Option changes event.key
+  // ("¡" for ⌥1), so eventMatchesBinding falls back to the physical key.
+  'mark.good': {
+    category: 'edit',
+    defaultBinding: createBinding('1', { alt: true }),
+  },
+  'mark.veryGood': {
+    category: 'edit',
+    defaultBinding: createBinding('1', { alt: true, shift: true }),
+  },
+  'mark.interesting': {
+    category: 'edit',
+    defaultBinding: createBinding('2', { alt: true }),
+  },
+  'mark.doubtful': {
+    category: 'edit',
+    defaultBinding: createBinding('3', { alt: true }),
+  },
+  'mark.bad': {
+    category: 'edit',
+    defaultBinding: createBinding('4', { alt: true }),
+  },
+  'mark.veryBad': {
+    category: 'edit',
+    defaultBinding: createBinding('4', { alt: true, shift: true }),
+  },
+  'mark.clear': {
+    category: 'edit',
+    defaultBinding: createBinding('0', { alt: true }),
   },
 };
 

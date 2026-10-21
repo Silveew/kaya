@@ -46,6 +46,16 @@ export interface Marker {
 /**
  * Heat map vertex for AI analysis visualization
  */
+/**
+ * Small badge drawn at a stone's top-right corner, e.g. an SGF move
+ * annotation ("!", "?!"). Only drawn on vertices that hold a stone.
+ */
+export interface AnnotationBadge {
+  text: string;
+  /** Badge background (any CSS colour). The text is dark. */
+  color: string;
+}
+
 export interface HeatVertex {
   strength: number; // 0-9, where 9 is strongest/best move
   text?: string | null; // Display text (e.g., "65.3%\n+2.5")
@@ -135,6 +145,9 @@ export interface GobanProps {
 
   /** Marker map for SGF markers (MA, TR, CR, SQ, LB) */
   markerMap?: BoardMap<Marker>;
+
+  /** Annotation badges on stones (e.g. SGF move marks) */
+  annotationMap?: BoardMap<AnnotationBadge>;
 
   /** Ghost marker to show under cursor (for edit tools) */
   ghostMarker?: Marker | null;

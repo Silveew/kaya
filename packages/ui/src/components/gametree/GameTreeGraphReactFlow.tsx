@@ -6,7 +6,7 @@
  * - Automatic layout with elkjs
  * - Built-in pan/zoom
  * - Custom node rendering (Go stones)
- * - Right-click / long-press branch management menu
+ * - Right-click / long-press branch management menu (incl. annotation marks)
  */
 
 import React, { useCallback, useEffect, useImperativeHandle, forwardRef, useState } from 'react';
@@ -31,6 +31,7 @@ import { useGameTreeLayout } from './useGameTreeLayout';
 import { useUndoToast } from './useUndoToast';
 import { useExportPosition } from './useExportPosition';
 import { ExportPositionDialog } from './ExportPositionDialog';
+import { useAnnotationMenuItems } from './useAnnotationMenuItems';
 import { useGameTree } from '../../contexts/GameTreeContext';
 import { useGameTreeEdit } from '../../contexts/selectors';
 import { hasOtherBranches, isOnMainLine } from '../../hooks/game/branchOperations';
@@ -79,6 +80,7 @@ export const GameTreeGraph = forwardRef<GameTreeGraphRef, GameTreeGraphProps>(
     const [menu, setMenu] = useState<MenuState | null>(null);
     const withUndoToast = useUndoToast();
     const exportPositionAction = useExportPosition();
+    const annotationMenuItems = useAnnotationMenuItems();
 
     const {
       nodes,
@@ -217,7 +219,8 @@ export const GameTreeGraph = forwardRef<GameTreeGraphRef, GameTreeGraphProps>(
           icon: <LuBookmarkPlus size={14} />,
           separatorBefore: true,
           onSelect: exportPositionAction.open,
-        }
+        },
+        ...annotationMenuItems
       );
     }
 

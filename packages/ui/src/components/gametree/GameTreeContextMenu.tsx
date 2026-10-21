@@ -9,6 +9,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useCloseOnBack } from '../../hooks/useCloseOnBack';
+import { GameTreeMenuItemButton } from './GameTreeMenuItemButton';
+import { GameTreeSubmenu } from './GameTreeSubmenu';
 import './GameTreeContextMenu.css';
 
 const VIEWPORT_MARGIN = 8;
@@ -20,7 +22,20 @@ export interface GameTreeMenuItem {
   disabled?: boolean;
   danger?: boolean;
   separatorBefore?: boolean;
+  /** Radio-style state: set on every item of a pick-one group. */
+  checked?: boolean;
+  /** Shortcut hint shown at the end of the row, e.g. "⌥1". */
+  shortcut?: string;
+  /** Items of a flyout submenu. `onSelect` is not called for such an item. */
+  submenu?: GameTreeMenuItem[];
   onSelect: () => void;
+}
+
+interface OpenSubmenu {
+  item: GameTreeMenuItem;
+  anchor: DOMRect;
+  /** Keyboard and click opens focus the submenu; hover leaves focus alone. */
+  focus: boolean;
 }
 
 export interface GameTreeContextMenuProps {
@@ -42,6 +57,7 @@ export const GameTreeContextMenu: React.FC<GameTreeContextMenuProps> = ({
 }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x, y });
+  const [submenu, setSubmenu] = useState<OpenSubmenu | null>(null);
 
   // Mounted only while open: the Android back gesture closes the menu
   // instead of leaving the app.
@@ -71,12 +87,17 @@ export const GameTreeContextMenu: React.FC<GameTreeContextMenuProps> = ({
     [onClose]
   );
 
+  const openSubmenu = useCallback((item: GameTreeMenuItem, button: HTMLElement, focus: boolean) => {
+    if (item.disabled || !item.submenu) return;
+    setSubmenu({ item, anchor: button.getBoundingClientRect(), focus });
+  }, []);
+
   // `role="menu"` obliges us to support arrow-key navigation, so the items are
   // focusable buttons and the menu owns a roving focus.
   const getEnabledItems = useCallback(
     () =>
       Array.from(
-        menuRef.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? []
+        menuRef.current?.querySelectorAll<HTMLButtonElement>(':scope > button:not(:disabled)') ?? []
       ),
     []
   );
@@ -124,6 +145,11 @@ export const GameTreeContextMenu: React.FC<GameTreeContextMenuProps> = ({
       event.stopPropagation();
 
       switch (event.key) {
+        case 'ArrowRight': {
+          const item = items.find(i => i.id === enabled[currentIndex]?.dataset.itemId);
+          if (item?.submenu) openSubmenu(item, enabled[currentIndex], true);
+          break;
+        }
         case 'ArrowDown':
           focusItem(currentIndex + 1);
           break;
@@ -140,7 +166,7 @@ export const GameTreeContextMenu: React.FC<GameTreeContextMenuProps> = ({
           break;
       }
     },
-    [getEnabledItems, focusItem, onClose]
+    [getEnabledItems, focusItem, onClose, items, openSubmenu]
   );
 
   // Dismiss on outside pointer press, Escape, scroll, resize or blur. Using
@@ -187,24 +213,42 @@ export const GameTreeContextMenu: React.FC<GameTreeContextMenuProps> = ({
       onKeyDown={handleKeyDown}
     >
       {items.map(item => (
-        <React.Fragment key={item.id}>
-          {item.separatorBefore && (
-            <div className="gametree-context-menu-separator" role="separator" />
-          )}
-          <button
-            type="button"
-            role="menuitem"
-            className={`gametree-context-menu-item${item.danger ? ' danger' : ''}${
-              item.disabled ? ' disabled' : ''
-            }`}
-            disabled={item.disabled}
-            onClick={() => handleSelect(item)}
-          >
-            <span className="gametree-context-menu-item-icon">{item.icon}</span>
-            <span className="gametree-context-menu-item-label">{item.label}</span>
-          </button>
-        </React.Fragment>
+        <GameTreeMenuItemButton
+          key={item.id}
+          item={item}
+          dataItemId={item.id}
+          expanded={submenu?.item.id === item.id}
+          onClick={event => {
+            if (!item.submenu) {
+              handleSelect(item);
+            } else if (submenu?.item.id === item.id) {
+              setSubmenu(null);
+            } else {
+              openSubmenu(item, event.currentTarget, true);
+            }
+          }}
+          onMouseEnter={event => {
+            if (item.submenu) openSubmenu(item, event.currentTarget, false);
+            else setSubmenu(null);
+          }}
+        />
       ))}
+      {submenu?.item.submenu && (
+        <GameTreeSubmenu
+          anchor={submenu.anchor}
+          ariaLabel={submenu.item.label}
+          items={submenu.item.submenu}
+          autoFocus={submenu.focus}
+          onSelect={handleSelect}
+          onBack={() => {
+            const id = submenu.item.id;
+            setSubmenu(null);
+            menuRef.current
+              ?.querySelector<HTMLButtonElement>(`:scope > button[data-item-id="${id}"]`)
+              ?.focus({ preventScroll: true });
+          }}
+        />
+      )}
     </div>,
     document.body
   );

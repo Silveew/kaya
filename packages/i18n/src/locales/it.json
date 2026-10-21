@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "Attiva/disattiva mappa territorio",
       "edit.undo": "Annulla",
       "edit.redo": "Ripeti",
-      "edit.makeMainBranch": "Imposta come ramo principale"
+      "edit.makeMainBranch": "Imposta come ramo principale",
+      "mark.good": "Segna mossa: Buona mossa",
+      "mark.veryGood": "Segna mossa: Ottima mossa (tesuji)",
+      "mark.interesting": "Segna mossa: Mossa interessante",
+      "mark.doubtful": "Segna mossa: Mossa dubbia",
+      "mark.bad": "Segna mossa: Cattiva mossa",
+      "mark.veryBad": "Segna mossa: Pessima mossa",
+      "mark.clear": "Segna mossa: Rimuovi segno"
     },
     "collision": {
       "title": "Conflitto scorciatoia",
@@ -862,5 +869,26 @@
     "titleLabel": "Titolo (facoltativo)",
     "hint": "Salvata come nuova partita nella cartella {{folder}} della libreria, con il resto dell'albero da questa mossa.",
     "export": "Esporta"
+  },
+  "annotations": {
+    "markMove": "Segna mossa",
+    "markPosition": "Segna posizione",
+    "clear": "Rimuovi segno",
+    "move": {
+      "good": "Buona mossa",
+      "veryGood": "Ottima mossa (tesuji)",
+      "interesting": "Mossa interessante",
+      "doubtful": "Mossa dubbia",
+      "bad": "Cattiva mossa",
+      "veryBad": "Pessima mossa"
+    },
+    "position": {
+      "goodForBlack": "Buona per il Nero",
+      "clearlyGoodForBlack": "Nettamente buona per il Nero",
+      "goodForWhite": "Buona per il Bianco",
+      "clearlyGoodForWhite": "Nettamente buona per il Bianco",
+      "even": "Posizione pari",
+      "unclear": "Posizione incerta"
+    }
   }
 }

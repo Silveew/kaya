@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "Gebietskarte umschalten",
       "edit.undo": "Rückgängig",
       "edit.redo": "Wiederherstellen",
-      "edit.makeMainBranch": "Als Hauptzweig setzen"
+      "edit.makeMainBranch": "Als Hauptzweig setzen",
+      "mark.good": "Zug markieren: Guter Zug",
+      "mark.veryGood": "Zug markieren: Sehr guter Zug (Tesuji)",
+      "mark.interesting": "Zug markieren: Interessanter Zug",
+      "mark.doubtful": "Zug markieren: Zweifelhafter Zug",
+      "mark.bad": "Zug markieren: Schlechter Zug",
+      "mark.veryBad": "Zug markieren: Sehr schlechter Zug",
+      "mark.clear": "Zug markieren: Markierung entfernen"
     },
     "collision": {
       "title": "Tastenkürzel-Konflikt",
@@ -862,5 +869,26 @@
     "titleLabel": "Titel (optional)",
     "hint": "Wird als neue Partie im Ordner {{folder}} der Bibliothek gespeichert, mit dem restlichen Baum ab diesem Zug.",
     "export": "Exportieren"
+  },
+  "annotations": {
+    "markMove": "Zug markieren",
+    "markPosition": "Stellung markieren",
+    "clear": "Markierung entfernen",
+    "move": {
+      "good": "Guter Zug",
+      "veryGood": "Sehr guter Zug (Tesuji)",
+      "interesting": "Interessanter Zug",
+      "doubtful": "Zweifelhafter Zug",
+      "bad": "Schlechter Zug",
+      "veryBad": "Sehr schlechter Zug"
+    },
+    "position": {
+      "goodForBlack": "Gut für Schwarz",
+      "clearlyGoodForBlack": "Klar gut für Schwarz",
+      "goodForWhite": "Gut für Weiß",
+      "clearlyGoodForWhite": "Klar gut für Weiß",
+      "even": "Ausgeglichene Stellung",
+      "unclear": "Unklare Stellung"
+    }
   }
 }

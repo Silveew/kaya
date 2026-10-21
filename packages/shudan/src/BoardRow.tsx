@@ -5,7 +5,7 @@
  */
 
 import * as React from 'react';
-import type { Vertex } from './types';
+import type { AnnotationBadge, Vertex } from './types';
 import { vertexEquals } from './helper';
 import { Vertex as VertexComponent } from './Vertex';
 
@@ -26,6 +26,7 @@ export const BoardRow = React.memo(
     randomMapRow,
     paintMap,
     markerMapRow,
+    annotationMapRow,
     heatMapRow,
     ownershipMapRow,
   }: {
@@ -42,6 +43,7 @@ export const BoardRow = React.memo(
     randomMapRow?: number[];
     paintMap?: number[][];
     markerMapRow?: (any | null)[];
+    annotationMapRow?: (AnnotationBadge | null)[];
     heatMapRow?: (any | null)[];
     ownershipMapRow?: number[];
   }) => {
@@ -80,6 +82,7 @@ export const BoardRow = React.memo(
 
           const marker = markerMapRow?.[x] ?? null;
           const heat = heatMapRow?.[x] ?? null;
+          const annotation = annotationMapRow?.[x] ?? null;
 
           return (
             <VertexComponent
@@ -105,6 +108,7 @@ export const BoardRow = React.memo(
               paintBottom={paintBottom}
               marker={marker}
               heat={heat}
+              annotation={annotation}
             />
           );
         })}
@@ -124,6 +128,7 @@ export const BoardRow = React.memo(
       prev.dimmedSet !== next.dimmedSet ||
       prev.paintMap !== next.paintMap ||
       prev.markerMapRow !== next.markerMapRow ||
+      prev.annotationMapRow !== next.annotationMapRow ||
       prev.heatMapRow !== next.heatMapRow ||
       prev.shiftMapRow !== next.shiftMapRow ||
       prev.randomMapRow !== next.randomMapRow ||
