@@ -104,3 +104,49 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ dialog, onClose })
     </div>
   );
 };
+
+export interface LibraryLocationDialogProps {
+  /** The folder in use, or null for app storage */
+  activeFolder: string | null;
+  onChooseFolder: () => void;
+  onUseAppStorage: () => void;
+  onClose: () => void;
+}
+
+export const LibraryLocationDialog: React.FC<LibraryLocationDialogProps> = ({
+  activeFolder,
+  onChooseFolder,
+  onUseAppStorage,
+  onClose,
+}) => {
+  const { t } = useTranslation();
+  useCloseOnBack(true, onClose);
+
+  return (
+    <div className="library-dialog-overlay" onClick={onClose}>
+      <div className="library-dialog" onClick={e => e.stopPropagation()}>
+        <div className="library-dialog-title">{t('library.location.title')}</div>
+        <div className="library-dialog-message">
+          <div className="library-location-current" title={activeFolder ?? undefined}>
+            {activeFolder ?? t('library.location.appStorage')}
+          </div>
+          <p>{t('library.location.description')}</p>
+          {!activeFolder && <p>{t('library.location.existingGamesHint')}</p>}
+        </div>
+        <div className="library-dialog-buttons">
+          <button className="library-dialog-btn secondary" onClick={onClose}>
+            {t('cancel')}
+          </button>
+          {activeFolder && (
+            <button className="library-dialog-btn secondary" onClick={onUseAppStorage}>
+              {t('library.location.useAppStorage')}
+            </button>
+          )}
+          <button className="library-dialog-btn primary" onClick={onChooseFolder}>
+            {t('library.location.chooseFolder')}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -161,3 +161,29 @@
   color: #ef4444;
   font-size: 13px;
 }
+
+/* Library folder bar - shown when the library lives in a folder on disk */
+.library-location-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-bottom: 1px solid var(--border-color, #333);
+  font-size: 11px;
+  color: var(--text-secondary, #999);
+  cursor: pointer;
+  min-width: 0;
+}
+
+.library-location-bar span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.library-location-current {
+  font-family: var(--font-mono, monospace);
+  color: var(--text-primary, #fff);
+  word-break: break-all;
+  margin-bottom: 8px;
+}

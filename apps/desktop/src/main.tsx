@@ -6,11 +6,13 @@ import {
   I18nProvider,
   setTauriSaveAPI,
   setTauriClipboardAPI,
+  setLibraryFolderAPI,
 } from '@kaya/ui';
 import { save } from '@tauri-apps/plugin-dialog';
 import { writeTextFile } from '@tauri-apps/plugin-fs';
 import { readText, writeText } from '@tauri-apps/plugin-clipboard-manager';
 import App from './App.tsx';
+import { libraryFolderAPI } from './libraryFolderBackend';
 import '@kaya/ui/dist/styles/ui.css';
 
 // Store errors in sessionStorage so they persist across reloads
@@ -55,6 +57,9 @@ setTauriClipboardAPI({
   readText,
   writeText,
 });
+
+// Let the library live in a folder on disk
+setLibraryFolderAPI(libraryFolderAPI);
 
 // Suppress benign ResizeObserver warning from react-resizable-panels
 // This is a common timing issue and doesn't affect functionality
