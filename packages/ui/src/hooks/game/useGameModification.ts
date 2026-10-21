@@ -6,6 +6,7 @@ import { type Marker } from '@kaya/shudan';
 import { type SGFProperty, type GameInfo } from '../../types/game';
 import { now, logPerf } from '../../utils/perfLogger';
 import { boardCache } from '../../utils/gameCache';
+import { markPropertyEdits, type MarkDefinition } from '../../utils/annotations';
 import { useBranchModification } from './useBranchModification';
 
 interface UseGameModificationProps {
@@ -333,8 +334,24 @@ export function useGameModification({
     [gameTree, currentNodeId, setGameTree]
   );
 
+  /** Put a move or position mark on the current node, replacing any other of that kind. */
+  const setAnnotationMark = useCallback(
+    (kind: 'move' | 'position', mark: MarkDefinition<string> | null) => {
+      if (!gameTree || currentNodeId === null) return;
+      const newTree = gameTree.mutate(draft => {
+        for (const [prop, values] of Object.entries(markPropertyEdits(kind, mark))) {
+          if (values) draft.updateProperty(currentNodeId, prop, values);
+          else draft.removeProperty(currentNodeId, prop);
+        }
+      });
+      setGameTree(newTree);
+    },
+    [gameTree, currentNodeId, setGameTree]
+  );
+
   return {
     makeMove: playMove,
+    setAnnotationMark,
     addSetupStone,
     addSetupPosition,
     addMarker,

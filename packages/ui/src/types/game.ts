@@ -5,6 +5,7 @@ import { GameInfo as SGFGameInfo, type GameInfoPatch } from '@kaya/sgf';
 import { AnalysisResult } from '@kaya/ai-engine';
 
 import type { ConfigTab } from '../components/ai/useKayaConfig';
+import type { MarkDefinition } from '../utils/annotations';
 
 export interface SGFProperty {
   [key: string]: string[];
@@ -254,6 +255,7 @@ export interface GameTreeContextValue {
   addMarker: (vertex: Vertex, marker: Marker | null | string) => void;
   setNodeName: (name: string) => void;
   setNodeComment: (comment: string) => void;
+  setAnnotationMark: (kind: 'move' | 'position', mark: MarkDefinition<string> | null) => void;
   deleteNode: () => void;
   deleteContinuation: () => void;
   cutNode: () => void;

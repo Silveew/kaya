@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "Toggle Ownership Heatmap",
       "edit.undo": "Undo",
       "edit.redo": "Redo",
-      "edit.makeMainBranch": "Make Main Branch"
+      "edit.makeMainBranch": "Make Main Branch",
+      "mark.good": "Mark move: Good move",
+      "mark.veryGood": "Mark move: Very good move (tesuji)",
+      "mark.interesting": "Mark move: Interesting move",
+      "mark.doubtful": "Mark move: Doubtful move",
+      "mark.bad": "Mark move: Bad move",
+      "mark.veryBad": "Mark move: Very bad move",
+      "mark.clear": "Mark move: Clear mark"
     },
     "collision": {
       "title": "Shortcut Conflict",
@@ -862,5 +869,26 @@
     "titleLabel": "Title (optional)",
     "hint": "Saved as a new game in the library's {{folder}} folder, with the rest of the tree from this move.",
     "export": "Export"
+  },
+  "annotations": {
+    "markMove": "Mark move",
+    "markPosition": "Mark position",
+    "clear": "Clear mark",
+    "move": {
+      "good": "Good move",
+      "veryGood": "Very good move (tesuji)",
+      "interesting": "Interesting move",
+      "doubtful": "Doubtful move",
+      "bad": "Bad move",
+      "veryBad": "Very bad move"
+    },
+    "position": {
+      "goodForBlack": "Good for Black",
+      "clearlyGoodForBlack": "Clearly good for Black",
+      "goodForWhite": "Good for White",
+      "clearlyGoodForWhite": "Clearly good for White",
+      "even": "Even position",
+      "unclear": "Unclear position"
+    }
   }
 }

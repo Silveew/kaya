@@ -43,6 +43,7 @@ export const Goban: React.FC<GobanProps> = ({
   gameId,
   cursorPosition = null,
   markerMap = null,
+  annotationMap = null,
   ghostMarker = null,
   heatMap = null,
   ownershipMap = null,
@@ -239,6 +240,7 @@ export const Goban: React.FC<GobanProps> = ({
                     randomMapRow={randomMap?.[y]}
                     paintMap={paintMap || undefined}
                     markerMapRow={markerMap?.[y]}
+                    annotationMapRow={annotationMap?.[y]}
                     heatMapRow={heatMap?.[y]}
                     ownershipMapRow={ownershipMap?.[y]}
                   />
@@ -257,6 +259,7 @@ export const Goban: React.FC<GobanProps> = ({
                 randomMap,
                 paintMap,
                 markerMap,
+                annotationMap,
                 heatMap,
                 ownershipMap,
               ]

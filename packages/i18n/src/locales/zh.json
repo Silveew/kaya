@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "切换地域热力图",
       "edit.undo": "撤销",
       "edit.redo": "重做",
-      "edit.makeMainBranch": "设为主变化"
+      "edit.makeMainBranch": "设为主变化",
+      "mark.good": "标记着法：好棋",
+      "mark.veryGood": "标记着法：妙手（手筋）",
+      "mark.interesting": "标记着法：有趣的一手",
+      "mark.doubtful": "标记着法：疑问手",
+      "mark.bad": "标记着法：坏棋",
+      "mark.veryBad": "标记着法：大恶手",
+      "mark.clear": "标记着法：清除标记"
     },
     "collision": {
       "title": "快捷键冲突",
@@ -862,5 +869,26 @@
     "titleLabel": "标题（可选）",
     "hint": "将作为新棋谱保存到棋库的 {{folder}} 文件夹，并包含从这一手开始的其余棋谱树。",
     "export": "导出"
+  },
+  "annotations": {
+    "markMove": "标记着法",
+    "markPosition": "标记局面",
+    "clear": "清除标记",
+    "move": {
+      "good": "好棋",
+      "veryGood": "妙手（手筋）",
+      "interesting": "有趣的一手",
+      "doubtful": "疑问手",
+      "bad": "坏棋",
+      "veryBad": "大恶手"
+    },
+    "position": {
+      "goodForBlack": "黑好",
+      "clearlyGoodForBlack": "黑明显优势",
+      "goodForWhite": "白好",
+      "clearlyGoodForWhite": "白明显优势",
+      "even": "均势",
+      "unclear": "不明"
+    }
   }
 }

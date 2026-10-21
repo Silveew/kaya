@@ -176,6 +176,7 @@ export function useGameTreeEdit() {
         removeMarker: ctx.removeMarker,
         setNodeName: ctx.setNodeName,
         setNodeComment: ctx.setNodeComment,
+        setAnnotationMark: ctx.setAnnotationMark,
         deleteNode: ctx.deleteNode,
         deleteContinuation: ctx.deleteContinuation,
         cutNode: ctx.cutNode,

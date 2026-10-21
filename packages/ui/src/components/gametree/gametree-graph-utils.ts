@@ -5,6 +5,7 @@
 import type { Node, Edge } from 'reactflow';
 import type { GameTreeNode } from '@kaya/gametree';
 import type { SGFProperty } from '../../contexts/GameTreeContext';
+import { getMoveMark } from '../../utils/annotations';
 
 const LAYOUT_IDLE_TIMEOUT = 150;
 
@@ -346,6 +347,7 @@ export function buildGraphElements(
         hasComment: hasComment(n),
         hasMarkers: hasMarkers(n),
         hasSetupStones: hasSetupStones(n),
+        moveMark: getMoveMark(n.data),
         horizontal,
         isRoot,
         isPass,

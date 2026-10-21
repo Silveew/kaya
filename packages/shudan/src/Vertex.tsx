@@ -6,6 +6,7 @@
 
 import * as React from 'react';
 import { getShiftTransform, renderMarker } from './goban-utils';
+import type { AnnotationBadge } from './types';
 
 export interface VertexProps {
   x: number;
@@ -29,6 +30,7 @@ export interface VertexProps {
   paintBottom: number;
   marker: { type?: string | null; label?: string | null } | null;
   heat?: { strength: number; text?: string | null } | null;
+  annotation?: AnnotationBadge | null;
 }
 
 export const Vertex = React.memo<VertexProps>(
@@ -54,6 +56,7 @@ export const Vertex = React.memo<VertexProps>(
     paintBottom = 0,
     marker = null,
     heat = null,
+    annotation = null,
   }) => {
     const nextMoveColor = nextMovePlayer === 1 ? '#000' : '#fff';
 
@@ -289,6 +292,37 @@ export const Vertex = React.memo<VertexProps>(
           </>
         )}
 
+        {/* Annotation badge (e.g. "!", "?!") at the stone's top-right corner */}
+        {sign !== 0 && annotation && (
+          <div
+            className="shudan-annotation-badge"
+            style={{
+              position: 'absolute',
+              left: '88%',
+              top: '12%',
+              transform: 'translate(-50%, -50%)',
+              minWidth: Math.max(14, vertexSize * 0.46),
+              height: Math.max(14, vertexSize * 0.46),
+              padding: '0 3px',
+              boxSizing: 'border-box',
+              borderRadius: vertexSize,
+              backgroundColor: annotation.color,
+              color: '#141414',
+              fontSize: Math.max(9, vertexSize * 0.32),
+              fontWeight: 800,
+              lineHeight: `${Math.max(14, vertexSize * 0.46)}px`,
+              letterSpacing: '-0.5px',
+              textAlign: 'center',
+              fontFamily: 'Arial, sans-serif',
+              boxShadow: '0 0 0 1.5px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4)',
+              pointerEvents: 'none',
+              zIndex: 40 /* Above heat map, next-move marker and neighbouring stones */,
+            }}
+          >
+            {annotation.text}
+          </div>
+        )}
+
         {/* Next move marker (filled circle) - rendered on top of heat map */}
         {sign !== 0 && isNextMove && !marker && (
           <div
@@ -335,7 +369,9 @@ export const Vertex = React.memo<VertexProps>(
       prevProps.marker?.type === nextProps.marker?.type &&
       prevProps.marker?.label === nextProps.marker?.label &&
       prevProps.heat?.strength === nextProps.heat?.strength &&
-      prevProps.heat?.text === nextProps.heat?.text
+      prevProps.heat?.text === nextProps.heat?.text &&
+      prevProps.annotation?.text === nextProps.annotation?.text &&
+      prevProps.annotation?.color === nextProps.annotation?.color
     );
   }
 );

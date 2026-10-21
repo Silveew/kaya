@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "영역 히트맵 전환",
       "edit.undo": "실행 취소",
       "edit.redo": "다시 실행",
-      "edit.makeMainBranch": "주요 변화로 설정"
+      "edit.makeMainBranch": "주요 변화로 설정",
+      "mark.good": "수 표시: 좋은 수",
+      "mark.veryGood": "수 표시: 매우 좋은 수(맥)",
+      "mark.interesting": "수 표시: 흥미로운 수",
+      "mark.doubtful": "수 표시: 의문수",
+      "mark.bad": "수 표시: 나쁜 수",
+      "mark.veryBad": "수 표시: 매우 나쁜 수",
+      "mark.clear": "수 표시: 표시 지우기"
     },
     "collision": {
       "title": "단축키 충돌",
@@ -862,5 +869,26 @@
     "titleLabel": "제목 (선택)",
     "hint": "이 수 이후의 트리와 함께 라이브러리의 {{folder}} 폴더에 새 기보로 저장됩니다.",
     "export": "내보내기"
+  },
+  "annotations": {
+    "markMove": "수 표시",
+    "markPosition": "국면 표시",
+    "clear": "표시 지우기",
+    "move": {
+      "good": "좋은 수",
+      "veryGood": "매우 좋은 수(맥)",
+      "interesting": "흥미로운 수",
+      "doubtful": "의문수",
+      "bad": "나쁜 수",
+      "veryBad": "매우 나쁜 수"
+    },
+    "position": {
+      "goodForBlack": "흑 좋음",
+      "clearlyGoodForBlack": "흑 확실히 좋음",
+      "goodForWhite": "백 좋음",
+      "clearlyGoodForWhite": "백 확실히 좋음",
+      "even": "호각",
+      "unclear": "불분명"
+    }
   }
 }

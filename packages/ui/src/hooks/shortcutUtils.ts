@@ -69,6 +69,30 @@ export function bindingToDisplayString(binding: KeyBinding): string {
   return parts.join(isMac ? '' : '+');
 }
 
+/**
+ * The unmodified key of a letter or digit key, from its physical position
+ * (`KeyA` → "a", `Digit1` / `Numpad1` → "1"), or null for any other key.
+ */
+function keyFromCode(code: string | undefined): string | null {
+  const match = /^(?:Key([A-Z])|Digit(\d)|Numpad(\d))$/.exec(code ?? '');
+  if (!match) return null;
+  return (match[1] ?? match[2] ?? match[3]).toLowerCase();
+}
+
+/**
+ * The key a binding should record for `event`. With Alt/Option or Shift held,
+ * `event.key` is the character the modifier produces (macOS ⌥1 → "¡", Shift+1
+ * → "!"), which differs per layout, so letters and digits use the physical
+ * key instead.
+ */
+function bindingKeyFromEvent(event: KeyboardEvent): string {
+  if (event.altKey || event.shiftKey) {
+    const physical = keyFromCode(event.code);
+    if (physical) return physical;
+  }
+  return event.key.toLowerCase();
+}
+
 /** Check if a KeyboardEvent matches a KeyBinding */
 export function eventMatchesBinding(event: KeyboardEvent, binding: KeyBinding): boolean {
   const { modifiers, key } = binding;
@@ -80,8 +104,11 @@ export function eventMatchesBinding(event: KeyboardEvent, binding: KeyBinding): 
   const altMatch = modifiers.alt === event.altKey;
   const metaMatch = modifiers.meta === event.metaKey;
 
-  // Check key
-  const keyMatch = eventKey === key.toLowerCase();
+  // Check key. Alt/Option and Shift combos also match on the physical key,
+  // since those modifiers rewrite event.key (macOS ⌥1 gives "¡", Shift+1 "!").
+  const keyMatch =
+    eventKey === key.toLowerCase() ||
+    ((modifiers.alt || modifiers.shift) && keyFromCode(event.code) === key.toLowerCase());
 
   return ctrlMatch && shiftMatch && altMatch && metaMatch && keyMatch;
 }
@@ -127,7 +154,7 @@ export function createBindingFromEvent(event: KeyboardEvent): KeyBinding | null 
   }
 
   return {
-    key: event.key.toLowerCase(),
+    key: bindingKeyFromEvent(event),
     modifiers: {
       ctrl: event.ctrlKey,
       shift: event.shiftKey,

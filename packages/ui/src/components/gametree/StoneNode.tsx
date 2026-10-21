@@ -5,6 +5,7 @@
 import React from 'react';
 import { Handle, Position } from 'reactflow';
 import { useGameTreeCore } from '../../contexts/GameTreeContext';
+import { MARK_TONE_COLORS, type MarkDefinition } from '../../utils/annotations';
 import {
   GAMETREE_NODE_LONGPRESS_EVENT,
   GAMETREE_NODE_LONGPRESS_MS,
@@ -50,6 +51,7 @@ export const StoneNode = React.memo(({ data }: { data: any }) => {
     nodeId,
     isPass,
   } = data;
+  const moveMark: MarkDefinition<string> | null = data.moveMark ?? null;
 
   // Calculate isCurrent directly from context
   // This prevents rebuilding entire nodes array on every navigation
@@ -240,6 +242,15 @@ export const StoneNode = React.memo(({ data }: { data: any }) => {
               boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
             }}
           />
+        )}
+        {moveMark && (
+          <div
+            className="gametree-move-mark"
+            aria-label={moveMark.glyph}
+            style={{ backgroundColor: MARK_TONE_COLORS[moveMark.tone] }}
+          >
+            {moveMark.glyph}
+          </div>
         )}
         {hasSetupStones && (
           <div

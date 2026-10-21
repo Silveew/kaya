@@ -69,6 +69,54 @@
   line-height: 1.3;
 }
 
+.gametree-context-menu-item.expanded {
+  background: var(--bg-hover, #333);
+}
+
+.gametree-context-menu-item-shortcut {
+  flex: 0 0 auto;
+  margin-left: 12px;
+  font-size: 12px;
+  color: var(--text-secondary, #9d9d9d);
+}
+
+.gametree-context-menu-item-check,
+.gametree-context-menu-item-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary, #9d9d9d);
+}
+
+.gametree-context-menu-item-check {
+  color: var(--accent-color, #4a9eff);
+}
+
+/* Annotation glyph ("!", "?!", "++B") in the icon slot, drawn as the same
+   badge the tree and board show. Wider than an icon, so the slot grows. */
+.gametree-context-submenu .gametree-context-menu-item-icon {
+  width: 30px;
+  flex-basis: 30px;
+  opacity: 1;
+}
+
+.gametree-context-menu-glyph {
+  min-width: 18px;
+  padding: 1px 4px;
+  border-radius: 8px;
+  color: #141414;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: -0.5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.gametree-context-submenu {
+  min-width: 220px;
+}
+
 .gametree-context-menu-separator {
   height: 1px;
   margin: 4px 0;

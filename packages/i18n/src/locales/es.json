@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "Alternar mapa de territorio",
       "edit.undo": "Deshacer",
       "edit.redo": "Rehacer",
-      "edit.makeMainBranch": "Establecer como rama principal"
+      "edit.makeMainBranch": "Establecer como rama principal",
+      "mark.good": "Marcar jugada: Buena jugada",
+      "mark.veryGood": "Marcar jugada: Muy buena jugada (tesuji)",
+      "mark.interesting": "Marcar jugada: Jugada interesante",
+      "mark.doubtful": "Marcar jugada: Jugada dudosa",
+      "mark.bad": "Marcar jugada: Mala jugada",
+      "mark.veryBad": "Marcar jugada: Muy mala jugada",
+      "mark.clear": "Marcar jugada: Quitar marca"
     },
     "collision": {
       "title": "Conflicto de atajo",
@@ -862,5 +869,26 @@
     "titleLabel": "Título (opcional)",
     "hint": "Se guarda como una partida nueva en la carpeta {{folder}} de la biblioteca, con el resto del árbol desde esta jugada.",
     "export": "Exportar"
+  },
+  "annotations": {
+    "markMove": "Marcar jugada",
+    "markPosition": "Marcar posición",
+    "clear": "Quitar marca",
+    "move": {
+      "good": "Buena jugada",
+      "veryGood": "Muy buena jugada (tesuji)",
+      "interesting": "Jugada interesante",
+      "doubtful": "Jugada dudosa",
+      "bad": "Mala jugada",
+      "veryBad": "Muy mala jugada"
+    },
+    "position": {
+      "goodForBlack": "Buena para Negro",
+      "clearlyGoodForBlack": "Claramente buena para Negro",
+      "goodForWhite": "Buena para Blanco",
+      "clearlyGoodForWhite": "Claramente buena para Blanco",
+      "even": "Posición igualada",
+      "unclear": "Posición incierta"
+    }
   }
 }

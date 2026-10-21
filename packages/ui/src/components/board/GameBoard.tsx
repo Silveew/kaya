@@ -49,6 +49,8 @@ import {
   useScoringDimmedVertices,
 } from './gameboard-interactions';
 import { useBoardControlsKeyNav } from './useBoardControlsKeyNav';
+import { useAnnotationMap } from './useAnnotationMap';
+import { useAnnotationShortcuts } from '../../hooks/useAnnotationMarks';
 import './GameBoard.css';
 import './GameBoardAnalysisSummary.css';
 
@@ -97,6 +99,8 @@ export const GameBoard: React.FC = memo(() => {
 
   // Keyboard and wheel navigation (always active, even when board controls are collapsed)
   useBoardControlsKeyNav();
+  // Annotation mark shortcuts (⌥1 … ⌥4) on the current move
+  useAnnotationShortcuts();
 
   // AI Analysis integration (for heatMap/ownershipMap on the board)
   const { isModelLoaded } = useGameTree();
@@ -185,6 +189,7 @@ export const GameBoard: React.FC = memo(() => {
 
   // Get last move from current node
   const lastMove = useLastMove(currentNode);
+  const annotationMap = useAnnotationMap(currentNode, lastMove, boardWidth, boardHeight);
 
   const vertexSize = useVertexSize(
     containerRef,
@@ -299,6 +304,7 @@ export const GameBoard: React.FC = memo(() => {
             dimmedVertices={dimmedVertices}
             paintMap={territoryMap}
             markerMap={markerMap ?? undefined}
+            annotationMap={annotationMap ?? undefined}
             cursorPosition={navigationMode ? [cursorX, cursorY] : null}
             ghostMarker={ghostMarker}
             heatMap={heatMap ?? undefined}

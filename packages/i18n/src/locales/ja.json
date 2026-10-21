@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "領域ヒートマップ切り替え",
       "edit.undo": "元に戻す",
       "edit.redo": "やり直す",
-      "edit.makeMainBranch": "メインブランチにする"
+      "edit.makeMainBranch": "メインブランチにする",
+      "mark.good": "手に印を付ける：好手",
+      "mark.veryGood": "手に印を付ける：妙手（手筋）",
+      "mark.interesting": "手に印を付ける：面白い手",
+      "mark.doubtful": "手に印を付ける：疑問手",
+      "mark.bad": "手に印を付ける：悪手",
+      "mark.veryBad": "手に印を付ける：大悪手",
+      "mark.clear": "手に印を付ける：印を消す"
     },
     "collision": {
       "title": "ショートカットの競合",
@@ -862,5 +869,26 @@
     "titleLabel": "タイトル（任意）",
     "hint": "この手以降のツリーを含め、ライブラリの {{folder}} フォルダに新しい棋譜として保存します。",
     "export": "エクスポート"
+  },
+  "annotations": {
+    "markMove": "手に印を付ける",
+    "markPosition": "局面に印を付ける",
+    "clear": "印を消す",
+    "move": {
+      "good": "好手",
+      "veryGood": "妙手（手筋）",
+      "interesting": "面白い手",
+      "doubtful": "疑問手",
+      "bad": "悪手",
+      "veryBad": "大悪手"
+    },
+    "position": {
+      "goodForBlack": "黒良し",
+      "clearlyGoodForBlack": "黒優勢",
+      "goodForWhite": "白良し",
+      "clearlyGoodForWhite": "白優勢",
+      "even": "互角",
+      "unclear": "不明"
+    }
   }
 }

@@ -703,7 +703,14 @@
       "ai.toggleOwnership": "Basculer la carte de territoire",
       "edit.undo": "Annuler",
       "edit.redo": "Rétablir",
-      "edit.makeMainBranch": "Définir comme branche principale"
+      "edit.makeMainBranch": "Définir comme branche principale",
+      "mark.good": "Annoter le coup : Bon coup",
+      "mark.veryGood": "Annoter le coup : Très bon coup (tesuji)",
+      "mark.interesting": "Annoter le coup : Coup intéressant",
+      "mark.doubtful": "Annoter le coup : Coup douteux",
+      "mark.bad": "Annoter le coup : Mauvais coup",
+      "mark.veryBad": "Annoter le coup : Très mauvais coup",
+      "mark.clear": "Annoter le coup : Effacer l'annotation"
     },
     "collision": {
       "title": "Conflit de raccourci",
@@ -862,5 +869,26 @@
     "titleLabel": "Titre (facultatif)",
     "hint": "Enregistrée comme nouvelle partie dans le dossier {{folder}} de la bibliothèque, avec le reste de l'arbre à partir de ce coup.",
     "export": "Exporter"
+  },
+  "annotations": {
+    "markMove": "Annoter le coup",
+    "markPosition": "Annoter la position",
+    "clear": "Effacer l'annotation",
+    "move": {
+      "good": "Bon coup",
+      "veryGood": "Très bon coup (tesuji)",
+      "interesting": "Coup intéressant",
+      "doubtful": "Coup douteux",
+      "bad": "Mauvais coup",
+      "veryBad": "Très mauvais coup"
+    },
+    "position": {
+      "goodForBlack": "Bon pour Noir",
+      "clearlyGoodForBlack": "Nettement bon pour Noir",
+      "goodForWhite": "Bon pour Blanc",
+      "clearlyGoodForWhite": "Nettement bon pour Blanc",
+      "even": "Position équilibrée",
+      "unclear": "Position confuse"
+    }
   }
 }
