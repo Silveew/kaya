@@ -702,6 +702,7 @@
     "window": "윈도우",
     "help": "도움말",
     "markMove": "수 표시",
+    "heatmap": "히트맵 표시 기준",
     "actions": {
       "about": "Kaya에 관하여",
       "checkUpdate": "업데이트 확인…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "계가 모드",
       "ai.suggestMove": "수 추천",
       "board.toggleAnalysis": "국면 분석",
-      "board.toggleNavigationMode": "게임패드 탐색"
+      "board.toggleNavigationMode": "게임패드 탐색",
+      "ai.heatmapPolicy": "정책",
+      "ai.heatmapWinRate": "승률",
+      "ai.heatmapScore": "집 차이"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "숫자 표시",
       "tool.eraser": "표시 지우기",
       "view.library": "라이브러리",
-      "view.analyze": "분석"
+      "view.analyze": "분석",
+      "view.commentLarger": "해설 글자 크게",
+      "view.commentSmaller": "해설 글자 작게",
+      "view.treeHorizontal": "기보 트리 가로로",
+      "view.treeMinimap": "기보 트리 미니맵",
+      "view.patternNames": "정형 이름",
+      "ai.heatmapPolicy": "히트맵: 정책",
+      "ai.heatmapWinRate": "히트맵: 승률",
+      "ai.heatmapScore": "히트맵: 집 차이"
     },
     "collision": {
       "title": "단축키 충돌",

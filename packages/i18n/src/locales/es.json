@@ -702,6 +702,7 @@
     "window": "Ventana",
     "help": "Ayuda",
     "markMove": "Marcar jugada",
+    "heatmap": "El mapa de calor muestra",
     "actions": {
       "about": "Acerca de Kaya",
       "checkUpdate": "Buscar actualizaciones…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "Modo de recuento",
       "ai.suggestMove": "Sugerir una jugada",
       "board.toggleAnalysis": "Analizar posición",
-      "board.toggleNavigationMode": "Navegación con mando"
+      "board.toggleNavigationMode": "Navegación con mando",
+      "ai.heatmapPolicy": "Policy",
+      "ai.heatmapWinRate": "Probabilidad de ganar",
+      "ai.heatmapScore": "Puntos"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "Número",
       "tool.eraser": "Borrar marcador",
       "view.library": "Biblioteca",
-      "view.analyze": "Análisis"
+      "view.analyze": "Análisis",
+      "view.commentLarger": "Texto del comentario más grande",
+      "view.commentSmaller": "Texto del comentario más pequeño",
+      "view.treeHorizontal": "Árbol de jugadas horizontal",
+      "view.treeMinimap": "Minimapa del árbol de jugadas",
+      "view.patternNames": "Nombres de formas",
+      "ai.heatmapPolicy": "Mapa de calor: policy",
+      "ai.heatmapWinRate": "Mapa de calor: probabilidad de ganar",
+      "ai.heatmapScore": "Mapa de calor: puntos"
     },
     "collision": {
       "title": "Conflicto de atajo",

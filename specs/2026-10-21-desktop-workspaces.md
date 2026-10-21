@@ -48,8 +48,11 @@ first, desktop first. Builds on
   rate and policy; clicking one plays it. The engine reports a single move
   per candidate, so continuations aren't shown yet.
 - With a menu bar (desktop app), the header drops the file buttons and view
-  toggles and keeps the file name, the workspace switch, the engine pill and
-  the language picker.
+  toggles and keeps the file name, the workspace switch and the engine pill.
+  The panels' display buttons become View/Analysis menu commands: game tree
+  orientation and minimap, comment text size (⌘= / ⌘−), pattern names, and
+  what the heatmap measures. Language moved into Settings › Game. The web app,
+  having no menu bar, keeps those buttons.
 
 ## Learnings
 

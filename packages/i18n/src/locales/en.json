@@ -702,6 +702,7 @@
     "window": "Window",
     "help": "Help",
     "markMove": "Mark Move",
+    "heatmap": "Heatmap Shows",
     "actions": {
       "about": "About Kaya",
       "checkUpdate": "Check for Updates…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "Score Mode",
       "ai.suggestMove": "Suggest a Move",
       "board.toggleAnalysis": "Analyze Position",
-      "board.toggleNavigationMode": "Gamepad Navigation"
+      "board.toggleNavigationMode": "Gamepad Navigation",
+      "ai.heatmapPolicy": "Policy",
+      "ai.heatmapWinRate": "Win Rate",
+      "ai.heatmapScore": "Score"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "Number Label",
       "tool.eraser": "Erase Marker",
       "view.library": "Library",
-      "view.analyze": "Analyze"
+      "view.analyze": "Analyze",
+      "view.commentLarger": "Larger Comment Text",
+      "view.commentSmaller": "Smaller Comment Text",
+      "view.treeHorizontal": "Horizontal Game Tree",
+      "view.treeMinimap": "Game Tree Minimap",
+      "view.patternNames": "Pattern Names",
+      "ai.heatmapPolicy": "Heatmap: Policy",
+      "ai.heatmapWinRate": "Heatmap: Win Rate",
+      "ai.heatmapScore": "Heatmap: Score"
     },
     "collision": {
       "title": "Shortcut Conflict",

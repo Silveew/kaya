@@ -59,6 +59,14 @@ export type ShortcutId =
   | 'view.toggleTheme'
   | 'view.library'
   | 'view.analyze'
+  | 'view.commentLarger'
+  | 'view.commentSmaller'
+  | 'view.treeHorizontal'
+  | 'view.treeMinimap'
+  | 'view.patternNames'
+  | 'ai.heatmapPolicy'
+  | 'ai.heatmapWinRate'
+  | 'ai.heatmapScore'
   // Board mode shortcuts
   | 'board.toggleEditMode'
   | 'board.toggleNavigationMode'
@@ -239,6 +247,14 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'view',
     defaultBinding: createPlatformBinding('2'),
   },
+  'view.commentLarger': { category: 'view', defaultBinding: createPlatformBinding('=') },
+  'view.commentSmaller': { category: 'view', defaultBinding: createPlatformBinding('-') },
+  'view.treeHorizontal': { category: 'view', defaultBinding: createBinding('') },
+  'view.treeMinimap': { category: 'view', defaultBinding: createBinding('') },
+  'view.patternNames': { category: 'view', defaultBinding: createBinding('') },
+  'ai.heatmapPolicy': { category: 'ai', defaultBinding: createBinding('') },
+  'ai.heatmapWinRate': { category: 'ai', defaultBinding: createBinding('') },
+  'ai.heatmapScore': { category: 'ai', defaultBinding: createBinding('') },
 
   // Board mode shortcuts
   'board.toggleEditMode': {

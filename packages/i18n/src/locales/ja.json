@@ -702,6 +702,7 @@
     "window": "ウインドウ",
     "help": "ヘルプ",
     "markMove": "手に印を付ける",
+    "heatmap": "ヒートマップの表示",
     "actions": {
       "about": "Kayaについて",
       "checkUpdate": "アップデートを確認…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "整地モード",
       "ai.suggestMove": "手を提案",
       "board.toggleAnalysis": "局面を解析",
-      "board.toggleNavigationMode": "ゲームパッド操作"
+      "board.toggleNavigationMode": "ゲームパッド操作",
+      "ai.heatmapPolicy": "ポリシー",
+      "ai.heatmapWinRate": "勝率",
+      "ai.heatmapScore": "目差"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "数字ラベル",
       "tool.eraser": "記号を消す",
       "view.library": "ライブラリ",
-      "view.analyze": "解析"
+      "view.analyze": "解析",
+      "view.commentLarger": "コメントの文字を大きく",
+      "view.commentSmaller": "コメントの文字を小さく",
+      "view.treeHorizontal": "棋譜ツリーを横向きに",
+      "view.treeMinimap": "棋譜ツリーのミニマップ",
+      "view.patternNames": "定型の名前",
+      "ai.heatmapPolicy": "ヒートマップ：ポリシー",
+      "ai.heatmapWinRate": "ヒートマップ：勝率",
+      "ai.heatmapScore": "ヒートマップ：目差"
     },
     "collision": {
       "title": "ショートカットの競合",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuLocate } from 'react-icons/lu';
+import { hasNativeMenuBar } from '../../commands/useNativeMenu';
 import './GameTreeControls.css';
 
 interface GameTreeControlsProps {
@@ -61,26 +62,32 @@ export const GameTreeControls: React.FC<GameTreeControlsProps> = ({
   onCenterOnCurrentNode,
 }) => {
   const { t } = useTranslation();
+  // With a menu bar, layout and minimap are View-menu toggles
+  const showViewToggles = !hasNativeMenuBar();
 
   return (
     <div className="game-tree-controls">
-      <button
-        type="button"
-        onClick={onToggleLayout}
-        className="game-tree-control-btn"
-        title={horizontal ? t('gameTree.switchToVertical') : t('gameTree.switchToHorizontal')}
-      >
-        {horizontal ? '↕' : '↔'}
-      </button>
-      <button
-        type="button"
-        onClick={onToggleMinimap}
-        className={`game-tree-control-btn ${showMinimap ? 'active' : ''}`}
-        title={showMinimap ? t('gameTree.hideMinimap') : t('gameTree.showMinimap')}
-        aria-pressed={showMinimap}
-      >
-        <MinimapIcon active={showMinimap} />
-      </button>
+      {showViewToggles && (
+        <>
+          <button
+            type="button"
+            onClick={onToggleLayout}
+            className="game-tree-control-btn"
+            title={horizontal ? t('gameTree.switchToVertical') : t('gameTree.switchToHorizontal')}
+          >
+            {horizontal ? '↕' : '↔'}
+          </button>
+          <button
+            type="button"
+            onClick={onToggleMinimap}
+            className={`game-tree-control-btn ${showMinimap ? 'active' : ''}`}
+            title={showMinimap ? t('gameTree.hideMinimap') : t('gameTree.showMinimap')}
+            aria-pressed={showMinimap}
+          >
+            <MinimapIcon active={showMinimap} />
+          </button>
+        </>
+      )}
       {onCenterOnCurrentNode && (
         <button
           type="button"

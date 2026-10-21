@@ -702,6 +702,7 @@
     "window": "Fenster",
     "help": "Hilfe",
     "markMove": "Zug markieren",
+    "heatmap": "Heatmap zeigt",
     "actions": {
       "about": "Über Kaya",
       "checkUpdate": "Nach Updates suchen…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "Zählmodus",
       "ai.suggestMove": "Zug vorschlagen",
       "board.toggleAnalysis": "Stellung analysieren",
-      "board.toggleNavigationMode": "Gamepad-Navigation"
+      "board.toggleNavigationMode": "Gamepad-Navigation",
+      "ai.heatmapPolicy": "Policy",
+      "ai.heatmapWinRate": "Gewinnchance",
+      "ai.heatmapScore": "Punkte"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "Zahl",
       "tool.eraser": "Markierung löschen",
       "view.library": "Bibliothek",
-      "view.analyze": "Analyse"
+      "view.analyze": "Analyse",
+      "view.commentLarger": "Kommentartext größer",
+      "view.commentSmaller": "Kommentartext kleiner",
+      "view.treeHorizontal": "Partiebaum horizontal",
+      "view.treeMinimap": "Übersichtskarte des Partiebaums",
+      "view.patternNames": "Musternamen",
+      "ai.heatmapPolicy": "Heatmap: Policy",
+      "ai.heatmapWinRate": "Heatmap: Gewinnchance",
+      "ai.heatmapScore": "Heatmap: Punkte"
     },
     "collision": {
       "title": "Tastenkürzel-Konflikt",

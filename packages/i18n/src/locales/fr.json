@@ -702,6 +702,7 @@
     "window": "Fenêtre",
     "help": "Aide",
     "markMove": "Annoter le coup",
+    "heatmap": "La carte de chaleur montre",
     "actions": {
       "about": "À propos de Kaya",
       "checkUpdate": "Rechercher des mises à jour…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "Mode décompte",
       "ai.suggestMove": "Suggérer un coup",
       "board.toggleAnalysis": "Analyser la position",
-      "board.toggleNavigationMode": "Navigation à la manette"
+      "board.toggleNavigationMode": "Navigation à la manette",
+      "ai.heatmapPolicy": "Policy",
+      "ai.heatmapWinRate": "Chances de gain",
+      "ai.heatmapScore": "Score"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "Nombre",
       "tool.eraser": "Effacer un marqueur",
       "view.library": "Bibliothèque",
-      "view.analyze": "Analyse"
+      "view.analyze": "Analyse",
+      "view.commentLarger": "Agrandir le texte du commentaire",
+      "view.commentSmaller": "Réduire le texte du commentaire",
+      "view.treeHorizontal": "Arbre de jeu horizontal",
+      "view.treeMinimap": "Mini-carte de l'arbre de jeu",
+      "view.patternNames": "Noms des formes",
+      "ai.heatmapPolicy": "Carte de chaleur : policy",
+      "ai.heatmapWinRate": "Carte de chaleur : chances de gain",
+      "ai.heatmapScore": "Carte de chaleur : score"
     },
     "collision": {
       "title": "Conflit de raccourci",

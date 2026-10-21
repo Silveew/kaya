@@ -702,6 +702,7 @@
     "window": "Finestra",
     "help": "Aiuto",
     "markMove": "Segna mossa",
+    "heatmap": "La mappa di calore mostra",
     "actions": {
       "about": "Informazioni su Kaya",
       "checkUpdate": "Controlla aggiornamenti…",
@@ -736,7 +737,10 @@
       "board.toggleScoringMode": "Modalità conteggio",
       "ai.suggestMove": "Suggerisci una mossa",
       "board.toggleAnalysis": "Analizza posizione",
-      "board.toggleNavigationMode": "Navigazione con gamepad"
+      "board.toggleNavigationMode": "Navigazione con gamepad",
+      "ai.heatmapPolicy": "Policy",
+      "ai.heatmapWinRate": "Probabilità di vittoria",
+      "ai.heatmapScore": "Punti"
     }
   },
   "shortcuts": {
@@ -821,7 +825,15 @@
       "tool.labelNum": "Numero",
       "tool.eraser": "Cancella segno",
       "view.library": "Libreria",
-      "view.analyze": "Analisi"
+      "view.analyze": "Analisi",
+      "view.commentLarger": "Testo del commento più grande",
+      "view.commentSmaller": "Testo del commento più piccolo",
+      "view.treeHorizontal": "Albero di gioco orizzontale",
+      "view.treeMinimap": "Minimappa dell'albero di gioco",
+      "view.patternNames": "Nomi delle forme",
+      "ai.heatmapPolicy": "Mappa di calore: policy",
+      "ai.heatmapWinRate": "Mappa di calore: probabilità di vittoria",
+      "ai.heatmapScore": "Mappa di calore: punti"
     },
     "collision": {
       "title": "Conflitto scorciatoia",

@@ -18,6 +18,7 @@ import { KayaConfigAnalysisTab } from './KayaConfigAnalysisTab';
 import { KayaConfigThemeTab } from './KayaConfigThemeTab';
 import { KayaConfigDetectionTab } from './KayaConfigDetectionTab';
 import { AIStatusPill } from './AIStatusPill';
+import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import './KayaConfig.css';
 
 // Game Tab Content (small enough to keep inline)
@@ -109,6 +110,13 @@ const GameTab: React.FC<GameTabProps> = ({ gameSettings, setGameSettings }) => {
               <span className="toggle-switch-handle" />
             </button>
           </div>
+        </div>
+        {/* Language: here rather than in the header when there is a menu bar */}
+        <div className="setting-item setting-item-toggle setting-item-full">
+          <div className="setting-info">
+            <span className="setting-label">{t('language')}</span>
+          </div>
+          <LanguageSwitcher />
         </div>
       </div>
     </section>

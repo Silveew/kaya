@@ -22,6 +22,7 @@ import { useGameTreeAI } from '../../contexts/selectors';
 import { useAIAnalysis } from '../ai/AIAnalysisOverlay';
 import { VISITS_PRESETS } from '../ai/mcts-visits-presets';
 import { MctsVisitsPopover } from './MctsVisitsPopover';
+import { hasNativeMenuBar } from '../../commands/useNativeMenu';
 
 interface AnalysisBarProps {
   onShowLegend: () => void;
@@ -191,26 +192,29 @@ export const AnalysisBar: React.FC<AnalysisBarProps> = ({ onShowLegend }) => {
             </div>
 
             <div className="ai-analysis-summary__actions">
-              <button
-                className={`gameboard-action-button gameboard-metric-button ${aiSettings.heatMapMetric !== 'policy' ? 'active' : ''}`}
-                title={t('analysisBar.metricTooltip')}
-                onClick={() => {
-                  const modes: Array<'policy' | 'winRate' | 'scoreLead'> = [
-                    'policy',
-                    'winRate',
-                    'scoreLead',
-                  ];
-                  const idx = modes.indexOf(aiSettings.heatMapMetric ?? 'policy');
-                  const next = modes[(idx + 1) % modes.length];
-                  setAISettings({ heatMapMetric: next });
-                }}
-                disabled={isInitializing}
-              >
-                <LuChartBar />
-                <span className="gameboard-metric-button__label">
-                  {t(`analysisBar.metric_${aiSettings.heatMapMetric ?? 'policy'}`)}
-                </span>
-              </button>
+              {/* With a menu bar, the heatmap metric is a View-menu choice */}
+              {!hasNativeMenuBar() && (
+                <button
+                  className={`gameboard-action-button gameboard-metric-button ${aiSettings.heatMapMetric !== 'policy' ? 'active' : ''}`}
+                  title={t('analysisBar.metricTooltip')}
+                  onClick={() => {
+                    const modes: Array<'policy' | 'winRate' | 'scoreLead'> = [
+                      'policy',
+                      'winRate',
+                      'scoreLead',
+                    ];
+                    const idx = modes.indexOf(aiSettings.heatMapMetric ?? 'policy');
+                    const next = modes[(idx + 1) % modes.length];
+                    setAISettings({ heatMapMetric: next });
+                  }}
+                  disabled={isInitializing}
+                >
+                  <LuChartBar />
+                  <span className="gameboard-metric-button__label">
+                    {t(`analysisBar.metric_${aiSettings.heatMapMetric ?? 'policy'}`)}
+                  </span>
+                </button>
+              )}
               <div style={{ display: 'inline-flex' }}>
                 <button
                   ref={visitsButtonRef}

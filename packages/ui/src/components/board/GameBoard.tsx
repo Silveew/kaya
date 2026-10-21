@@ -28,6 +28,7 @@ import { GameBoardFooter, GameBoardScoreEstimator } from './GameBoardFooter';
 import { BoardToolRail } from './BoardToolRail';
 import { EvalGauge } from './EvalGauge';
 import { useBoardToolCommands } from './boardTools';
+import { useDisplayCommands } from './useDisplayCommands';
 import { EditToolbar } from '../editors/EditToolbar';
 import { useAIAnalysis } from '../ai/AIAnalysisOverlay';
 import { useGameTree } from '../../contexts/GameTreeContext';
@@ -97,6 +98,8 @@ export const GameBoard: React.FC = memo(() => {
   useAnnotationShortcuts();
   // Board tool shortcuts (number row), on every layout
   useBoardToolCommands();
+  // View-menu display preferences (comment text size, pattern names, heatmap)
+  useDisplayCommands();
 
   // AI Analysis integration (for heatMap/ownershipMap on the board)
   const { isModelLoaded } = useGameTree();

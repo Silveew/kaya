@@ -64,7 +64,6 @@ export const HeaderRightGroup: React.FC<HeaderRightGroupProps> = ({
       {menuBarOwnsActions && (
         <div className="header-toggles">
           <GamepadIndicator />
-          <LanguageSwitcher />
         </div>
       )}
       {showThemeToggle && !menuBarOwnsActions && (

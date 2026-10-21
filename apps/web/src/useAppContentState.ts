@@ -100,6 +100,10 @@ export function useAppContentState({ onMobileTabChange }: UseAppContentStateOpti
     }
   }, [showSidebar]);
 
+  useCommand('view.treeHorizontal', () => setTreeLayoutHorizontal(prev => !prev), {
+    checked: treeLayoutHorizontal,
+  });
+  useCommand('view.treeMinimap', () => setShowMinimap(prev => !prev), { checked: showMinimap });
   useCommand('view.toggleHeader', () => setShowHeader(prev => !prev), {
     checked: showHeader,
     allowInInput: true,
