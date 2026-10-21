@@ -1,8 +1,8 @@
 /**
  * Guards DEFAULT_SHORTCUTS against two actions sharing a default binding.
  *
- * Each shortcut is handled by its own window keydown listener, so a shared
- * binding fires both. `view.toggleHeader` and `edit.makeMainBranch` both
+ * A shared binding makes one of the two actions unreachable from the keyboard
+ * (it used to fire both). `view.toggleHeader` and `edit.makeMainBranch` both
  * defaulted to Cmd/Ctrl+Shift+M: one press toggled the header and reordered
  * the game tree. The settings collision dialog only guards manual rebinds.
  *
@@ -26,6 +26,8 @@ const describeBinding = ({ key, modifiers }: KeyBinding): string =>
 test('no two shortcuts share a default binding', () => {
   const owners = new Map<string, string[]>();
   for (const [id, { defaultBinding }] of Object.entries(DEFAULT_SHORTCUTS)) {
+    // An empty key means the command ships unbound
+    if (!defaultBinding.key) continue;
     const binding = describeBinding(defaultBinding);
     owners.set(binding, [...(owners.get(binding) ?? []), id]);
   }

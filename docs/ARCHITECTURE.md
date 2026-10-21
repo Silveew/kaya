@@ -242,11 +242,19 @@ on the same major.minor as its crate; `apps/desktop/tests/tauriVersions.test.ts`
 fails otherwise. See
 [`specs/2026-09-23-updater-restart-prompt.md`](../specs/2026-09-23-updater-restart-prompt.md).
 
-### 8. Keyboard shortcuts are centralized and customizable
+### 8. Every action is a command; shortcuts and the menu bar run commands
 
-[`packages/ui/src/hooks/useKeyboardShortcuts.ts`](../packages/ui/src/hooks/useKeyboardShortcuts.ts).
-Add new IDs to the `ShortcutId` union and `DEFAULT_SHORTCUTS`, and add
-`shortcuts.{id}` translations to every locale.
+A command id is a `ShortcutId`, so every command is user-bindable
+([`packages/ui/src/hooks/useKeyboardShortcuts.ts`](../packages/ui/src/hooks/useKeyboardShortcuts.ts)).
+The component that owns an action registers it with `useCommand(id, run,
+{ enabled, checked })` ([`packages/ui/src/commands/`](../packages/ui/src/commands/)).
+One window keydown listener runs commands from their bindings; on desktop,
+[`useNativeMenu`](../packages/ui/src/commands/useNativeMenu.ts) builds the menu
+bar from [`menuModel.ts`](../packages/ui/src/commands/menuModel.ts) and runs the
+same commands. Don't add your own keydown listener for a shortcut. A new
+command needs its id in the `ShortcutId` union and `DEFAULT_SHORTCUTS`
+(`createBinding('')` ships it unbound), `shortcuts.actions.{id}` in every
+locale, and `menuBar.items.{id}` where a menu needs different wording.
 
 ## Assets
 
@@ -334,3 +342,13 @@ A game whose SGF has no `KM` uses `DEFAULT_KOMI` (7.5, exported by
 `@kaya/ai-engine`, the engines' own default) everywhere: analysis, scoring,
 and the panel, which shows it in italics. Clearing Komi in the panel deletes
 `KM`. New games always write `KM`, 0 included.
+
+### 12. The desktop board only resizes with the window
+
+In the desktop layout mode the board panel holds the tool rail, the eval
+gauge, the board and a fixed-height footer, and nothing else. Anything
+transient (score estimator) floats over the board; settings and toggles live
+in the menu bar, the sidebar tabs or Settings. Workspaces (Library, Analyze)
+are laid out by
+[`DesktopWorkspaceLayout`](../packages/ui/src/components/layout/DesktopWorkspaceLayout.tsx).
+See [`specs/2026-10-21-desktop-workspaces.md`](../specs/2026-10-21-desktop-workspaces.md).

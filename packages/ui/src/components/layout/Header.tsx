@@ -11,6 +11,10 @@ import { useHeaderActions } from './useHeaderActions';
 import { HeaderFileControls } from './HeaderFileControls';
 import { HeaderRightGroup } from './HeaderRightGroup';
 import type { PwaInstallState } from '../../hooks/usePwaInstall';
+import { hasNativeMenuBar } from '../../commands/useNativeMenu';
+import { WorkspaceSwitch } from './WorkspaceSwitch';
+import { useLayoutMode } from '../../hooks/useMediaQuery';
+import type { Workspace } from './useWorkspace';
 
 import type { VersionData } from './StatusBar';
 
@@ -25,6 +29,9 @@ interface HeaderProps {
   onNavigateToBoard?: () => void;
   versionData?: VersionData;
   pwaInstall?: PwaInstallState;
+  /** Desktop workspaces: shows the Library | Analyze switch. */
+  workspace?: Workspace;
+  onWorkspaceChange?: (workspace: Workspace) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -38,9 +45,17 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigateToBoard,
   versionData,
   pwaInstall,
+  workspace,
+  onWorkspaceChange,
 }) => {
   const { t } = useTranslation();
   const actions = useHeaderActions({ onNavigateToBoard });
+  // With a menu bar, the header keeps only what the menus can't show
+  const menuBarOwnsActions = hasNativeMenuBar();
+  // Tablets and phones use the tab layout, which has no workspaces
+  const layoutMode = useLayoutMode();
+  // Workspaces replace the library and sidebar panels, and their toggles
+  const hasWorkspaces = !!workspace && !!onWorkspaceChange && layoutMode === 'desktop';
 
   return (
     <>
@@ -85,14 +100,20 @@ export const Header: React.FC<HeaderProps> = ({
           onFilenameKeyDown={actions.handleFilenameKeyDown}
           getBinding={actions.getBinding}
           bindingToDisplayString={actions.bindingToDisplayString}
+          filenameOnly={menuBarOwnsActions}
         />
 
+        {hasWorkspaces && workspace && onWorkspaceChange && (
+          <WorkspaceSwitch workspace={workspace} onChange={onWorkspaceChange} />
+        )}
+
         <HeaderRightGroup
+          menuBarOwnsActions={menuBarOwnsActions}
           showThemeToggle={showThemeToggle}
           showLibrary={showLibrary}
           showSidebar={showSidebar}
-          onToggleLibrary={onToggleLibrary}
-          onToggleSidebar={onToggleSidebar}
+          onToggleLibrary={hasWorkspaces ? undefined : onToggleLibrary}
+          onToggleSidebar={hasWorkspaces ? undefined : onToggleSidebar}
           onHide={onHide}
           theme={actions.theme}
           toggleTheme={actions.toggleTheme}

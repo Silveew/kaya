@@ -14,6 +14,16 @@ export {
 } from './contexts/KeyboardShortcutsContext';
 export type { ShortcutId, ShortcutCategory, KeyBinding } from './contexts/KeyboardShortcutsContext';
 
+// Commands: shared by shortcuts, the native menu bar and buttons
+export {
+  useCommand,
+  useCommandWithContext,
+  useCommandState,
+  useRunCommand,
+} from './commands/CommandsContext';
+export type { CommandId, CommandContext, CommandOptions } from './commands/commandRegistry';
+export { useNativeMenu } from './commands/useNativeMenu';
+
 // Keyboard shortcuts utilities (for direct use without context)
 export {
   bindingToDisplayString,
@@ -66,6 +76,12 @@ export { TauriDragProvider, useTauriDrag } from './contexts/TauriDragContext';
 
 // Layout components
 export { ResizableLayout } from './components/layout/ResizableLayout';
+export {
+  useWorkspace,
+  useWorkspaceCommands,
+  type Workspace,
+} from './components/layout/useWorkspace';
+export { LibraryGameDetails } from './components/library/LibraryGameDetails';
 export { Header } from './components/layout/Header';
 export { MobileTabBar } from './components/layout/MobileTabBar';
 export type { MobileTab } from './components/layout/MobileTabBar';

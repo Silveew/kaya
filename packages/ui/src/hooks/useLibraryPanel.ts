@@ -5,13 +5,11 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { useKeyboardShortcuts } from '../contexts/KeyboardShortcutsContext';
+import { useCommand } from '../commands/CommandsContext';
 
 const STORAGE_KEY = 'kaya-show-library';
 
 export function useLibraryPanel() {
-  const { matchesShortcut } = useKeyboardShortcuts();
-
   // Load saved preference from localStorage
   const [showLibrary, setShowLibrary] = useState(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -33,17 +31,7 @@ export function useLibraryPanel() {
     setShowLibrary(prev => !prev);
   }, []);
 
-  // Keyboard shortcut for library toggle
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (matchesShortcut(e, 'view.toggleLibrary')) {
-        e.preventDefault();
-        toggleLibrary();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleLibrary, matchesShortcut]);
+  useCommand('view.toggleLibrary', toggleLibrary, { checked: showLibrary, allowInInput: true });
 
   return {
     showLibrary,

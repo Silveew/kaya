@@ -4,12 +4,15 @@ import {
   useLibraryPanel,
   useGameInfoEditMode,
   useKeyboardShortcuts,
+  useCommand,
+  useNativeMenu,
   useExternalLinks,
   useLayoutMode,
   type GameTreeGraphRef,
   type MobileTab,
 } from '@kaya/ui';
-import { listen } from '@tauri-apps/api/event';
+import { emit, listen } from '@tauri-apps/api/event';
+import { invoke } from '@tauri-apps/api/core';
 import { analytics } from './analytics';
 
 interface UseAppContentStateOptions {
@@ -202,7 +205,7 @@ export function useAppContentState({ onMobileTabChange }: UseAppContentStateOpti
     setIsEditMode: setGameInfoEditMode,
     toggleEditMode: toggleGameInfoEditMode,
   } = useGameInfoEditMode();
-  const { matchesShortcut, getBinding, bindingToDisplayString } = useKeyboardShortcuts();
+  const { getBinding, bindingToDisplayString } = useKeyboardShortcuts();
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -216,22 +219,20 @@ export function useAppContentState({ onMobileTabChange }: UseAppContentStateOpti
     }
   }, [showSidebar]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (matchesShortcut(e, 'view.toggleHeader')) {
-        e.preventDefault();
-        setShowHeader(prev => !prev);
-        return;
-      }
-      if (matchesShortcut(e, 'view.toggleSidebar')) {
-        e.preventDefault();
-        setShowSidebar(prev => !prev);
-        return;
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [matchesShortcut]);
+  useNativeMenu({
+    onAbout: () => setShowAboutDialog(true),
+    onCheckUpdate: () => void emit('check-update'),
+    onOpenUrl: url => void invoke('plugin:shell|open', { path: url }),
+  });
+
+  useCommand('view.toggleHeader', () => setShowHeader(prev => !prev), {
+    checked: showHeader,
+    allowInInput: true,
+  });
+  useCommand('view.toggleSidebar', () => setShowSidebar(prev => !prev), {
+    checked: showSidebar,
+    allowInInput: true,
+  });
 
   return {
     showAboutDialog,

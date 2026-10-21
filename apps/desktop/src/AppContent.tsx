@@ -17,8 +17,11 @@ import {
   LandingPage,
   AboutDialog,
   LibraryPanel,
+  LibraryGameDetails,
+  useWorkspaceCommands,
   type VersionData,
   type MobileTab,
+  type Workspace,
 } from '@kaya/ui';
 import { useAppContentState } from './useAppContentState';
 
@@ -26,11 +29,16 @@ export function AppContent({
   versionData,
   activeMobileTab,
   onMobileTabChange,
+  workspace,
+  onWorkspaceChange,
 }: {
   versionData: VersionData | undefined;
   activeMobileTab?: MobileTab;
   onMobileTabChange?: (tab: MobileTab) => void;
+  workspace: Workspace;
+  onWorkspaceChange: (workspace: Workspace) => void;
 }) {
+  useWorkspaceCommands(workspace, onWorkspaceChange);
   const {
     showAboutDialog,
     setShowAboutDialog,
@@ -93,6 +101,8 @@ export function AppContent({
             onHide={() => setShowHeader(false)}
             onGoHome={handleGoHome}
             onNavigateToBoard={handleNavigateToBoard}
+            workspace={workspace}
+            onWorkspaceChange={onWorkspaceChange}
           />
         ) : (
           <div
@@ -138,6 +148,10 @@ export function AppContent({
             onToggleSidebar={() => setShowSidebar(prev => !prev)}
             activeMobileTab={activeMobileTab}
             onMobileTabChange={onMobileTabChange}
+            workspace={workspace}
+            gameDetailsContent={
+              <LibraryGameDetails onShowAnalyze={() => onWorkspaceChange('analyze')} />
+            }
             boardContent={<GameBoard />}
             gameTreeContent={
               <GameTreeGraph

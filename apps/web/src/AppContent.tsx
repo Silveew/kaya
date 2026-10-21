@@ -18,8 +18,11 @@ import {
   AboutDialog,
   LibraryPanel,
   PwaInstallBanner,
+  LibraryGameDetails,
+  useWorkspaceCommands,
   type VersionData,
   type MobileTab,
+  type Workspace,
 } from '@kaya/ui';
 import { useAppContentState } from './useAppContentState';
 
@@ -27,11 +30,16 @@ function AppContent({
   versionData,
   activeMobileTab,
   onMobileTabChange,
+  workspace,
+  onWorkspaceChange,
 }: {
   versionData: VersionData | undefined;
   activeMobileTab?: MobileTab;
   onMobileTabChange?: (tab: MobileTab) => void;
+  workspace: Workspace;
+  onWorkspaceChange: (workspace: Workspace) => void;
 }) {
+  useWorkspaceCommands(workspace, onWorkspaceChange);
   const {
     showAboutDialog,
     setShowAboutDialog,
@@ -99,6 +107,8 @@ function AppContent({
             onNavigateToBoard={handleNavigateToBoard}
             versionData={versionData}
             pwaInstall={pwaInstall}
+            workspace={workspace}
+            onWorkspaceChange={onWorkspaceChange}
           />
         ) : (
           <div
@@ -145,6 +155,10 @@ function AppContent({
             boardContent={<GameBoard />}
             activeMobileTab={activeMobileTab}
             onMobileTabChange={onMobileTabChange}
+            workspace={workspace}
+            gameDetailsContent={
+              <LibraryGameDetails onShowAnalyze={() => onWorkspaceChange('analyze')} />
+            }
             gameTreeContent={
               <GameTreeGraph
                 ref={gameTreeRef}

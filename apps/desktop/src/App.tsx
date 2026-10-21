@@ -15,6 +15,7 @@ import {
   type MobileTab,
   KeyboardShortcutsProvider,
   setSoundInitErrorHandler,
+  useWorkspace,
 } from '@kaya/ui';
 import { useTranslation } from 'react-i18next';
 import { Updater } from './Updater';
@@ -96,16 +97,18 @@ function AppWithToast({ versionData }: { versionData: VersionData | undefined })
 function LibraryProviderWrapper({ versionData }: { versionData: VersionData | undefined }) {
   const { loadSGFAsync, exportSGF, setFileName, isDirty, setIsDirty } = useGameTree();
   const [activeMobileTab, setActiveMobileTab] = useState<MobileTab>('board');
+  const [workspace, setWorkspace] = useWorkspace();
 
   // Callback when a file is opened from the library
   const handleFileOpen = useCallback(
     (content: string, name: string) => {
       loadSGFAsync(content);
       setFileName(name);
-      // Switch to board view on mobile when a file is loaded
+      // Show the board: the board tab on mobile, the Analyze workspace on desktop
       setActiveMobileTab('board');
+      setWorkspace('analyze');
     },
-    [loadSGFAsync, setFileName]
+    [loadSGFAsync, setFileName, setWorkspace]
   );
 
   // Get current game content for saving to library
@@ -134,6 +137,8 @@ function LibraryProviderWrapper({ versionData }: { versionData: VersionData | un
             versionData={versionData}
             activeMobileTab={activeMobileTab}
             onMobileTabChange={setActiveMobileTab}
+            workspace={workspace}
+            onWorkspaceChange={setWorkspace}
           />
         </TauriDragProvider>
       </CommentEditorProvider>

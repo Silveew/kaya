@@ -140,9 +140,9 @@ bun run copy-assets  # Runs automatically in build
 **4. Keyboard Shortcuts System** (`packages/ui/src/hooks/useKeyboardShortcuts.ts`)
 
 - Centralized, user-customizable shortcuts
-- Use `useKeyboardShortcuts()` hook from context
-- Add new shortcuts to `ShortcutId` type and `DEFAULT_SHORTCUTS`
-- Add translations under `shortcuts.{id}` in all locale files
+- Every action is a command: register it with `useCommand(id, run, { enabled, checked })` from `packages/ui/src/commands/`; one dispatcher runs shortcuts, and the desktop menu bar (`useNativeMenu`, `menuModel.ts`) runs the same commands. Never add a keydown listener for a shortcut
+- Add new commands to `ShortcutId` type and `DEFAULT_SHORTCUTS` (`createBinding('')` = unbound)
+- Add translations under `shortcuts.actions.{id}` (and `menuBar.items.{id}` if the menu wording differs) in all locale files
 
 **5. Native Audio System** (`apps/desktop/src-tauri/src/audio.rs`)
 

@@ -18,6 +18,8 @@ import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { KayaConfig } from '../ai/KayaConfig';
 
 interface HeaderRightGroupProps {
+  /** The menu bar has the view toggles; keep only engine status and settings. */
+  menuBarOwnsActions?: boolean;
   showThemeToggle: boolean;
   showLibrary?: boolean;
   showSidebar?: boolean;
@@ -35,6 +37,7 @@ interface HeaderRightGroupProps {
 }
 
 export const HeaderRightGroup: React.FC<HeaderRightGroupProps> = ({
+  menuBarOwnsActions = false,
   showThemeToggle,
   showLibrary,
   showSidebar,
@@ -58,7 +61,13 @@ export const HeaderRightGroup: React.FC<HeaderRightGroupProps> = ({
       style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
     >
       <KayaConfig />
-      {showThemeToggle && (
+      {menuBarOwnsActions && (
+        <div className="header-toggles">
+          <GamepadIndicator />
+          <LanguageSwitcher />
+        </div>
+      )}
+      {showThemeToggle && !menuBarOwnsActions && (
         <div className="header-toggles">
           {onToggleLibrary && (
             <button

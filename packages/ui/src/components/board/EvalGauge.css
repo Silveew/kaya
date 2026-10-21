@@ -1,0 +1,78 @@
+.eval-gauge {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: center;
+  width: 22px;
+  max-height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: #e8e8e8;
+  cursor: pointer;
+}
+
+.eval-gauge:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 1px;
+}
+
+.eval-gauge__black {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1a1a1a;
+  transition: height 0.3s ease;
+}
+
+.eval-gauge__midline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #d9534f;
+  opacity: 0.8;
+}
+
+.eval-gauge__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  pointer-events: none;
+}
+
+.eval-gauge__label--black {
+  bottom: 6px;
+  color: #eee;
+}
+
+.eval-gauge__label--white {
+  top: 6px;
+  color: #222;
+}
+
+.eval-gauge.is-idle {
+  opacity: 0.35;
+}
+
+.eval-gauge.is-idle:hover {
+  opacity: 0.6;
+}
+
+.eval-gauge.is-busy .eval-gauge__midline {
+  animation: eval-gauge-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes eval-gauge-pulse {
+  50% {
+    opacity: 0.2;
+  }
+}

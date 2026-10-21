@@ -18,7 +18,7 @@ import {
   useGameTreeActions,
 } from '../../contexts/selectors';
 import { useBoardNavigation } from '../../contexts/BoardNavigationContext';
-import { useKeyboardShortcuts } from '../../contexts/KeyboardShortcutsContext';
+import { useCommand } from '../../commands/CommandsContext';
 import { useAIAnalysis } from '../ai/AIAnalysisOverlay';
 import { parseGTPCoordinate } from '../../utils/gtpUtils';
 import { useTranslation } from 'react-i18next';
@@ -263,79 +263,39 @@ export function useGameBoardKeyboard(options: {
     handleSuggestMove,
   } = options;
 
-  const { toggleNavigationMode } = useBoardNavigation();
+  const { navigationMode, toggleNavigationMode } = useBoardNavigation();
   const { toggleScoringMode } = useGameTreeScore();
-  const { toggleShowAnalysisBar } = useGameTreeAI();
-  const { matchesShortcut } = useKeyboardShortcuts();
-  const { toggleOwnership, toggleTopMoves } = useAIAnalysis();
+  const { showAnalysisBar, toggleShowAnalysisBar } = useGameTreeAI();
+  const {
+    showOwnership,
+    toggleOwnership,
+    showTopMoves,
+    toggleTopMoves,
+    analyzeFullGame,
+    stopFullGameAnalysis,
+    isFullGameAnalyzing,
+    clearAnalysisCache,
+    analysisCacheSize,
+  } = useAIAnalysis();
 
   const [showNextMove, setShowNextMove] = useState(false);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        (e.target as HTMLElement).isContentEditable
-      ) {
-        return;
-      }
-
-      if (matchesShortcut(e, 'board.toggleEditMode')) {
-        handleToggleEditMode();
-        return;
-      }
-      if (matchesShortcut(e, 'board.toggleNavigationMode')) {
-        toggleNavigationMode();
-        return;
-      }
-      if (matchesShortcut(e, 'board.toggleScoringMode')) {
-        toggleScoringMode();
-        return;
-      }
-      if (matchesShortcut(e, 'board.toggleAnalysis')) {
-        toggleShowAnalysisBar();
-        return;
-      }
-      if (matchesShortcut(e, 'board.toggleNextMove')) {
-        setShowNextMove(prev => !prev);
-        return;
-      }
-
-      if (matchesShortcut(e, 'ai.suggestMove')) {
-        if (isModelLoaded && !scoringMode && !editMode && !isGeneratingMove) {
-          handleSuggestMove();
-        }
-        return;
-      }
-      if (matchesShortcut(e, 'ai.toggleTopMoves')) {
-        toggleTopMoves();
-        return;
-      }
-      if (matchesShortcut(e, 'ai.toggleOwnership')) {
-        toggleOwnership();
-        return;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [
-    handleToggleEditMode,
-    toggleNavigationMode,
-    toggleScoringMode,
-    toggleShowAnalysisBar,
-    isModelLoaded,
-    scoringMode,
-    editMode,
-    isGeneratingMove,
-    handleSuggestMove,
-    toggleTopMoves,
-    toggleOwnership,
-    matchesShortcut,
-  ]);
+  useCommand('board.toggleEditMode', handleToggleEditMode, { checked: editMode });
+  useCommand('board.toggleNavigationMode', toggleNavigationMode, { checked: navigationMode });
+  useCommand('board.toggleScoringMode', toggleScoringMode, { checked: scoringMode });
+  useCommand('board.toggleAnalysis', toggleShowAnalysisBar, { checked: showAnalysisBar });
+  useCommand('board.toggleNextMove', () => setShowNextMove(prev => !prev), {
+    checked: showNextMove,
+  });
+  useCommand('ai.suggestMove', handleSuggestMove, {
+    enabled: isModelLoaded && !scoringMode && !editMode && !isGeneratingMove,
+  });
+  useCommand('ai.toggleTopMoves', toggleTopMoves, { checked: showTopMoves });
+  useCommand('ai.toggleOwnership', toggleOwnership, { checked: showOwnership });
+  useCommand('ai.analyzeFullGame', isFullGameAnalyzing ? stopFullGameAnalysis : analyzeFullGame, {
+    checked: isFullGameAnalyzing,
+  });
+  useCommand('ai.clearCache', clearAnalysisCache, { enabled: analysisCacheSize > 0 });
 
   return { showNextMove, setShowNextMove };
 }

@@ -11,6 +11,7 @@ import {
   useKeyboardShortcuts as useKeyboardShortcutsHook,
   type KeyboardShortcutsContextType,
 } from '../hooks/useKeyboardShortcuts';
+import { CommandsProvider } from '../commands/CommandsContext';
 
 const KeyboardShortcutsContext = createContext<KeyboardShortcutsContextType | null>(null);
 
@@ -23,7 +24,7 @@ export function KeyboardShortcutsProvider({ children }: KeyboardShortcutsProvide
 
   return (
     <KeyboardShortcutsContext.Provider value={shortcuts}>
-      {children}
+      <CommandsProvider>{children}</CommandsProvider>
     </KeyboardShortcutsContext.Provider>
   );
 }

@@ -1,0 +1,41 @@
+/*
+ * Desktop board frame: tool rail | eval gauge | board, with a fixed footer.
+ * Everything around the board has a fixed size, so the board only resizes
+ * with the window or the panel it sits in.
+ */
+
+.gameboard-container--framed .gameboard-board-area {
+  /* Beats the ≤1440px column layout that made room for the edit toolbar */
+  flex-direction: row;
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px 0 10px 10px;
+  position: relative;
+}
+
+.gameboard-container--framed .gameboard-board-wrapper {
+  padding: 0 10px 0 0;
+}
+
+.gameboard-footer--framed {
+  flex: 0 0 auto;
+}
+
+.gameboard-footer--framed .board-controls {
+  height: 56px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.gameboard-score-overlay {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: min(420px, calc(100% - 32px));
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  z-index: 5;
+}

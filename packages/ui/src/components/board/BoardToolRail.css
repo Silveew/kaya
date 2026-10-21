@@ -1,0 +1,66 @@
+.board-tool-rail {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.board-tool-rail__divider {
+  height: 1px;
+  margin: 4px 4px;
+  background: var(--border-color);
+}
+
+.board-tool-rail__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.board-tool-rail__button:hover {
+  background: var(--bg-hover);
+}
+
+.board-tool-rail__button.is-active {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.board-tool-rail__button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 1px;
+}
+
+.board-tool-stone {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.board-tool-stone--black {
+  background: radial-gradient(circle at 30% 30%, #666, #000);
+}
+
+.board-tool-stone--white {
+  background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+  border: 1px solid #999;
+}
+
+.board-tool-rail__button.is-active .board-tool-stone {
+  box-shadow: 0 0 0 2px #fff;
+}
