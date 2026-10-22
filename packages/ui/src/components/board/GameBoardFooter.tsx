@@ -57,7 +57,7 @@ export const GameBoardFooter: React.FC<GameBoardFooterProps> = ({ framed }) => {
   if (framed) {
     return (
       <div className="gameboard-footer--framed">
-        <BoardControls />
+        <BoardControls reserveBranchRow />
       </div>
     );
   }

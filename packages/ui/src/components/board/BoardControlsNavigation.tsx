@@ -16,10 +16,12 @@ import './BoardControlsNavigation.css';
 
 interface BoardControlsNavigationProps {
   currentPlayer: 1 | -1;
+  /** Keep room for the branch row while there are no variations. */
+  reserveBranchRow?: boolean;
 }
 
 export const BoardControlsNavigation: React.FC<BoardControlsNavigationProps> = memo(
-  ({ currentPlayer }) => {
+  ({ currentPlayer, reserveBranchRow = false }) => {
     const { t } = useTranslation();
     const {
       goBack,
@@ -96,6 +98,16 @@ export const BoardControlsNavigation: React.FC<BoardControlsNavigationProps> = m
 
     return (
       <>
+        {/* Same-size empty row, so the footer keeps its height without variations */}
+        {reserveBranchRow && !branchInfo.hasBranches && (
+          <div className="branch-controls-row branch-controls-row--placeholder" aria-hidden="true">
+            <span className="branch-nav-button">
+              <LuChevronDown size={14} />
+            </span>
+            <span className="branch-info-display">&nbsp;</span>
+          </div>
+        )}
+
         {/* Branch navigation row - works even when deep in a branch */}
         {branchInfo.hasBranches && (
           <div className="branch-controls-row">

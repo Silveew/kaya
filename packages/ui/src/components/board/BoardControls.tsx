@@ -21,7 +21,12 @@ import { ConfirmationDialog } from '../dialogs/ConfirmationDialog';
 import { BoardControlsNavigation } from './BoardControlsNavigation';
 import './BoardControls.css';
 
-export const BoardControls: React.FC = memo(() => {
+interface BoardControlsProps {
+  /** Fixed-height footer: keep room for the branch row (see BoardControlsNavigation). */
+  reserveBranchRow?: boolean;
+}
+
+export const BoardControls: React.FC<BoardControlsProps> = memo(({ reserveBranchRow }) => {
   const { t } = useTranslation();
 
   const { moveNumber } = useGameTreeNavigation();
@@ -104,7 +109,10 @@ export const BoardControls: React.FC = memo(() => {
 
       {/* Center: Navigation controls */}
       <div className="navigation-section">
-        <BoardControlsNavigation currentPlayer={currentPlayer} />
+        <BoardControlsNavigation
+          currentPlayer={currentPlayer}
+          reserveBranchRow={reserveBranchRow}
+        />
       </div>
 
       {/* Right: White player info */}

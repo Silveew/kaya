@@ -21,10 +21,16 @@
   flex: 0 0 auto;
 }
 
+/* Its height comes from its content, which is the same with or without
+   variations: the branch row is always there (an empty placeholder when
+   there are none) */
 .gameboard-footer--framed .board-controls {
-  height: 56px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.branch-controls-row--placeholder {
+  visibility: hidden;
 }
 
 .gameboard-score-overlay {
