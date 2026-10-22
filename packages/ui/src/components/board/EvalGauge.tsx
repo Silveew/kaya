@@ -7,8 +7,8 @@
  * analysis on or off never moves the board.
  *
  * While a new position is being analyzed the bar holds the last evaluation
- * instead of falling back to the middle, and only moves once the search has
- * done a quarter of its visits, so stepping through moves doesn't flicker.
+ * instead of falling back to the middle, and moves on the search's first
+ * estimate for the new position.
  */
 
 import React, { useEffect, useState } from 'react';
@@ -28,24 +28,18 @@ interface Evaluation {
   scoreLead: number | null;
 }
 
-/** Share of the configured visits after which live search results are shown. */
-const SETTLED_FRACTION = 0.25;
-
 export const EvalGauge: React.FC<EvalGaugeProps> = ({ height }) => {
   const { t } = useTranslation();
   const { showAnalysisBar, toggleShowAnalysisBar } = useGameTreeAI();
   const { gameSettings } = useGameTreeBoard();
   const { analysisResult, mctsProgress, isAnalyzing, isInitializing } = useAIAnalysis();
 
-  const settledProgress =
-    mctsProgress &&
-    mctsProgress.completedVisits >= Math.max(1, mctsProgress.totalVisits * SETTLED_FRACTION)
-      ? mctsProgress
-      : null;
+  // Any visit gives a usable first estimate; before that there is nothing yet
+  const liveProgress = mctsProgress && mctsProgress.completedVisits > 0 ? mctsProgress : null;
   const fresh: Evaluation | null = analysisResult
     ? { winRate: analysisResult.winRate, scoreLead: analysisResult.scoreLead ?? null }
-    : settledProgress
-      ? { winRate: settledProgress.winRate, scoreLead: settledProgress.scoreLead }
+    : liveProgress
+      ? { winRate: liveProgress.winRate, scoreLead: liveProgress.scoreLead }
       : null;
 
   // Hold the last evaluation while the next one is on its way

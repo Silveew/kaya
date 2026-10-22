@@ -46,8 +46,9 @@ first, desktop first. Builds on
   toggles analysis. The fill is a symmetric log of the score lead, full at 60
   points (`evalGaugeScale.ts`); View › Eval Bar switches it to win rate. A
   linear win-rate bar was nearly full at ±3 points. While a new position is
-  analyzed the bar holds the last evaluation and moves once a quarter of the
-  visits are done, instead of dropping to the middle on every move.
+  analyzed the bar holds the last evaluation and moves on the search's first
+  estimate, instead of dropping to the middle on every move. (Waiting for a
+  quarter of the visits felt unresponsive.)
 - **Engine tab**: the engine's candidate moves with score lead, Black's win
   rate and policy; clicking one plays it. A bar on top sets the search depth
   and shows live progress; the list fills the panel and scrolls. The engine
