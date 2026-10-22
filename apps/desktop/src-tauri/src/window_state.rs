@@ -182,16 +182,22 @@ pub fn restore_window_state(window: &WebviewWindow, app: &AppHandle) {
         return;
     }
 
-    // Get primary or first monitor
+    let states = MonitorWindowStates::load(app);
+
+    // Reopen on the monitor the window was last used on, if it is still
+    // connected; otherwise on the primary (or first) monitor
     let primary = window.primary_monitor().ok().flatten();
-    let target_monitor = primary.as_ref().unwrap_or(&monitors[0]);
+    let last_used = states
+        .default_state
+        .as_ref()
+        .and_then(|state| monitor_containing(&monitors, state));
+    let target_monitor = last_used
+        .or(primary.as_ref())
+        .unwrap_or(&monitors[0]);
     let fingerprint = monitor_fingerprint(target_monitor, &monitors);
 
     let mon_pos = target_monitor.position();
     let mon_size = target_monitor.size();
-
-    // Load states
-    let states = MonitorWindowStates::load(app);
 
     if let Some(state) = states.get_for_monitor(&fingerprint) {
         // We have a saved state for this monitor
@@ -235,6 +241,20 @@ pub fn restore_window_state(window: &WebviewWindow, app: &AppHandle) {
         // No saved state for this monitor - check if window fits
         ensure_window_fits(window, target_monitor);
     }
+}
+
+/// The monitor holding the centre of a saved window state
+fn monitor_containing<'a>(monitors: &'a [Monitor], state: &WindowState) -> Option<&'a Monitor> {
+    let center_x = state.x + (state.width as i32) / 2;
+    let center_y = state.y + (state.height as i32) / 2;
+    monitors.iter().find(|mon| {
+        let m_pos = mon.position();
+        let m_size = mon.size();
+        center_x >= m_pos.x
+            && center_x < m_pos.x + m_size.width as i32
+            && center_y >= m_pos.y
+            && center_y < m_pos.y + m_size.height as i32
+    })
 }
 
 /// Ensure window fits within the given monitor

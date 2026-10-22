@@ -70,3 +70,4 @@ link forward to the replacement. Don't delete history.
 | 2026-10-21 | [Moves panel: the branch as a list, with annotation marks](2026-10-21-moves-list.md)                        | shipped    |
 | 2026-10-21 | [Commands: one registry behind shortcuts and the desktop menu bar](2026-10-21-commands-and-menu-bar.md)     | shipped    |
 | 2026-10-21 | [Desktop: Library and Analyze workspaces, and a fixed board](2026-10-21-desktop-workspaces.md)              | shipped    |
+| 2026-10-22 | [One owner for the desktop window's position and size](2026-10-22-one-window-state-owner.md)                | shipped    |
