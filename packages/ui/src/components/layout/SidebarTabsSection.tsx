@@ -76,7 +76,7 @@ export const SidebarTabsSection: React.FC<SidebarTabsSectionProps> = ({
 
   return (
     <Panel id={id} order={order} defaultSize={defaultSize} minSize={10} className="panel">
-      <div className="sidebar-section">
+      <div className="sidebar-section sidebar-section--tabs">
         {header}
         <div className="sidebar-section-content" role="tabpanel">
           {current.content}

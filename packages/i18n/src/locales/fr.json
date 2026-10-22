@@ -677,6 +677,7 @@
     "title": "Moteur",
     "start": "Analyser cette position",
     "waiting": "En attente du moteur…",
+    "visits": "{{count}} visites",
     "move": "Coup",
     "score": "Score",
     "winRate": "Noir %",
@@ -703,6 +704,7 @@
     "help": "Aide",
     "markMove": "Annoter le coup",
     "heatmap": "La carte de chaleur montre",
+    "evalBar": "Barre d'évaluation",
     "actions": {
       "about": "À propos de Kaya",
       "checkUpdate": "Rechercher des mises à jour…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "Navigation à la manette",
       "ai.heatmapPolicy": "Policy",
       "ai.heatmapWinRate": "Chances de gain",
-      "ai.heatmapScore": "Score"
+      "ai.heatmapScore": "Score",
+      "view.gaugeScore": "Score (échelle log)",
+      "view.gaugeWinRate": "Chances de gain"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "Noms des formes",
       "ai.heatmapPolicy": "Carte de chaleur : policy",
       "ai.heatmapWinRate": "Carte de chaleur : chances de gain",
-      "ai.heatmapScore": "Carte de chaleur : score"
+      "ai.heatmapScore": "Carte de chaleur : score",
+      "view.gaugeScore": "Barre d'évaluation : score",
+      "view.gaugeWinRate": "Barre d'évaluation : chances de gain"
     },
     "collision": {
       "title": "Conflit de raccourci",

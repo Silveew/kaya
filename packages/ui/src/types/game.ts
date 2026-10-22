@@ -97,6 +97,8 @@ export interface GameSettings {
   commentFontScale: number;
   /** Badge every marked stone on the board, not just the current move (Moves panel toggle) */
   showAllMoveMarks: boolean;
+  /** What the eval gauge beside the board measures: log score lead or win rate */
+  evalGaugeScale: 'score' | 'winRate';
   /** Source of the Moku detection ONNX model: 'default' or 'custom' */
   detectionModelSource: 'default' | 'custom';
   /** Name of the uploaded custom detection model file (display only) */

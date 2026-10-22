@@ -6,11 +6,29 @@
   background: var(--bg-primary);
 }
 
+/* Tab views fill the section and scroll inside, rather than the section scrolling */
+.sidebar-section--tabs {
+  padding: 0.5rem;
+}
+
+.sidebar-section--tabs > .sidebar-section-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-section--tabs > .sidebar-section-content > .analysis-panel,
+.sidebar-section--tabs > .sidebar-section-content > .moves-panel {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
 .sidebar-tabs-header {
   display: flex;
   align-items: center;
   gap: 2px;
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
 .sidebar-section > .sidebar-tabs-header {

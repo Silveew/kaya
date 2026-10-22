@@ -677,6 +677,7 @@
     "title": "Engine",
     "start": "Diese Stellung analysieren",
     "waiting": "Warte auf die Engine…",
+    "visits": "{{count}} Besuche",
     "move": "Zug",
     "score": "Punkte",
     "winRate": "Schwarz %",
@@ -703,6 +704,7 @@
     "help": "Hilfe",
     "markMove": "Zug markieren",
     "heatmap": "Heatmap zeigt",
+    "evalBar": "Bewertungsbalken",
     "actions": {
       "about": "Über Kaya",
       "checkUpdate": "Nach Updates suchen…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "Gamepad-Navigation",
       "ai.heatmapPolicy": "Policy",
       "ai.heatmapWinRate": "Gewinnchance",
-      "ai.heatmapScore": "Punkte"
+      "ai.heatmapScore": "Punkte",
+      "view.gaugeScore": "Punkte (logarithmisch)",
+      "view.gaugeWinRate": "Gewinnchance"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "Musternamen",
       "ai.heatmapPolicy": "Heatmap: Policy",
       "ai.heatmapWinRate": "Heatmap: Gewinnchance",
-      "ai.heatmapScore": "Heatmap: Punkte"
+      "ai.heatmapScore": "Heatmap: Punkte",
+      "view.gaugeScore": "Bewertungsbalken: Punkte",
+      "view.gaugeWinRate": "Bewertungsbalken: Gewinnchance"
     },
     "collision": {
       "title": "Tastenkürzel-Konflikt",

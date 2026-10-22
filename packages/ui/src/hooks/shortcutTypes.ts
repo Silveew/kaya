@@ -64,6 +64,8 @@ export type ShortcutId =
   | 'view.treeHorizontal'
   | 'view.treeMinimap'
   | 'view.patternNames'
+  | 'view.gaugeScore'
+  | 'view.gaugeWinRate'
   | 'ai.heatmapPolicy'
   | 'ai.heatmapWinRate'
   | 'ai.heatmapScore'
@@ -252,6 +254,8 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
   'view.treeHorizontal': { category: 'view', defaultBinding: createBinding('') },
   'view.treeMinimap': { category: 'view', defaultBinding: createBinding('') },
   'view.patternNames': { category: 'view', defaultBinding: createBinding('') },
+  'view.gaugeScore': { category: 'view', defaultBinding: createBinding('') },
+  'view.gaugeWinRate': { category: 'view', defaultBinding: createBinding('') },
   'ai.heatmapPolicy': { category: 'ai', defaultBinding: createBinding('') },
   'ai.heatmapWinRate': { category: 'ai', defaultBinding: createBinding('') },
   'ai.heatmapScore': { category: 'ai', defaultBinding: createBinding('') },

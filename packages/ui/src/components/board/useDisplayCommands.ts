@@ -1,6 +1,7 @@
 /**
  * Display preferences as View-menu commands, so their buttons can leave the
- * panels: comment text size, pattern names, what the heatmap measures.
+ * panels: comment text size, pattern names, what the heatmap and the eval
+ * gauge measure.
  */
 
 import { useGameTree } from '../../contexts/GameTreeContext';
@@ -31,6 +32,14 @@ export function useDisplayCommands(): void {
   });
 
   useCommand('view.patternNames', togglePatternMatching, { checked: patternMatchingEnabled });
+
+  const gaugeScale = gameSettings.evalGaugeScale;
+  useCommand('view.gaugeScore', () => setGameSettings({ evalGaugeScale: 'score' }), {
+    checked: gaugeScale === 'score',
+  });
+  useCommand('view.gaugeWinRate', () => setGameSettings({ evalGaugeScale: 'winRate' }), {
+    checked: gaugeScale === 'winRate',
+  });
 
   const metric = aiSettings.heatMapMetric ?? 'policy';
   useCommand('ai.heatmapPolicy', () => setAISettings({ heatMapMetric: 'policy' }), {

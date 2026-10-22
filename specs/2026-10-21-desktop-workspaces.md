@@ -41,12 +41,21 @@ first, desktop first. Builds on
   mode; Play leaves it, so there is no separate edit switch. Number keys pick
   tools (`tool.*` commands). Branch actions stay in the tree's context menu
   and the Edit menu; marks stay with the comment.
-- **Eval gauge**: Black fills from the bottom by win rate, the label carries
-  the score lead. It keeps its place, greyed out, while analysis is off, and
-  clicking it toggles analysis.
+- **Eval gauge**: Black fills from the bottom; the label carries the score
+  lead. It keeps its place, greyed out, while analysis is off, and clicking it
+  toggles analysis. The fill is a symmetric log of the score lead, full at 60
+  points (`evalGaugeScale.ts`); View › Eval Bar switches it to win rate. A
+  linear win-rate bar was nearly full at ±3 points. While a new position is
+  analyzed the bar holds the last evaluation and moves once a quarter of the
+  visits are done, instead of dropping to the middle on every move.
 - **Engine tab**: the engine's candidate moves with score lead, Black's win
-  rate and policy; clicking one plays it. The engine reports a single move
-  per candidate, so continuations aren't shown yet.
+  rate and policy; clicking one plays it. A bar on top sets the search depth
+  and shows live progress; the list fills the panel and scrolls. The engine
+  reports a single move per candidate, so continuations aren't shown yet.
+- **Graph and Report** are tabs of the section themselves (no nested tab
+  bar), and the chart is drawn at its panel's height rather than a fixed
+  150 px. With a menu bar the graph's toolbar keeps only the legend, the
+  position count and the win-rate/score toggles; the rest are menu commands.
 - With a menu bar (desktop app), the header drops the file buttons and view
   toggles and keeps the file name, the workspace switch and the engine pill.
   The panels' display buttons become View/Analysis menu commands: game tree

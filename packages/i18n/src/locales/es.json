@@ -677,6 +677,7 @@
     "title": "Motor",
     "start": "Analizar esta posición",
     "waiting": "Esperando al motor…",
+    "visits": "{{count}} visitas",
     "move": "Jugada",
     "score": "Puntos",
     "winRate": "Negro %",
@@ -703,6 +704,7 @@
     "help": "Ayuda",
     "markMove": "Marcar jugada",
     "heatmap": "El mapa de calor muestra",
+    "evalBar": "Barra de evaluación",
     "actions": {
       "about": "Acerca de Kaya",
       "checkUpdate": "Buscar actualizaciones…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "Navegación con mando",
       "ai.heatmapPolicy": "Policy",
       "ai.heatmapWinRate": "Probabilidad de ganar",
-      "ai.heatmapScore": "Puntos"
+      "ai.heatmapScore": "Puntos",
+      "view.gaugeScore": "Puntos (escala logarítmica)",
+      "view.gaugeWinRate": "Probabilidad de ganar"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "Nombres de formas",
       "ai.heatmapPolicy": "Mapa de calor: policy",
       "ai.heatmapWinRate": "Mapa de calor: probabilidad de ganar",
-      "ai.heatmapScore": "Mapa de calor: puntos"
+      "ai.heatmapScore": "Mapa de calor: puntos",
+      "view.gaugeScore": "Barra de evaluación: puntos",
+      "view.gaugeWinRate": "Barra de evaluación: probabilidad de ganar"
     },
     "collision": {
       "title": "Conflicto de atajo",

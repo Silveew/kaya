@@ -3,7 +3,8 @@
 .analysis-chart-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   background: var(--bg-secondary);
   border-radius: 4px;
   position: relative;
@@ -114,13 +115,14 @@
   opacity: 0.7;
 }
 
-/* Chart wrapper - fills available width, fixed height */
+/* Chart wrapper - fills the panel; the chart is drawn at the wrapper's size */
 .analysis-chart-wrapper {
-  flex: 0 0 auto;
+  flex: 1 1 150px;
   display: flex;
   padding: 0.25rem 0.5rem;
-  height: 150px;
+  min-height: 80px;
   width: 100%;
+  overflow: hidden;
 }
 
 /* SVG Chart - uses actual pixel dimensions set via width/height attributes */

@@ -148,6 +148,10 @@ export function buildMenuModel(isMac: boolean): MenuSection[] {
       toggle('ai.toggleTopMoves'),
       toggle('board.toggleNextMove'),
       toggle('view.patternNames'),
+      {
+        submenu: 'evalBar',
+        items: [toggle('view.gaugeScore'), toggle('view.gaugeWinRate')],
+      },
       SEP,
       toggle('view.treeHorizontal'),
       toggle('view.treeMinimap'),

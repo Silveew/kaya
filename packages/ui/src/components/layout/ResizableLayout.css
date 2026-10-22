@@ -195,7 +195,8 @@
   flex-shrink: 0;
 }
 
-.sidebar-section > *:not(h3):not(.sidebar-section-header):not(.sidebar-section-content) {
+.sidebar-section
+  > *:not(h3):not(.sidebar-section-header):not(.sidebar-tabs-header):not(.sidebar-section-content) {
   flex: 1;
   overflow-y: auto;
   min-height: 0;

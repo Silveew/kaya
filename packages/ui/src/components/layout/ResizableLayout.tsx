@@ -122,7 +122,6 @@ export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         gameTreeHeaderActions={gameTreeHeaderActions}
         commentContent={commentContent}
         commentHeaderActions={commentHeaderActions}
-        analysisContent={analysisGraphContent}
         movesContent={movesContent}
         libraryContent={libraryContent}
         gameDetailsContent={gameDetailsContent}

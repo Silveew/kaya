@@ -677,6 +677,7 @@
     "title": "엔진",
     "start": "이 국면 분석",
     "waiting": "엔진을 기다리는 중…",
+    "visits": "{{count}} 방문",
     "move": "수",
     "score": "집 차이",
     "winRate": "흑 %",
@@ -703,6 +704,7 @@
     "help": "도움말",
     "markMove": "수 표시",
     "heatmap": "히트맵 표시 기준",
+    "evalBar": "평가 막대",
     "actions": {
       "about": "Kaya에 관하여",
       "checkUpdate": "업데이트 확인…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "게임패드 탐색",
       "ai.heatmapPolicy": "정책",
       "ai.heatmapWinRate": "승률",
-      "ai.heatmapScore": "집 차이"
+      "ai.heatmapScore": "집 차이",
+      "view.gaugeScore": "집 차이 (로그)",
+      "view.gaugeWinRate": "승률"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "정형 이름",
       "ai.heatmapPolicy": "히트맵: 정책",
       "ai.heatmapWinRate": "히트맵: 승률",
-      "ai.heatmapScore": "히트맵: 집 차이"
+      "ai.heatmapScore": "히트맵: 집 차이",
+      "view.gaugeScore": "평가 막대: 집 차이",
+      "view.gaugeWinRate": "평가 막대: 승률"
     },
     "collision": {
       "title": "단축키 충돌",

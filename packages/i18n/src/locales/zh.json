@@ -677,6 +677,7 @@
     "title": "引擎",
     "start": "分析此局面",
     "waiting": "等待引擎…",
+    "visits": "{{count}} 次访问",
     "move": "着法",
     "score": "目差",
     "winRate": "黑方 %",
@@ -703,6 +704,7 @@
     "help": "帮助",
     "markMove": "标记着法",
     "heatmap": "热力图显示",
+    "evalBar": "评估条",
     "actions": {
       "about": "关于 Kaya",
       "checkUpdate": "检查更新…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "手柄导航",
       "ai.heatmapPolicy": "策略",
       "ai.heatmapWinRate": "胜率",
-      "ai.heatmapScore": "目差"
+      "ai.heatmapScore": "目差",
+      "view.gaugeScore": "目差（对数）",
+      "view.gaugeWinRate": "胜率"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "定式名称",
       "ai.heatmapPolicy": "热力图：策略",
       "ai.heatmapWinRate": "热力图：胜率",
-      "ai.heatmapScore": "热力图：目差"
+      "ai.heatmapScore": "热力图：目差",
+      "view.gaugeScore": "评估条：目差",
+      "view.gaugeWinRate": "评估条：胜率"
     },
     "collision": {
       "title": "快捷键冲突",

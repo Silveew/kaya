@@ -677,6 +677,7 @@
     "title": "Motore",
     "start": "Analizza questa posizione",
     "waiting": "In attesa del motore…",
+    "visits": "{{count}} visite",
     "move": "Mossa",
     "score": "Punti",
     "winRate": "Nero %",
@@ -703,6 +704,7 @@
     "help": "Aiuto",
     "markMove": "Segna mossa",
     "heatmap": "La mappa di calore mostra",
+    "evalBar": "Barra di valutazione",
     "actions": {
       "about": "Informazioni su Kaya",
       "checkUpdate": "Controlla aggiornamenti…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "Navigazione con gamepad",
       "ai.heatmapPolicy": "Policy",
       "ai.heatmapWinRate": "Probabilità di vittoria",
-      "ai.heatmapScore": "Punti"
+      "ai.heatmapScore": "Punti",
+      "view.gaugeScore": "Punti (scala logaritmica)",
+      "view.gaugeWinRate": "Probabilità di vittoria"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "Nomi delle forme",
       "ai.heatmapPolicy": "Mappa di calore: policy",
       "ai.heatmapWinRate": "Mappa di calore: probabilità di vittoria",
-      "ai.heatmapScore": "Mappa di calore: punti"
+      "ai.heatmapScore": "Mappa di calore: punti",
+      "view.gaugeScore": "Barra di valutazione: punti",
+      "view.gaugeWinRate": "Barra di valutazione: probabilità di vittoria"
     },
     "collision": {
       "title": "Conflitto scorciatoia",

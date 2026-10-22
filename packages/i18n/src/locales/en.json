@@ -677,6 +677,7 @@
     "title": "Engine",
     "start": "Analyze this position",
     "waiting": "Waiting for the engine…",
+    "visits": "{{count}} visits",
     "move": "Move",
     "score": "Score",
     "winRate": "Black %",
@@ -703,6 +704,7 @@
     "help": "Help",
     "markMove": "Mark Move",
     "heatmap": "Heatmap Shows",
+    "evalBar": "Eval Bar",
     "actions": {
       "about": "About Kaya",
       "checkUpdate": "Check for Updates…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "Gamepad Navigation",
       "ai.heatmapPolicy": "Policy",
       "ai.heatmapWinRate": "Win Rate",
-      "ai.heatmapScore": "Score"
+      "ai.heatmapScore": "Score",
+      "view.gaugeScore": "Score (log scale)",
+      "view.gaugeWinRate": "Win Rate"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "Pattern Names",
       "ai.heatmapPolicy": "Heatmap: Policy",
       "ai.heatmapWinRate": "Heatmap: Win Rate",
-      "ai.heatmapScore": "Heatmap: Score"
+      "ai.heatmapScore": "Heatmap: Score",
+      "view.gaugeScore": "Eval Bar: Score",
+      "view.gaugeWinRate": "Eval Bar: Win Rate"
     },
     "collision": {
       "title": "Shortcut Conflict",

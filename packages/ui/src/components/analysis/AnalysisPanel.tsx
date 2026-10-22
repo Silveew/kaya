@@ -11,9 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { useCloseOnBack } from '../../hooks/useCloseOnBack';
 import { LuChartLine, LuChartBar, LuInfo, LuX } from 'react-icons/lu';
 import { AnalysisGraphPanel } from './AnalysisGraphPanel';
-import { AnalysisLegendModal } from './AnalysisLegendModal';
-import { AnalysisBar } from '../board/AnalysisBar';
-import { useLayoutMode } from '../../hooks/useMediaQuery';
 import { PerformanceReportTab, getCategoryColor } from './PerformanceReportTab';
 import './AnalysisPanel.css';
 
@@ -34,8 +31,6 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<AnalysisPanelTab>(defaultTab);
   const [showHelp, setShowHelp] = useState(false);
-  const [showLegend, setShowLegend] = useState(false);
-  const layoutMode = useLayoutMode();
   useCloseOnBack(showHelp, () => setShowHelp(false));
 
   const handleTabChange = useCallback((tab: AnalysisPanelTab) => {
@@ -44,10 +39,6 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
 
   return (
     <div className={`analysis-panel ${className}`}>
-      {/* On desktop the board frame has no bar above the board; the live
-          analysis readout and its settings live here instead. */}
-      {layoutMode === 'desktop' && <AnalysisBar onShowLegend={() => setShowLegend(true)} />}
-      <AnalysisLegendModal isOpen={showLegend} onClose={() => setShowLegend(false)} />
       <div className="analysis-panel-tabs">
         <button
           className={`analysis-panel-tab ${activeTab === 'graph' ? 'active' : ''}`}

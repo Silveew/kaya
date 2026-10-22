@@ -677,6 +677,7 @@
     "title": "エンジン",
     "start": "この局面を解析",
     "waiting": "エンジンを待っています…",
+    "visits": "{{count}} 訪問",
     "move": "手",
     "score": "目差",
     "winRate": "黒 %",
@@ -703,6 +704,7 @@
     "help": "ヘルプ",
     "markMove": "手に印を付ける",
     "heatmap": "ヒートマップの表示",
+    "evalBar": "評価バー",
     "actions": {
       "about": "Kayaについて",
       "checkUpdate": "アップデートを確認…",
@@ -740,7 +742,9 @@
       "board.toggleNavigationMode": "ゲームパッド操作",
       "ai.heatmapPolicy": "ポリシー",
       "ai.heatmapWinRate": "勝率",
-      "ai.heatmapScore": "目差"
+      "ai.heatmapScore": "目差",
+      "view.gaugeScore": "目差（対数）",
+      "view.gaugeWinRate": "勝率"
     }
   },
   "shortcuts": {
@@ -833,7 +837,9 @@
       "view.patternNames": "定型の名前",
       "ai.heatmapPolicy": "ヒートマップ：ポリシー",
       "ai.heatmapWinRate": "ヒートマップ：勝率",
-      "ai.heatmapScore": "ヒートマップ：目差"
+      "ai.heatmapScore": "ヒートマップ：目差",
+      "view.gaugeScore": "評価バー：目差",
+      "view.gaugeWinRate": "評価バー：勝率"
     },
     "collision": {
       "title": "ショートカットの競合",

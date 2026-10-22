@@ -1,10 +1,10 @@
 /**
  * The Analyze workspace: the board and the panels needed while reviewing.
  *
- * One sidebar (layout A): game tree, comment (the largest section) and a tab
- * section with Engine, Analysis and Moves.
+ * One sidebar (layout A): game tree, comment and a tab section with Engine,
+ * Graph, Report and Moves.
  * Wide windows (layout B): the game tree and moves list on the left, the
- * comment and the Engine / Analysis tabs on the right.
+ * comment and the Engine / Graph / Report tabs on the right.
  *
  * See specs/2026-10-21-desktop-workspaces.md.
  */
@@ -16,11 +16,14 @@ import {
   LuGitBranch,
   LuMessageSquare,
   LuChartLine,
+  LuChartBar,
   LuListOrdered,
   LuListTree,
 } from 'react-icons/lu';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { EngineLinesPanel } from '../analysis/EngineLinesPanel';
+import { AnalysisGraphPanel } from '../analysis/AnalysisGraphPanel';
+import { PerformanceReportTab } from '../analysis/PerformanceReportTab';
 import { SidebarSection } from './SidebarSection';
 import { SidebarTabsSection, type SidebarTab } from './SidebarTabsSection';
 import { useAnalyzePanels, sectionSizes } from './useAnalyzePanels';
@@ -34,7 +37,6 @@ export interface AnalyzeWorkspaceProps {
   gameTreeHeaderActions?: React.ReactNode;
   commentContent?: React.ReactNode;
   commentHeaderActions?: React.ReactNode;
-  analysisContent?: React.ReactNode;
   movesContent?: React.ReactNode;
 }
 
@@ -44,7 +46,6 @@ export const AnalyzeWorkspace: React.FC<AnalyzeWorkspaceProps> = ({
   gameTreeHeaderActions,
   commentContent,
   commentHeaderActions,
-  analysisContent,
   movesContent,
 }) => {
   const { t } = useTranslation();
@@ -57,11 +58,19 @@ export const AnalyzeWorkspace: React.FC<AnalyzeWorkspaceProps> = ({
     icon: <LuListTree size={14} />,
     content: <EngineLinesPanel />,
   };
-  const analysisTab: SidebarTab = {
+  // Graph and Report are tabs of their own here (not nested in AnalysisPanel's
+  // tabs), so the chart gets the rows a second tab bar would take
+  const graphTab: SidebarTab = {
     id: 'analysis',
-    label: t('panels.analysis'),
+    label: t('analysisPanel.graphTab'),
     icon: <LuChartLine size={14} />,
-    content: analysisContent,
+    content: <AnalysisGraphPanel />,
+  };
+  const reportTab: SidebarTab = {
+    id: 'report',
+    label: t('analysisPanel.reportTab'),
+    icon: <LuChartBar size={14} />,
+    content: <PerformanceReportTab />,
   };
   const movesTab: SidebarTab = {
     id: 'moves',
@@ -174,14 +183,14 @@ export const AnalyzeWorkspace: React.FC<AnalyzeWorkspaceProps> = ({
         >
           <PanelGroup direction="vertical" id="analyze-right-group" autoSaveId="kaya-analyze-right">
             {comment(1, right.comment, panels.details)}
-            {details(2, right.details, [engineTab, analysisTab])}
+            {details(2, right.details, [engineTab, graphTab, reportTab])}
           </PanelGroup>
         </Panel>
       </PanelGroup>
     );
   }
 
-  const sizes = sectionSizes({ gameTree: 30, comment: 40, details: 30 }, panels);
+  const sizes = sectionSizes({ gameTree: 28, comment: 36, details: 36 }, panels);
   return (
     <PanelGroup
       direction="horizontal"
@@ -206,7 +215,7 @@ export const AnalyzeWorkspace: React.FC<AnalyzeWorkspaceProps> = ({
         >
           {tree(sizes.gameTree, panels.comment || panels.details)}
           {comment(2, sizes.comment, panels.details)}
-          {details(3, sizes.details, [engineTab, analysisTab, movesTab])}
+          {details(3, sizes.details, [engineTab, graphTab, reportTab, movesTab])}
         </PanelGroup>
       </Panel>
     </PanelGroup>

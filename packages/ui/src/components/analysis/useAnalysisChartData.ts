@@ -70,33 +70,41 @@ export function generateMoveNumberTicks(maxMove: number): number[] {
   return ticks;
 }
 
-function useContainerWidth(wrapperRef: RefObject<HTMLDivElement | null>): number {
-  const [containerWidth, setContainerWidth] = useState(400);
+/** Below this the chart is unreadable; the wrapper's CSS min-height keeps it above. */
+const MIN_CHART_HEIGHT = 60;
 
-  // Measure container width with ResizeObserver
-  // Uses contentRect to avoid forced reflows (clientWidth triggers layout)
+function useContainerSize(wrapperRef: RefObject<HTMLDivElement | null>): {
+  width: number;
+  height: number;
+} {
+  const [size, setSize] = useState({ width: 400, height: CHART_HEIGHT });
+
+  // Measure the wrapper with ResizeObserver; contentRect avoids forced reflows.
+  // The wrapper flexes to fill its panel, so the chart takes the panel's height.
   useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-    // Initial measurement (only once on mount)
-    const rect = wrapper.getBoundingClientRect();
-    setContainerWidth(rect.width || 400);
+    const update = (width: number, height: number) => {
+      if (width <= 0) return;
+      const next = {
+        width,
+        // No height yet (not laid out): keep the default until there is one
+        height: height > 0 ? Math.max(Math.floor(height), MIN_CHART_HEIGHT) : CHART_HEIGHT,
+      };
+      setSize(prev => (prev.width === next.width && prev.height === next.height ? prev : next));
+    };
 
+    // The observer reports the content box once on observe, then on every change
     const resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const width = entry.contentRect.width;
-        if (width > 0) {
-          setContainerWidth(width);
-        }
-      }
+      for (const entry of entries) update(entry.contentRect.width, entry.contentRect.height);
     });
 
     resizeObserver.observe(wrapper);
     return () => resizeObserver.disconnect();
   }, [wrapperRef]);
 
-  return containerWidth;
+  return size;
 }
 
 interface UseAnalysisChartDataParams {
@@ -121,12 +129,12 @@ export function useAnalysisChartData({
   const svgRef = useRef<SVGSVGElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [hoverInfo, setHoverInfo] = useState<HoverInfo | null>(null);
-  const containerWidth = useContainerWidth(wrapperRef);
+  const { width: containerWidth, height: containerHeight } = useContainerSize(wrapperRef);
 
-  // Calculate chart dimensions based on actual container width
+  // Calculate chart dimensions based on the container's actual size
   const chartConfig = useMemo((): ChartConfig => {
     const width = containerWidth;
-    const height = CHART_HEIGHT;
+    const height = containerHeight;
     const innerWidth = width - CHART_PADDING.left - CHART_PADDING.right;
     const innerHeight = height - CHART_PADDING.top - CHART_PADDING.bottom;
 
@@ -151,7 +159,7 @@ export function useAnalysisChartData({
     const scoreRange = Math.ceil(maxAbsScore * 1.1);
 
     return { width, height, innerWidth, innerHeight, maxMove, scoreRange };
-  }, [data, totalMoves, containerWidth]);
+  }, [data, totalMoves, containerWidth, containerHeight]);
 
   // Scale functions
   const xScale = useCallback(
