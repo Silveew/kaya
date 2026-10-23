@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "Apri in Analisi",
     "boardSize": "Goban",
-    "moveCount": "Mosse"
+    "moveCount": "Mosse",
+    "preview": "Posizione finale"
   },
   "engineLines": {
     "title": "Motore",

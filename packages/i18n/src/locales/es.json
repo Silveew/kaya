@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "Abrir en Análisis",
     "boardSize": "Tablero",
-    "moveCount": "Jugadas"
+    "moveCount": "Jugadas",
+    "preview": "Posición final"
   },
   "engineLines": {
     "title": "Motor",

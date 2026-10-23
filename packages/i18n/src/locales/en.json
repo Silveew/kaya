@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "Open in Analyze",
     "boardSize": "Board",
-    "moveCount": "Moves"
+    "moveCount": "Moves",
+    "preview": "Final position"
   },
   "engineLines": {
     "title": "Engine",

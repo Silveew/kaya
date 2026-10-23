@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "In Analyse öffnen",
     "boardSize": "Brett",
-    "moveCount": "Züge"
+    "moveCount": "Züge",
+    "preview": "Endstellung"
   },
   "engineLines": {
     "title": "Engine",

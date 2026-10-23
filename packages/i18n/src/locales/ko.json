@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "분석에서 열기",
     "boardSize": "바둑판",
-    "moveCount": "수"
+    "moveCount": "수",
+    "preview": "최종 국면"
   },
   "engineLines": {
     "title": "엔진",
