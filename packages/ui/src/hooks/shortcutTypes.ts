@@ -44,12 +44,31 @@ export type ShortcutId =
   | 'file.save'
   | 'file.saveAs'
   | 'file.paste'
+  | 'file.new'
+  | 'file.quickNew'
+  | 'file.open'
+  | 'file.scanBoard'
+  | 'file.export'
+  | 'file.copySgf'
   // View shortcuts
   | 'view.toggleHeader'
   | 'view.toggleSidebar'
   | 'view.toggleLibrary'
   | 'view.toggleFullscreen'
   | 'view.openSettings'
+  | 'view.toggleTheme'
+  | 'view.library'
+  | 'view.analyze'
+  | 'view.commentLarger'
+  | 'view.commentSmaller'
+  | 'view.treeHorizontal'
+  | 'view.treeMinimap'
+  | 'view.patternNames'
+  | 'view.gaugeScore'
+  | 'view.gaugeWinRate'
+  | 'ai.heatmapPolicy'
+  | 'ai.heatmapWinRate'
+  | 'ai.heatmapScore'
   // Board mode shortcuts
   | 'board.toggleEditMode'
   | 'board.toggleNavigationMode'
@@ -57,14 +76,38 @@ export type ShortcutId =
   | 'board.toggleAnalysis'
   | 'board.toggleSound'
   | 'board.toggleNextMove'
+  | 'game.pass'
+  | 'game.resign'
   // AI shortcuts
   | 'ai.suggestMove'
   | 'ai.toggleTopMoves'
   | 'ai.toggleOwnership'
+  | 'ai.analyzeFullGame'
+  | 'ai.clearCache'
   // Edit shortcuts
   | 'edit.undo'
   | 'edit.redo'
   | 'edit.makeMainBranch'
+  | 'edit.copyBranch'
+  | 'edit.cutBranch'
+  | 'edit.pasteBranch'
+  | 'edit.deleteContinuation'
+  | 'edit.deleteBranch'
+  | 'edit.deleteOtherBranches'
+  | 'edit.clearSetupStones'
+  | 'edit.clearMarkers'
+  // Board tool rail: what a click on the board does
+  | 'tool.play'
+  | 'tool.black'
+  | 'tool.white'
+  | 'tool.alternate'
+  | 'tool.triangle'
+  | 'tool.square'
+  | 'tool.circle'
+  | 'tool.cross'
+  | 'tool.labelAlpha'
+  | 'tool.labelNum'
+  | 'tool.eraser'
   // Annotation marks (SGF TE/BM/IT/DO) on the current move
   | 'mark.good'
   | 'mark.veryGood'
@@ -144,6 +187,30 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'file',
     defaultBinding: createPlatformBinding('v'),
   },
+  'file.open': {
+    category: 'file',
+    defaultBinding: createPlatformBinding('o'),
+  },
+  'file.new': {
+    category: 'file',
+    defaultBinding: createBinding(''),
+  },
+  'file.quickNew': {
+    category: 'file',
+    defaultBinding: createBinding(''),
+  },
+  'file.scanBoard': {
+    category: 'file',
+    defaultBinding: createBinding(''),
+  },
+  'file.export': {
+    category: 'file',
+    defaultBinding: createBinding(''),
+  },
+  'file.copySgf': {
+    category: 'file',
+    defaultBinding: createBinding(''),
+  },
 
   // View shortcuts
   // NOTE: this deliberately does *not* use Cmd/Ctrl+Shift+M — that is the
@@ -170,6 +237,28 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'view',
     defaultBinding: createPlatformBinding(','),
   },
+  'view.toggleTheme': {
+    category: 'view',
+    defaultBinding: createBinding(''),
+  },
+  'view.library': {
+    category: 'view',
+    defaultBinding: createPlatformBinding('1'),
+  },
+  'view.analyze': {
+    category: 'view',
+    defaultBinding: createPlatformBinding('2'),
+  },
+  'view.commentLarger': { category: 'view', defaultBinding: createPlatformBinding('=') },
+  'view.commentSmaller': { category: 'view', defaultBinding: createPlatformBinding('-') },
+  'view.treeHorizontal': { category: 'view', defaultBinding: createBinding('') },
+  'view.treeMinimap': { category: 'view', defaultBinding: createBinding('') },
+  'view.patternNames': { category: 'view', defaultBinding: createBinding('') },
+  'view.gaugeScore': { category: 'view', defaultBinding: createBinding('') },
+  'view.gaugeWinRate': { category: 'view', defaultBinding: createBinding('') },
+  'ai.heatmapPolicy': { category: 'ai', defaultBinding: createBinding('') },
+  'ai.heatmapWinRate': { category: 'ai', defaultBinding: createBinding('') },
+  'ai.heatmapScore': { category: 'ai', defaultBinding: createBinding('') },
 
   // Board mode shortcuts
   'board.toggleEditMode': {
@@ -196,6 +285,14 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'board',
     defaultBinding: createBinding('x'),
   },
+  'game.pass': {
+    category: 'board',
+    defaultBinding: createBinding(''),
+  },
+  'game.resign': {
+    category: 'board',
+    defaultBinding: createBinding(''),
+  },
 
   // AI shortcuts
   'ai.suggestMove': {
@@ -209,6 +306,14 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
   'ai.toggleOwnership': {
     category: 'ai',
     defaultBinding: createBinding('o'),
+  },
+  'ai.analyzeFullGame': {
+    category: 'ai',
+    defaultBinding: createBinding(''),
+  },
+  'ai.clearCache': {
+    category: 'ai',
+    defaultBinding: createBinding(''),
   },
 
   // Edit shortcuts
@@ -224,6 +329,51 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'edit',
     defaultBinding: createPlatformBinding('m', { shift: true }),
   },
+  'edit.copyBranch': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.cutBranch': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.pasteBranch': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.deleteContinuation': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.deleteBranch': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.deleteOtherBranches': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.clearSetupStones': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+  'edit.clearMarkers': {
+    category: 'edit',
+    defaultBinding: createBinding(''),
+  },
+
+  // Board tools, on the number row in rail order
+  'tool.play': { category: 'edit', defaultBinding: createBinding('1') },
+  'tool.black': { category: 'edit', defaultBinding: createBinding('2') },
+  'tool.white': { category: 'edit', defaultBinding: createBinding('3') },
+  'tool.alternate': { category: 'edit', defaultBinding: createBinding('') },
+  'tool.triangle': { category: 'edit', defaultBinding: createBinding('4') },
+  'tool.square': { category: 'edit', defaultBinding: createBinding('5') },
+  'tool.circle': { category: 'edit', defaultBinding: createBinding('6') },
+  'tool.cross': { category: 'edit', defaultBinding: createBinding('7') },
+  'tool.labelAlpha': { category: 'edit', defaultBinding: createBinding('8') },
+  'tool.labelNum': { category: 'edit', defaultBinding: createBinding('9') },
+  'tool.eraser': { category: 'edit', defaultBinding: createBinding('0') },
 
   // Annotation marks. Alt/Option + digit: on macOS Option changes event.key
   // ("¡" for ⌥1), so eventMatchesBinding falls back to the physical key.

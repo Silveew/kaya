@@ -16,6 +16,8 @@ import { useLayoutPanels } from './useLayoutPanels';
 import { CollapsibleSectionHeader } from './CollapsibleSectionHeader';
 import { SidebarSection } from './SidebarSection';
 import { ResizableLayoutMobile } from './ResizableLayoutMobile';
+import { DesktopWorkspaceLayout } from './DesktopWorkspaceLayout';
+import type { Workspace } from './useWorkspace';
 import './ResizableLayout.css';
 import './ResizableLayoutMobile.css';
 
@@ -39,6 +41,10 @@ interface ResizableLayoutProps {
   activeMobileTab?: MobileTab;
   /** Callback for mobile tab change */
   onMobileTabChange?: (tab: MobileTab) => void;
+  /** Desktop only: lay out by workspace (Library / Analyze) instead of panels. */
+  workspace?: Workspace;
+  /** Library workspace: the selected game's details. */
+  gameDetailsContent?: React.ReactNode;
 }
 
 export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
@@ -58,6 +64,8 @@ export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   onToggleSidebar,
   activeMobileTab,
   onMobileTabChange,
+  workspace,
+  gameDetailsContent,
 }) => {
   const { t } = useTranslation();
 
@@ -101,6 +109,22 @@ export const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         activeTab={activeTab}
         onTabChange={handleTabChange}
         isLandscape={isLandscape}
+      />
+    );
+  }
+
+  if (workspace) {
+    return (
+      <DesktopWorkspaceLayout
+        workspace={workspace}
+        boardContent={boardContent}
+        gameTreeContent={gameTreeContent}
+        gameTreeHeaderActions={gameTreeHeaderActions}
+        commentContent={commentContent}
+        commentHeaderActions={commentHeaderActions}
+        movesContent={movesContent}
+        libraryContent={libraryContent}
+        gameDetailsContent={gameDetailsContent}
       />
     );
   }

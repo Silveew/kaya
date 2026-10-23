@@ -43,6 +43,8 @@ interface HeaderFileControlsProps {
   onFilenameKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   getBinding: (id: ShortcutId) => KeyBinding;
   bindingToDisplayString: (binding: KeyBinding) => string;
+  /** The menu bar has the file actions; show just the file name. */
+  filenameOnly?: boolean;
 }
 
 export const HeaderFileControls: React.FC<HeaderFileControlsProps> = ({
@@ -70,6 +72,7 @@ export const HeaderFileControls: React.FC<HeaderFileControlsProps> = ({
   onFilenameKeyDown,
   getBinding,
   bindingToDisplayString,
+  filenameOnly = false,
 }) => {
   const { t } = useTranslation();
 
@@ -172,6 +175,10 @@ export const HeaderFileControls: React.FC<HeaderFileControlsProps> = ({
       </span>
     )
   ) : null;
+
+  if (filenameOnly) {
+    return <div className="header-file-controls">{filenameElement}</div>;
+  }
 
   return (
     <div className="header-file-controls">

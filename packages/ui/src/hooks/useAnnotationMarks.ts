@@ -7,10 +7,9 @@
  * See specs/2026-10-21-annotation-marks.md.
  */
 
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useGameTreeBoard, useGameTreeEdit } from '../contexts/selectors';
-import { useKeyboardShortcuts } from '../contexts/KeyboardShortcutsContext';
-import type { ShortcutId } from './shortcutTypes';
+import { useCommand } from '../commands/CommandsContext';
 import {
   getMoveMark,
   getMoveMarkById,
@@ -58,45 +57,17 @@ export function useAnnotationMarks() {
   };
 }
 
-const MOVE_MARK_SHORTCUTS: [ShortcutId, MoveMarkId][] = [
-  ['mark.good', 'good'],
-  ['mark.veryGood', 'veryGood'],
-  ['mark.interesting', 'interesting'],
-  ['mark.doubtful', 'doubtful'],
-  ['mark.bad', 'bad'],
-  ['mark.veryBad', 'veryBad'],
-];
-
 /** Keyboard shortcuts for move marks on the current node (⌥1 … ⌥4, ⌥0 clears). */
 export function useAnnotationShortcuts(): void {
-  const { matchesShortcut } = useKeyboardShortcuts();
-  const { isMove, toggleMoveMark, clearMoveMark } = useAnnotationMarks();
+  const { isMove, moveMark, toggleMoveMark, clearMoveMark } = useAnnotationMarks();
+  const current = moveMark?.id ?? null;
+  const markOptions = (id: MoveMarkId) => ({ enabled: isMove, checked: current === id });
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        (e.target instanceof HTMLElement && e.target.isContentEditable)
-      ) {
-        return;
-      }
-      if (!isMove) return;
-
-      for (const [shortcutId, markId] of MOVE_MARK_SHORTCUTS) {
-        if (matchesShortcut(e, shortcutId)) {
-          e.preventDefault();
-          toggleMoveMark(markId);
-          return;
-        }
-      }
-      if (matchesShortcut(e, 'mark.clear')) {
-        e.preventDefault();
-        clearMoveMark();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [matchesShortcut, isMove, toggleMoveMark, clearMoveMark]);
+  useCommand('mark.good', () => toggleMoveMark('good'), markOptions('good'));
+  useCommand('mark.veryGood', () => toggleMoveMark('veryGood'), markOptions('veryGood'));
+  useCommand('mark.interesting', () => toggleMoveMark('interesting'), markOptions('interesting'));
+  useCommand('mark.doubtful', () => toggleMoveMark('doubtful'), markOptions('doubtful'));
+  useCommand('mark.bad', () => toggleMoveMark('bad'), markOptions('bad'));
+  useCommand('mark.veryBad', () => toggleMoveMark('veryBad'), markOptions('veryBad'));
+  useCommand('mark.clear', clearMoveMark, { enabled: isMove && current !== null });
 }

@@ -102,6 +102,10 @@ beating it.
 - Touch handlers don't preempt mouse events — Goban dispatches touch and
   mouse independently.
 - All keyboard shortcuts work irrespective of layout mode.
+- The desktop layout mode has two workspaces (Library, Analyze) and a framed
+  board (tool rail, eval gauge, fixed footer); tablet and phone keep the tab
+  layout with the board's action bar and edit toolbar. Nothing beside or under
+  the desktop board may change size with app state.
 
 ## Not yet implemented
 

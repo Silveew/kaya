@@ -18,7 +18,7 @@ import { readClipboardText, writeClipboardText } from '@kaya/platform';
 import { useToast } from '../ui/Toast';
 import { useFullscreen } from './useFullscreen';
 import { useFilenameEditor } from './useFilenameEditor';
-import { useHeaderKeyboardShortcuts } from './useHeaderKeyboardShortcuts';
+import { useHeaderCommands } from './useHeaderCommands';
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.bmp'];
 
@@ -31,7 +31,7 @@ export function useHeaderActions(options?: { onNavigateToBoard?: () => void }) {
   const { loadSGFAsync, exportSGF, newGame, fileName, setFileName, isDirty, triggerAutoSave } =
     useGameTreeFile();
   const { currentBoard, gameInfo } = useGameTreeBoard();
-  const { makeMainVariation, undo, redo, canUndo, canRedo, addSetupPosition } = useGameTreeEdit();
+  const { addSetupPosition } = useGameTreeEdit();
   const { setAIConfigOpen } = useGameTreeAI();
   const { playMove } = useGameTreeActions();
   const {
@@ -324,16 +324,22 @@ export function useHeaderActions(options?: { onNavigateToBoard?: () => void }) {
     }
   }, [loadSGFAsync, setFileName, clearLoadedFile, checkUnsavedChanges, showToast, t]);
 
-  useHeaderKeyboardShortcuts({
+  useHeaderCommands({
+    handleNewGame,
+    handleQuickNewGame,
+    handleOpenClick,
+    handleScanBoardClick,
     handleSaveClick,
     handleSaveAsClick,
+    handleExportClick,
+    handleCopyClick,
+    handlePasteClick,
+    isDark: theme === 'dark',
+    toggleTheme,
+    isFullscreen,
     toggleFullscreen,
+    soundEnabled,
     toggleSound,
-    makeMainVariation,
-    undo,
-    redo,
-    canUndo,
-    canRedo,
     setAIConfigOpen,
   });
 

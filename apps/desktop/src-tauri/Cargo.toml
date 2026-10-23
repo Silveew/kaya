@@ -37,7 +37,7 @@ half = "2.7"
 # Uses ALSA/PulseAudio on Linux, CoreAudio on macOS, WASAPI on Windows
 # Not needed on Android (audio is handled via WebView)
 #
-# reqwest and the updater/window-state plugins are desktop-only too: Android
+# reqwest and the updater plugin are desktop-only too: Android
 # would drag in OpenSSL/ring, and HTTP there goes through the WebView instead.
 [target.'cfg(not(target_os = "android"))'.dependencies]
 rodio = { version = "0.22", default-features = false, features = ["playback", "lewton"] }
@@ -45,7 +45,9 @@ reqwest = { version = "0.13", features = ["stream"] }
 tauri-plugin-http = "2"
 tauri-plugin-process = "2"
 tauri-plugin-updater = "2"
-tauri-plugin-window-state = "2.4.1"
+# Window position/size: our own window_state.rs. tauri-plugin-window-state
+# also restored them (and full screen) first, and the two fought: see
+# specs/2026-10-22-one-window-state-owner.md.
 
 # ONNX Runtime. An EP feature is what makes that provider's register() do
 # anything — without it ort returns RegisterError::MissingFeature and the

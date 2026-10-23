@@ -4,6 +4,7 @@ import {
   useLibraryPanel,
   useGameInfoEditMode,
   useKeyboardShortcuts,
+  useCommand,
   useLayoutMode,
   usePwaInstall,
   type GameTreeGraphRef,
@@ -79,7 +80,7 @@ export function useAppContentState({ onMobileTabChange }: UseAppContentStateOpti
     setIsEditMode: setGameInfoEditMode,
     toggleEditMode: toggleGameInfoEditMode,
   } = useGameInfoEditMode();
-  const { matchesShortcut, getBinding, bindingToDisplayString } = useKeyboardShortcuts();
+  const { getBinding, bindingToDisplayString } = useKeyboardShortcuts();
 
   // PWA install prompt
   const pwaInstall = usePwaInstall();
@@ -99,24 +100,18 @@ export function useAppContentState({ onMobileTabChange }: UseAppContentStateOpti
     }
   }, [showSidebar]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Toggle header
-      if (matchesShortcut(e, 'view.toggleHeader')) {
-        e.preventDefault();
-        setShowHeader(prev => !prev);
-        return;
-      }
-      // Toggle sidebar
-      if (matchesShortcut(e, 'view.toggleSidebar')) {
-        e.preventDefault();
-        setShowSidebar(prev => !prev);
-        return;
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [matchesShortcut]);
+  useCommand('view.treeHorizontal', () => setTreeLayoutHorizontal(prev => !prev), {
+    checked: treeLayoutHorizontal,
+  });
+  useCommand('view.treeMinimap', () => setShowMinimap(prev => !prev), { checked: showMinimap });
+  useCommand('view.toggleHeader', () => setShowHeader(prev => !prev), {
+    checked: showHeader,
+    allowInInput: true,
+  });
+  useCommand('view.toggleSidebar', () => setShowSidebar(prev => !prev), {
+    checked: showSidebar,
+    allowInInput: true,
+  });
 
   // Landing page state
   const layoutMode = useLayoutMode();

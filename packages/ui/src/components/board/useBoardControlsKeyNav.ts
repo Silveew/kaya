@@ -3,10 +3,11 @@
  * Handles arrow keys, home/end, and wheel scrolling with throttling.
  */
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useGameTreeNavigation } from '../../contexts/selectors';
 import { useBoardNavigation } from '../../contexts/BoardNavigationContext';
-import { useKeyboardShortcuts } from '../../contexts/KeyboardShortcutsContext';
+import { useCommand, useCommandWithContext } from '../../commands/CommandsContext';
+import type { CommandContext } from '../../commands/commandRegistry';
 
 export function useBoardControlsKeyNav(): void {
   const {
@@ -20,85 +21,37 @@ export function useBoardControlsKeyNav(): void {
     canGoForward,
   } = useGameTreeNavigation();
   const { navigationMode } = useBoardNavigation();
-  const { matchesShortcut } = useKeyboardShortcuts();
+
+  // Throttle held keys so auto-repeat doesn't outrun rendering
+  const lastStepRef = useRef(0);
+  const KEY_THROTTLE_MS = 80; // ~12.5 navigations per second max
+  const step = (ctx: CommandContext, action: () => void) => {
+    const now = performance.now();
+    if (ctx.repeat && now - lastStepRef.current < KEY_THROTTLE_MS) return;
+    lastStepRef.current = now;
+    requestAnimationFrame(action);
+  };
+
+  // Gamepad-style navigation mode owns the arrow keys while it is on
+  const keyNav = !navigationMode;
+  useCommandWithContext('nav.back', ctx => step(ctx, goBack), { enabled: keyNav && canGoBack });
+  useCommandWithContext('nav.forward', ctx => step(ctx, goForward), {
+    enabled: keyNav && canGoForward,
+  });
+  useCommandWithContext('nav.branchUp', ctx => step(ctx, () => switchBranch('next')), {
+    enabled: keyNav && branchInfo.hasBranches,
+  });
+  useCommandWithContext('nav.branchDown', ctx => step(ctx, () => switchBranch('previous')), {
+    enabled: keyNav && branchInfo.hasBranches,
+  });
+  useCommand('nav.start', () => requestAnimationFrame(() => goToStart()), {
+    enabled: keyNav && canGoBack,
+  });
+  useCommand('nav.end', () => requestAnimationFrame(() => goToEnd()), {
+    enabled: keyNav && canGoForward,
+  });
 
   useEffect(() => {
-    // Throttle keyboard navigation to prevent rapid fire when keys are held
-    let keyThrottled = false;
-    const KEY_THROTTLE_MS = 80; // ~12.5 navigations per second max
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (navigationMode) return; // Skip keyboard nav in navigation mode
-
-      // Ignore if typing in an input or textarea
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        (e.target as HTMLElement).isContentEditable
-      ) {
-        return;
-      }
-
-      // Throttle repeated key presses
-      if (keyThrottled && e.repeat) return;
-
-      // Navigation shortcuts using the configurable keyboard shortcuts
-      if (matchesShortcut(e, 'nav.back')) {
-        e.preventDefault();
-        if (canGoBack && !keyThrottled) {
-          keyThrottled = true;
-          requestAnimationFrame(() => goBack());
-          setTimeout(() => {
-            keyThrottled = false;
-          }, KEY_THROTTLE_MS);
-        }
-        return;
-      }
-      if (matchesShortcut(e, 'nav.forward')) {
-        e.preventDefault();
-        if (canGoForward && !keyThrottled) {
-          keyThrottled = true;
-          requestAnimationFrame(() => goForward());
-          setTimeout(() => {
-            keyThrottled = false;
-          }, KEY_THROTTLE_MS);
-        }
-        return;
-      }
-      if (matchesShortcut(e, 'nav.branchUp')) {
-        e.preventDefault();
-        if (!keyThrottled && branchInfo.hasBranches) {
-          keyThrottled = true;
-          requestAnimationFrame(() => switchBranch('next'));
-          setTimeout(() => {
-            keyThrottled = false;
-          }, KEY_THROTTLE_MS);
-        }
-        return;
-      }
-      if (matchesShortcut(e, 'nav.branchDown')) {
-        e.preventDefault();
-        if (!keyThrottled && branchInfo.hasBranches) {
-          keyThrottled = true;
-          requestAnimationFrame(() => switchBranch('previous'));
-          setTimeout(() => {
-            keyThrottled = false;
-          }, KEY_THROTTLE_MS);
-        }
-        return;
-      }
-      if (matchesShortcut(e, 'nav.start')) {
-        e.preventDefault();
-        requestAnimationFrame(() => goToStart());
-        return;
-      }
-      if (matchesShortcut(e, 'nav.end')) {
-        e.preventDefault();
-        requestAnimationFrame(() => goToEnd());
-        return;
-      }
-    };
-
     // THROTTLE instead of debounce - execute immediately, then cooldown
     let isThrottled = false;
     let lastDelta = 0;
@@ -140,24 +93,11 @@ export function useBoardControlsKeyNav(): void {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
     // Add passive flag to prevent warnings
     window.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('wheel', handleWheel);
     };
-  }, [
-    canGoBack,
-    canGoForward,
-    goBack,
-    goForward,
-    goToStart,
-    goToEnd,
-    switchBranch,
-    branchInfo.hasBranches,
-    navigationMode,
-    matchesShortcut,
-  ]);
+  }, [canGoBack, canGoForward, goBack, goForward]);
 }

@@ -9,7 +9,6 @@ import React, { useCallback, useRef, useEffect, useState, memo, useMemo } from '
 import { useTranslation } from 'react-i18next';
 import { Goban } from '@kaya/shudan';
 import type { Vertex } from '@kaya/shudan';
-import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 import { sgfToVertex } from '@kaya/sgf';
 import { useGameSounds } from '../../useGameSounds';
 import {
@@ -24,9 +23,12 @@ import {
 import { useBoardNavigation } from '../../contexts/BoardNavigationContext';
 import { useFuzzyPlacement } from '../../useFuzzyPlacement';
 import { useBoardSwipeNavigation } from '../../hooks/useSwipeGesture';
-import { useIsTouchDevice } from '../../hooks/useMediaQuery';
-import { BoardControls } from './BoardControls';
-import { ScoreEstimator } from './ScoreEstimator';
+import { useIsTouchDevice, useLayoutMode } from '../../hooks/useMediaQuery';
+import { GameBoardFooter, GameBoardScoreEstimator } from './GameBoardFooter';
+import { BoardToolRail } from './BoardToolRail';
+import { EvalGauge } from './EvalGauge';
+import { useBoardToolCommands } from './boardTools';
+import { useDisplayCommands } from './useDisplayCommands';
 import { EditToolbar } from '../editors/EditToolbar';
 import { useAIAnalysis } from '../ai/AIAnalysisOverlay';
 import { useGameTree } from '../../contexts/GameTreeContext';
@@ -52,7 +54,9 @@ import {
 import { useBoardControlsKeyNav } from './useBoardControlsKeyNav';
 import { useAnnotationMap } from './useAnnotationMap';
 import { useAnnotationShortcuts } from '../../hooks/useAnnotationMarks';
+import { useCommand } from '../../commands/CommandsContext';
 import './GameBoard.css';
+import './GameBoardFramed.css';
 import './GameBoardAnalysisSummary.css';
 
 export const GameBoard: React.FC = memo(() => {
@@ -68,19 +72,9 @@ export const GameBoard: React.FC = memo(() => {
     setGameSettings,
   } = useGameTreeBoard();
   const { playMove, resign, placeStoneDirect, removeSetupStone } = useGameTreeActions();
-  const {
-    scoringMode,
-    deadStones,
-    toggleDeadStones,
-    toggleScoringMode,
-    territoryMap,
-    clearDeadStones,
-    autoEstimateDeadStones,
-    isEstimating,
-    estimationMode,
-    toggleEstimationMode,
-    scoreData,
-  } = useGameTreeScore();
+  const { scoringMode, deadStones, toggleDeadStones, toggleScoringMode, territoryMap } =
+    useGameTreeScore();
+  const layoutMode = useLayoutMode();
   const { showAnalysisBar, toggleShowAnalysisBar } = useGameTreeAI();
   const [showMoveStrengthInfo, setShowMoveStrengthInfo] = useState(false);
   const { editMode, toggleEditMode, editTool, editPlayMode, addMarker, removeMarker } =
@@ -102,6 +96,10 @@ export const GameBoard: React.FC = memo(() => {
   useBoardControlsKeyNav();
   // Annotation mark shortcuts (⌥1 … ⌥4) on the current move
   useAnnotationShortcuts();
+  // Board tool shortcuts (number row), on every layout
+  useBoardToolCommands();
+  // View-menu display preferences (comment text size, pattern names, heatmap)
+  useDisplayCommands();
 
   // AI Analysis integration (for heatMap/ownershipMap on the board)
   const { isModelLoaded } = useGameTree();
@@ -133,10 +131,6 @@ export const GameBoard: React.FC = memo(() => {
   const handleToggleEditMode = useCallback(() => {
     toggleEditMode();
   }, [toggleEditMode]);
-
-  const handleToggleBoardControls = useCallback(() => {
-    setGameSettings({ showBoardControls: !gameSettings.showBoardControls });
-  }, [setGameSettings, gameSettings.showBoardControls]);
 
   const { showNextMove, setShowNextMove } = useGameBoardKeyboard({
     handleToggleEditMode,
@@ -244,6 +238,9 @@ export const GameBoard: React.FC = memo(() => {
 
   const handleResignCancel = useCallback(() => setShowResignConfirm(false), []);
 
+  useCommand('game.pass', handlePass, { enabled: !scoringMode && !editMode });
+  useCommand('game.resign', handleResign, { enabled: !scoringMode && !editMode });
+
   // Scoring dimmed vertices
   const dimmedVertices = useScoringDimmedVertices({
     scoringMode,
@@ -267,28 +264,39 @@ export const GameBoard: React.FC = memo(() => {
     removeSetupStone,
   });
 
+  // Desktop frames the board: tool rail and eval gauge beside it, a fixed
+  // footer under it, nothing above. Every action that used to sit in bars
+  // around the board is in the menu bar, so nothing appears or disappears
+  // around the board and its size only follows the window.
+  const framed = layoutMode === 'desktop';
+  const boardPixelHeight = vertexSize * (boardHeight + (gameSettings.showCoordinates ? 2 : 0)) + 8;
+
   return (
-    <div className="gameboard-container">
-      <GameBoardActionBar
-        onPass={handlePass}
-        onResign={handleResign}
-        onToggleScoringMode={toggleScoringMode}
-        onToggleAnalysisBar={toggleShowAnalysisBar}
-        onToggleNavigationMode={toggleNavigationMode}
-        onToggleEditMode={handleToggleEditMode}
-        onToggleNextMove={handleToggleNextMove}
-        onSuggestMove={handleSuggestMove}
-        scoringMode={scoringMode}
-        editMode={editMode}
-        showAnalysisBar={showAnalysisBar}
-        navigationMode={navigationMode}
-        showNextMove={showNextMove}
-        isModelLoaded={isModelLoaded}
-        isGeneratingMove={isGeneratingMove}
-      />
-      <AnalysisBar onShowLegend={() => setShowMoveStrengthInfo(true)} />
+    <div className={`gameboard-container${framed ? ' gameboard-container--framed' : ''}`}>
+      {!framed && (
+        <GameBoardActionBar
+          onPass={handlePass}
+          onResign={handleResign}
+          onToggleScoringMode={toggleScoringMode}
+          onToggleAnalysisBar={toggleShowAnalysisBar}
+          onToggleNavigationMode={toggleNavigationMode}
+          onToggleEditMode={handleToggleEditMode}
+          onToggleNextMove={handleToggleNextMove}
+          onSuggestMove={handleSuggestMove}
+          scoringMode={scoringMode}
+          editMode={editMode}
+          showAnalysisBar={showAnalysisBar}
+          navigationMode={navigationMode}
+          showNextMove={showNextMove}
+          isModelLoaded={isModelLoaded}
+          isGeneratingMove={isGeneratingMove}
+        />
+      )}
+      {!framed && <AnalysisBar onShowLegend={() => setShowMoveStrengthInfo(true)} />}
 
       <div className="gameboard-board-area">
+        {framed && <BoardToolRail />}
+        {framed && <EvalGauge height={boardPixelHeight} />}
         <div
           ref={containerRef}
           className={`gameboard-board-wrapper ${!gameSettings.showCoordinates ? 'no-coordinates' : ''}`}
@@ -321,41 +329,15 @@ export const GameBoard: React.FC = memo(() => {
             onVertexRightClick={handleVertexRightClick}
           />
         </div>
-        {editMode && <EditToolbar />}
+        {!framed && editMode && <EditToolbar />}
+        {framed && scoringMode && (
+          <div className="gameboard-score-overlay">
+            <GameBoardScoreEstimator />
+          </div>
+        )}
       </div>
 
-      {/* Collapse bar for board controls */}
-      {!scoringMode && (
-        <button
-          className="board-controls-collapse-bar"
-          onClick={handleToggleBoardControls}
-          tabIndex={-1}
-          title={
-            gameSettings.showBoardControls
-              ? t('gameboardActions.hideControls')
-              : t('gameboardActions.showControls')
-          }
-        >
-          {gameSettings.showBoardControls ? <LuChevronDown size={10} /> : <LuChevronUp size={10} />}
-        </button>
-      )}
-
-      {scoringMode && scoreData ? (
-        <ScoreEstimator
-          scoreData={scoreData}
-          deadStones={deadStones}
-          playerBlack={gameInfo.playerBlack}
-          playerWhite={gameInfo.playerWhite}
-          onClear={clearDeadStones}
-          onAutoEstimate={autoEstimateDeadStones}
-          onDone={toggleScoringMode}
-          isEstimating={isEstimating}
-          estimationMode={estimationMode}
-          onToggleEstimationMode={toggleEstimationMode}
-        />
-      ) : (
-        gameSettings.showBoardControls && <BoardControls />
-      )}
+      <GameBoardFooter framed={framed} />
 
       {/* Move Strength Info Modal */}
       <AnalysisLegendModal

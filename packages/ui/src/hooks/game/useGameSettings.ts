@@ -14,6 +14,7 @@ const DEFAULT_GAME_SETTINGS: GameSettings = {
   problemMode: false, // Off by default; opt-in for tsumego study
   commentFontScale: COMMENT_FONT_SCALE_DEFAULT, // Default comment text size
   showAllMoveMarks: false, // Only the current move's mark on the board by default
+  evalGaugeScale: 'score', // Log score lead: win rate saturates within a few points
   detectionModelSource: 'default', // Use built-in Moku model by default
 };
 
@@ -53,6 +54,7 @@ export function loadGameSettings(): GameSettings {
           typeof parsed.showAllMoveMarks === 'boolean'
             ? parsed.showAllMoveMarks
             : DEFAULT_GAME_SETTINGS.showAllMoveMarks,
+        evalGaugeScale: parsed.evalGaugeScale === 'winRate' ? 'winRate' : 'score',
         detectionModelSource:
           parsed.detectionModelSource === 'custom'
             ? 'custom'

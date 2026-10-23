@@ -1,0 +1,78 @@
+.workspace-library {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-primary);
+}
+
+/* Tab views fill the section and scroll inside, rather than the section scrolling */
+.sidebar-section--tabs {
+  padding: 0.5rem;
+}
+
+.sidebar-section--tabs > .sidebar-section-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-section--tabs > .sidebar-section-content > .analysis-panel,
+.sidebar-section--tabs > .sidebar-section-content > .moves-panel {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.sidebar-tabs-header {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.sidebar-section > .sidebar-tabs-header {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-tabs-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.sidebar-tabs-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.sidebar-tabs-tab:hover,
+.sidebar-tabs-toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sidebar-tabs-tab.is-active {
+  background: var(--bg-active);
+  color: var(--text-primary);
+}

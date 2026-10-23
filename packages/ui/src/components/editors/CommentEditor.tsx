@@ -18,6 +18,7 @@ import {
   clampCommentFontScale,
 } from '../../utils/commentFontScale';
 import { AnnotationMarkBar } from './AnnotationMarkBar';
+import { hasNativeMenuBar } from '../../commands/useNativeMenu';
 import './CommentEditor.css';
 
 // ============================================================================
@@ -154,7 +155,8 @@ export const CommentHeaderActions: React.FC = () => {
       {moveNumber > 0 && (
         <span className="move-number">{t('comment.move', { number: moveNumber })}</span>
       )}
-      {!isEditing && (
+      {/* With a menu bar, text size is View › Larger / Smaller Comment Text */}
+      {!isEditing && !hasNativeMenuBar() && (
         <div className="comment-fontsize-controls">
           <button
             type="button"

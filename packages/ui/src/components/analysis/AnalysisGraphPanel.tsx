@@ -26,6 +26,7 @@ import './AnalysisGraphPanel.css';
 import './AnalysisGraphPanelControls.css';
 import './AnalysisGraphPanelChart.css';
 import { DEFAULT_KOMI } from '@kaya/ai-engine';
+import { hasNativeMenuBar } from '../../commands/useNativeMenu';
 
 export interface AnalysisGraphPanelProps {
   className?: string;
@@ -184,76 +185,111 @@ export const AnalysisGraphPanel: React.FC<AnalysisGraphPanelProps> = ({ classNam
 
   const isFullyAnalyzed = totalPositions > 0 && dataPoints.length === totalPositions;
 
+  const menuBarOwnsActions = hasNativeMenuBar();
+
+  const legend = (
+    <>
+      <button
+        className={`analysis-legend-toggle ${showWinRate ? 'active' : ''}`}
+        onClick={handleToggleWinRate}
+        title={t('analysis.toggleWinRate')}
+        aria-label={t('analysis.toggleWinRate')}
+        aria-pressed={showWinRate}
+      >
+        <span className="legend-indicator legend-winrate" />
+        <span className="legend-label">{t('analysis.winRate')}</span>
+      </button>
+      <button
+        className={`analysis-legend-toggle ${showScoreLead ? 'active' : ''}`}
+        onClick={handleToggleScoreLead}
+        title={t('analysis.toggleScore')}
+        aria-label={t('analysis.toggleScore')}
+        aria-pressed={showScoreLead}
+      >
+        <span className="legend-indicator legend-score" />
+        <span className="legend-label">{t('analysis.score')}</span>
+      </button>
+    </>
+  );
+
   return (
     <div className={`analysis-graph-panel ${className}`}>
       {/* Single unified toolbar */}
       <div className="analysis-panel-toolbar">
-        {/* Analysis Mode Toggle */}
-        <button
-          className={`analysis-mode-indicator ${analysisMode ? 'active' : ''}`}
-          onClick={toggleAnalysisMode}
-          title={analysisMode ? t('analysis.analysisModeOn') : t('analysis.analysisModeOff')}
-          aria-label={analysisMode ? t('analysis.analysisModeOn') : t('analysis.analysisModeOff')}
-        >
-          <span className="analysis-mode-dot" />
-          <LuBrain size={14} />
-        </button>
+        {/* With a menu bar these are Analysis/View menu commands, so the
+            panel keeps its height for the chart */}
+        {!menuBarOwnsActions && (
+          <>
+            {/* Analysis Mode Toggle */}
+            <button
+              className={`analysis-mode-indicator ${analysisMode ? 'active' : ''}`}
+              onClick={toggleAnalysisMode}
+              title={analysisMode ? t('analysis.analysisModeOn') : t('analysis.analysisModeOff')}
+              aria-label={
+                analysisMode ? t('analysis.analysisModeOn') : t('analysis.analysisModeOff')
+              }
+            >
+              <span className="analysis-mode-dot" />
+              <LuBrain size={14} />
+            </button>
 
-        <div className="analysis-toolbar-separator" />
+            <div className="analysis-toolbar-separator" />
 
-        {/* Board overlay toggles */}
-        <button
-          className={`analysis-overlay-button ${showOwnership ? 'active' : ''}`}
-          onClick={toggleOwnership}
-          disabled={isInitializing}
-          title={`${t('analysis.toggleOwnership')} (${bindingToDisplayString(getBinding('ai.toggleOwnership'))})`}
-          aria-label={t('analysis.toggleOwnership')}
-          aria-pressed={showOwnership}
-        >
-          <LuMap size={14} />
-        </button>
-        <button
-          className={`analysis-overlay-button ${showTopMoves ? 'active' : ''}`}
-          onClick={toggleTopMoves}
-          disabled={isInitializing}
-          title={`${t('analysis.toggleTopMoves')} (${bindingToDisplayString(getBinding('ai.toggleTopMoves'))})`}
-          aria-label={t('analysis.toggleTopMoves')}
-          aria-pressed={showTopMoves}
-        >
-          <LuLayers size={14} />
-        </button>
+            {/* Board overlay toggles */}
+            <button
+              className={`analysis-overlay-button ${showOwnership ? 'active' : ''}`}
+              onClick={toggleOwnership}
+              disabled={isInitializing}
+              title={`${t('analysis.toggleOwnership')} (${bindingToDisplayString(getBinding('ai.toggleOwnership'))})`}
+              aria-label={t('analysis.toggleOwnership')}
+              aria-pressed={showOwnership}
+            >
+              <LuMap size={14} />
+            </button>
+            <button
+              className={`analysis-overlay-button ${showTopMoves ? 'active' : ''}`}
+              onClick={toggleTopMoves}
+              disabled={isInitializing}
+              title={`${t('analysis.toggleTopMoves')} (${bindingToDisplayString(getBinding('ai.toggleTopMoves'))})`}
+              aria-label={t('analysis.toggleTopMoves')}
+              aria-pressed={showTopMoves}
+            >
+              <LuLayers size={14} />
+            </button>
 
-        <div className="analysis-toolbar-separator" />
+            <div className="analysis-toolbar-separator" />
 
-        {/* Action buttons */}
-        <button
-          className={`analysis-action-button ${isFullGameAnalyzing ? 'active analyzing' : ''}`}
-          title={
-            isFullGameAnalyzing
-              ? t('analysis.stopAnalysis')
-              : pendingFullGameAnalysis
-                ? t('analysis.waitingForEngine')
-                : t('analysis.analyzeFullGame')
-          }
-          onClick={isFullGameAnalyzing ? stopFullGameAnalysis : analyzeFullGame}
-          disabled={isInitializing || isStopping || pendingFullGameAnalysis || isFullyAnalyzed}
-          aria-label={t('analysis.analyzeFullGame')}
-        >
-          {isFullGameAnalyzing ? <LuSquare size={14} /> : <LuZap size={14} />}
-        </button>
-        <button
-          className="analysis-action-button"
-          title={
-            analysisCacheSize > 0
-              ? t('analysis.clearCacheWithCount', { count: analysisCacheSize })
-              : t('analysis.noCachedAnalysis')
-          }
-          onClick={clearAnalysisCache}
-          disabled={analysisCacheSize === 0 || isFullGameAnalyzing}
-          aria-label={t('analysis.clearCache')}
-        >
-          <LuTrash2 size={14} />
-        </button>
+            {/* Action buttons */}
+            <button
+              className={`analysis-action-button ${isFullGameAnalyzing ? 'active analyzing' : ''}`}
+              title={
+                isFullGameAnalyzing
+                  ? t('analysis.stopAnalysis')
+                  : pendingFullGameAnalysis
+                    ? t('analysis.waitingForEngine')
+                    : t('analysis.analyzeFullGame')
+              }
+              onClick={isFullGameAnalyzing ? stopFullGameAnalysis : analyzeFullGame}
+              disabled={isInitializing || isStopping || pendingFullGameAnalysis || isFullyAnalyzed}
+              aria-label={t('analysis.analyzeFullGame')}
+            >
+              {isFullGameAnalyzing ? <LuSquare size={14} /> : <LuZap size={14} />}
+            </button>
+            <button
+              className="analysis-action-button"
+              title={
+                analysisCacheSize > 0
+                  ? t('analysis.clearCacheWithCount', { count: analysisCacheSize })
+                  : t('analysis.noCachedAnalysis')
+              }
+              onClick={clearAnalysisCache}
+              disabled={analysisCacheSize === 0 || isFullGameAnalyzing}
+              aria-label={t('analysis.clearCache')}
+            >
+              <LuTrash2 size={14} />
+            </button>
+          </>
+        )}
         <button
           className="analysis-action-button"
           title={t('analysis.analysisLegend')}
@@ -275,33 +311,20 @@ export const AnalysisGraphPanel: React.FC<AnalysisGraphPanelProps> = ({ classNam
         >
           {analyzedCount}/{totalPositions}
         </span>
+        {menuBarOwnsActions && (
+          <>
+            <div className="analysis-toolbar-separator" />
+            {legend}
+          </>
+        )}
       </div>
 
-      {/* Chart legend row - Win Rate / Score toggles */}
-      <div className="analysis-chart-legend">
-        <button
-          className={`analysis-legend-toggle ${showWinRate ? 'active' : ''}`}
-          onClick={handleToggleWinRate}
-          title={t('analysis.toggleWinRate')}
-          aria-label={t('analysis.toggleWinRate')}
-          aria-pressed={showWinRate}
-        >
-          <span className="legend-indicator legend-winrate" />
-          <span className="legend-label">{t('analysis.winRate')}</span>
-        </button>
-        <button
-          className={`analysis-legend-toggle ${showScoreLead ? 'active' : ''}`}
-          onClick={handleToggleScoreLead}
-          title={t('analysis.toggleScore')}
-          aria-label={t('analysis.toggleScore')}
-          aria-pressed={showScoreLead}
-        >
-          <span className="legend-indicator legend-score" />
-          <span className="legend-label">{t('analysis.score')}</span>
-        </button>
-      </div>
+      {/* Chart legend row - Win Rate / Score toggles (in the toolbar row with a menu bar) */}
+      {!menuBarOwnsActions && <div className="analysis-chart-legend">{legend}</div>}
 
-      {(isInitializing || isAnalyzing) && (
+      {/* The eval gauge pulses while analyzing; with a menu bar this row would
+          only make the chart jump */}
+      {(isInitializing || isAnalyzing) && !menuBarOwnsActions && (
         <div className="analysis-status-bar">
           <LuLoader className="analysis-spinner" />
           <span>{isInitializing ? t('analysis.initializingEngine') : t('analysis.analyzing')}</span>
