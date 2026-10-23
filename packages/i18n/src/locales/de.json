@@ -791,6 +791,8 @@
       "edit.undo": "Rückgängig",
       "edit.redo": "Wiederherstellen",
       "edit.makeMainBranch": "Als Hauptzweig setzen",
+      "edit.promoteVariation": "Variante nach oben verschieben",
+      "edit.demoteVariation": "Variante nach unten verschieben",
       "mark.good": "Zug markieren: Guter Zug",
       "mark.veryGood": "Zug markieren: Sehr guter Zug (Tesuji)",
       "mark.interesting": "Zug markieren: Interessanter Zug",

@@ -1,5 +1,6 @@
 import { useCommand } from '../../commands/CommandsContext';
-import { useGameTreeBoard, useGameTreeEdit } from '../../contexts/selectors';
+import { useGameTreeBoard, useGameTreeCore, useGameTreeEdit } from '../../contexts/selectors';
+import { canShiftVariation, type ShiftDirection } from '../../hooks/game/branchOperations';
 
 /** File, edit-history, branch and app-level commands owned by the header. */
 export function useHeaderCommands(handlers: {
@@ -23,6 +24,7 @@ export function useHeaderCommands(handlers: {
   const { currentNode } = useGameTreeBoard();
   const {
     makeMainVariation,
+    shiftVariation,
     undo,
     redo,
     canUndo,
@@ -37,7 +39,10 @@ export function useHeaderCommands(handlers: {
     clearSetupStones,
     clearAllMarkersAndLabels,
   } = useGameTreeEdit();
+  const { gameTree, currentNodeId } = useGameTreeCore();
   const isRoot = currentNode?.parentId == null;
+  const canShift = (direction: ShiftDirection): boolean =>
+    !!gameTree && currentNodeId != null && canShiftVariation(gameTree, currentNodeId, direction);
 
   useCommand('file.new', handlers.handleNewGame);
   useCommand('file.quickNew', handlers.handleQuickNewGame);
@@ -54,6 +59,12 @@ export function useHeaderCommands(handlers: {
   useCommand('edit.undo', undo, { enabled: canUndo });
   useCommand('edit.redo', redo, { enabled: canRedo });
   useCommand('edit.makeMainBranch', makeMainVariation);
+  useCommand('edit.promoteVariation', () => shiftVariation('left'), {
+    enabled: canShift('left'),
+  });
+  useCommand('edit.demoteVariation', () => shiftVariation('right'), {
+    enabled: canShift('right'),
+  });
   useCommand('edit.copyBranch', copyBranch, { enabled: !isRoot });
   useCommand('edit.cutBranch', cutNode, { enabled: !isRoot });
   useCommand('edit.pasteBranch', pasteBranch, { enabled: !!copiedBranch });

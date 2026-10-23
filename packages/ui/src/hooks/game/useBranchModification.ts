@@ -22,6 +22,8 @@ import {
   deleteOtherBranches as deleteOtherBranchesOf,
   makeMainLine,
   pasteBranch,
+  shiftVariation as shiftVariationOf,
+  type ShiftDirection,
 } from './branchOperations';
 
 interface UseBranchModificationProps {
@@ -85,12 +87,13 @@ export function useBranchModification({
     setGameTree(newTree);
   }, [gameTree, currentNodeId, setGameTree]);
 
+  /** No-op when the variation is already at that end, or there is no fork above. */
   const shiftVariation = useCallback(
-    (direction: 'left' | 'right') => {
+    (direction: ShiftDirection) => {
       if (!gameTree || currentNodeId === null) return;
-      const newTree = gameTree.mutate(draft => {
-        draft.shiftNode(currentNodeId, direction);
-      });
+      const newTree = shiftVariationOf(gameTree, currentNodeId, direction);
+      if (!newTree) return;
+
       setGameTree(newTree);
     },
     [gameTree, currentNodeId, setGameTree]

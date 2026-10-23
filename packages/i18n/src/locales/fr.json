@@ -791,6 +791,8 @@
       "edit.undo": "Annuler",
       "edit.redo": "Rétablir",
       "edit.makeMainBranch": "Définir comme branche principale",
+      "edit.promoteVariation": "Promouvoir la variante",
+      "edit.demoteVariation": "Rétrograder la variante",
       "mark.good": "Annoter le coup : Bon coup",
       "mark.veryGood": "Annoter le coup : Très bon coup (tesuji)",
       "mark.interesting": "Annoter le coup : Coup intéressant",

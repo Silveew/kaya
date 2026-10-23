@@ -158,6 +158,8 @@ export const BoardNavigationProvider: React.FC<BoardNavigationProviderProps> = (
       ) {
         return;
       }
+      // Modified keys (⌥⇧↑ shifts a variation) belong to the command dispatcher
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
 
       // Only handle if navigation mode is active
       // Arrow keys move cursor

@@ -791,6 +791,8 @@
       "edit.undo": "元に戻す",
       "edit.redo": "やり直す",
       "edit.makeMainBranch": "メインブランチにする",
+      "edit.promoteVariation": "変化を上げる",
+      "edit.demoteVariation": "変化を下げる",
       "mark.good": "手に印を付ける：好手",
       "mark.veryGood": "手に印を付ける：妙手（手筋）",
       "mark.interesting": "手に印を付ける：面白い手",

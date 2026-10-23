@@ -791,6 +791,8 @@
       "edit.undo": "撤销",
       "edit.redo": "重做",
       "edit.makeMainBranch": "设为主变化",
+      "edit.promoteVariation": "上移变化",
+      "edit.demoteVariation": "下移变化",
       "mark.good": "标记着法：好棋",
       "mark.veryGood": "标记着法：妙手（手筋）",
       "mark.interesting": "标记着法：有趣的一手",
