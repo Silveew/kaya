@@ -71,7 +71,7 @@ export function useHeaderCommands(handlers: {
   useCommand('edit.deleteContinuation', deleteContinuation, {
     enabled: !!currentNode?.children?.length,
   });
-  useCommand('edit.deleteBranch', deleteBranch);
+  useCommand('edit.deleteBranch', deleteBranch, { enabled: !isRoot });
   useCommand('edit.deleteOtherBranches', deleteOtherBranches);
   useCommand('edit.clearSetupStones', clearSetupStones);
   useCommand('edit.clearMarkers', clearAllMarkersAndLabels);

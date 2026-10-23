@@ -358,9 +358,10 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'edit',
     defaultBinding: createBinding(''),
   },
+  // ⌥⇧⌫ rather than ⌘⌫, for the same reason as the variation shifts above
   'edit.deleteBranch': {
     category: 'edit',
-    defaultBinding: createBinding(''),
+    defaultBinding: createBinding('backspace', { alt: true, shift: true }),
   },
   'edit.deleteOtherBranches': {
     category: 'edit',
