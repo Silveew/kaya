@@ -807,6 +807,7 @@
       "view.toggleTheme": "Alternar modo oscuro",
       "game.pass": "Pasar",
       "game.resign": "Abandonar",
+      "ai.toggleEngine": "Análisis del motor",
       "ai.analyzeFullGame": "Analizar la partida completa",
       "ai.clearCache": "Borrar análisis guardado",
       "edit.copyBranch": "Copiar variante",

@@ -807,6 +807,7 @@
       "view.toggleTheme": "Dunkelmodus umschalten",
       "game.pass": "Passen",
       "game.resign": "Aufgeben",
+      "ai.toggleEngine": "Engine-Analyse",
       "ai.analyzeFullGame": "Ganze Partie analysieren",
       "ai.clearCache": "Gespeicherte Analyse löschen",
       "edit.copyBranch": "Variante kopieren",

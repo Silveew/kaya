@@ -807,6 +807,7 @@
       "view.toggleTheme": "다크 모드 전환",
       "game.pass": "패스",
       "game.resign": "기권",
+      "ai.toggleEngine": "엔진 분석",
       "ai.analyzeFullGame": "대국 전체 분석",
       "ai.clearCache": "저장된 분석 지우기",
       "edit.copyBranch": "변화도 복사",

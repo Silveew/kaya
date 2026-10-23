@@ -807,6 +807,7 @@
       "view.toggleTheme": "ダークモード切り替え",
       "game.pass": "パス",
       "game.resign": "投了",
+      "ai.toggleEngine": "エンジン解析",
       "ai.analyzeFullGame": "対局全体を解析",
       "ai.clearCache": "保存済みの解析を消去",
       "edit.copyBranch": "変化をコピー",

@@ -22,6 +22,7 @@ import { useFullGameAnalysis } from './useFullGameAnalysis';
 import { buildHeatmap } from './ai/heatmapBuilder';
 import { computeNextMoveInfo, computeNextMoveVertex } from './ai/nextMoveInfoBuilder';
 import { DEFAULT_KOMI } from '@kaya/ai-engine';
+import { useCommand } from '../commands/CommandsContext';
 
 // Re-export public API
 export { useAIAnalysis } from './ai-analysis-types';
@@ -141,6 +142,18 @@ export const AIAnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     aiSettings.saveAnalysisToSgf,
     setIsDirty,
   ]);
+
+  // Lives in the provider so the shortcut works whichever panel or workspace is showing
+  const toggleEngine = useCallback(() => {
+    if (!analysisMode) {
+      setAnalysisMode(true);
+      return;
+    }
+    stopFullGameAnalysis();
+    queue?.cancelAll();
+    setAnalysisMode(false);
+  }, [analysisMode, setAnalysisMode, stopFullGameAnalysis, queue]);
+  useCommand('ai.toggleEngine', toggleEngine, { checked: analysisMode });
 
   // Track if this is the first render (to avoid clearing on mount)
   const isFirstRenderRef = useRef(true);

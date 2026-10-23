@@ -807,6 +807,7 @@
       "view.toggleTheme": "Toggle Dark Mode",
       "game.pass": "Pass",
       "game.resign": "Resign",
+      "ai.toggleEngine": "Engine Analysis",
       "ai.analyzeFullGame": "Analyze Whole Game",
       "ai.clearCache": "Clear Cached Analysis",
       "edit.copyBranch": "Copy Branch",

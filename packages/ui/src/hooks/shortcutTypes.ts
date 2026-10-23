@@ -79,6 +79,7 @@ export type ShortcutId =
   | 'game.pass'
   | 'game.resign'
   // AI shortcuts
+  | 'ai.toggleEngine'
   | 'ai.suggestMove'
   | 'ai.toggleTopMoves'
   | 'ai.toggleOwnership'
@@ -295,6 +296,10 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
   },
 
   // AI shortcuts
+  'ai.toggleEngine': {
+    category: 'ai',
+    defaultBinding: createBinding('a', { shift: true }),
+  },
   'ai.suggestMove': {
     category: 'ai',
     defaultBinding: createBinding('g'),
