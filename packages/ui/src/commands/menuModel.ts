@@ -122,6 +122,8 @@ export function buildMenuModel(isMac: boolean): MenuSection[] {
       },
       SEP,
       cmd('edit.makeMainBranch'),
+      cmd('edit.promoteVariation'),
+      cmd('edit.demoteVariation'),
       cmd('edit.copyBranch'),
       cmd('edit.cutBranch'),
       cmd('edit.pasteBranch'),

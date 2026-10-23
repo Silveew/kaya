@@ -791,6 +791,8 @@
       "edit.undo": "실행 취소",
       "edit.redo": "다시 실행",
       "edit.makeMainBranch": "주요 변화로 설정",
+      "edit.promoteVariation": "변화 올리기",
+      "edit.demoteVariation": "변화 내리기",
       "mark.good": "수 표시: 좋은 수",
       "mark.veryGood": "수 표시: 매우 좋은 수(맥)",
       "mark.interesting": "수 표시: 흥미로운 수",

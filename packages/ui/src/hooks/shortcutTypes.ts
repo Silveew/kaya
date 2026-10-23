@@ -88,6 +88,8 @@ export type ShortcutId =
   | 'edit.undo'
   | 'edit.redo'
   | 'edit.makeMainBranch'
+  | 'edit.promoteVariation'
+  | 'edit.demoteVariation'
   | 'edit.copyBranch'
   | 'edit.cutBranch'
   | 'edit.pasteBranch'
@@ -329,6 +331,17 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'edit',
     defaultBinding: createPlatformBinding('m', { shift: true }),
   },
+  // Not ⌘⇧↑/↓: only Cmd/Ctrl bindings become native menu accelerators, and
+  // those fire before the webview, so they would steal select-to-start/end
+  // while typing a comment.
+  'edit.promoteVariation': {
+    category: 'edit',
+    defaultBinding: createBinding('arrowup', { alt: true, shift: true }),
+  },
+  'edit.demoteVariation': {
+    category: 'edit',
+    defaultBinding: createBinding('arrowdown', { alt: true, shift: true }),
+  },
   'edit.copyBranch': {
     category: 'edit',
     defaultBinding: createBinding(''),
@@ -345,9 +358,10 @@ export const DEFAULT_SHORTCUTS: Record<ShortcutId, Omit<ShortcutDefinition, 'id'
     category: 'edit',
     defaultBinding: createBinding(''),
   },
+  // ⌥⇧⌫ rather than ⌘⌫, for the same reason as the variation shifts above
   'edit.deleteBranch': {
     category: 'edit',
-    defaultBinding: createBinding(''),
+    defaultBinding: createBinding('backspace', { alt: true, shift: true }),
   },
   'edit.deleteOtherBranches': {
     category: 'edit',

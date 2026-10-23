@@ -791,6 +791,8 @@
       "edit.undo": "Annulla",
       "edit.redo": "Ripeti",
       "edit.makeMainBranch": "Imposta come ramo principale",
+      "edit.promoteVariation": "Promuovi variante",
+      "edit.demoteVariation": "Retrocedi variante",
       "mark.good": "Segna mossa: Buona mossa",
       "mark.veryGood": "Segna mossa: Ottima mossa (tesuji)",
       "mark.interesting": "Segna mossa: Mossa interessante",

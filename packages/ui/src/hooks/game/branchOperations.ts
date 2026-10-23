@@ -1,5 +1,5 @@
 /**
- * Pure game-tree reshaping behind the branch actions: make main, copy, cut,
+ * Pure game-tree reshaping behind the branch actions: make main, shift, copy, cut,
  * paste, delete branch, delete continuation and delete other branches.
  *
  * Each function takes an immutable tree and a node id and returns the new
@@ -49,6 +49,46 @@ export function makeMainLine(tree: Tree, nodeId: NodeId): Tree | null {
       draft.shiftNode(id, 'main');
       id = node.parentId;
     }
+  });
+}
+
+export type ShiftDirection = 'left' | 'right';
+
+/**
+ * The node that moves when the variation holding `nodeId` is shifted: the
+ * nearest node on the path up from `nodeId` (itself included) whose parent
+ * branches. `null` when no fork lies above it, or it is already at that end.
+ */
+function shiftTarget(tree: Tree, nodeId: NodeId, direction: ShiftDirection): NodeId | null {
+  let node = tree.get(nodeId);
+  while (node && node.parentId != null) {
+    const parent = tree.get(node.parentId);
+    if (!parent) return null;
+    if (parent.children.length > 1) {
+      const id = node.id;
+      const index = parent.children.findIndex(child => child.id === id);
+      const next = direction === 'left' ? index - 1 : index + 1;
+      return next >= 0 && next < parent.children.length ? id : null;
+    }
+    node = parent;
+  }
+  return null;
+}
+
+export function canShiftVariation(tree: Tree, nodeId: NodeId, direction: ShiftDirection): boolean {
+  return shiftTarget(tree, nodeId, direction) != null;
+}
+
+/**
+ * Move the variation holding `nodeId` one place toward (`left`, promote) or
+ * away from (`right`, demote) the main line. `null` when it cannot move.
+ */
+export function shiftVariation(tree: Tree, nodeId: NodeId, direction: ShiftDirection): Tree | null {
+  const id = shiftTarget(tree, nodeId, direction);
+  if (id == null) return null;
+
+  return tree.mutate(draft => {
+    draft.shiftNode(id, direction);
   });
 }
 

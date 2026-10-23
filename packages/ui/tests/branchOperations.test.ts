@@ -14,6 +14,7 @@ import { GameTree, type GameTreeNode } from '@kaya/gametree';
 import { parse, sgfNodeToGameTreeNode } from '@kaya/sgf';
 import type { SGFProperty } from '../src/types/game';
 import {
+  canShiftVariation,
   copyBranch,
   cutBranch,
   deleteBranch,
@@ -23,6 +24,7 @@ import {
   isOnMainLine,
   makeMainLine,
   pasteBranch,
+  shiftVariation,
 } from '../src/hooks/game/branchOperations';
 
 type Tree = GameTree<SGFProperty>;
@@ -190,6 +192,57 @@ describe('deleteContinuation', () => {
   test('is a no-op on a leaf', () => {
     const tree = treeFromSGF(SPLIT_AT_MOVE_1);
     expect(deleteContinuation(tree, nodeAt(tree, 'aa bb').id)).toBeNull();
+  });
+});
+
+describe('shiftVariation', () => {
+  const THREE_WAY = '(;SZ[19](;B[aa];W[bb])(;B[cc];W[dd])(;B[ee]))';
+
+  test('promotes and demotes the variation one place at a time', () => {
+    const tree = treeFromSGF(THREE_WAY);
+    const ee = nodeAt(tree, 'ee').id;
+    const promoted = shiftVariation(tree, ee, 'left');
+    expect(lines(promoted!)).toEqual(['aa bb', 'ee', 'cc dd']);
+
+    const demoted = shiftVariation(tree, nodeAt(tree, 'aa').id, 'right');
+    expect(lines(demoted!)).toEqual(['cc dd', 'aa bb', 'ee']);
+  });
+
+  test('moves the variation of a node deeper in it, not the node itself', () => {
+    const tree = treeFromSGF(THREE_WAY);
+    const dd = nodeAt(tree, 'cc dd').id;
+    expect(lines(shiftVariation(tree, dd, 'left')!)).toEqual(['cc dd', 'aa bb', 'ee']);
+  });
+
+  test('moves the nearest fork above the node', () => {
+    const tree = treeFromSGF(NESTED);
+    const ff = nodeAt(tree, 'aa dd ff').id;
+    expect(lines(shiftVariation(tree, ff, 'left')!)).toEqual([
+      'aa bb cc',
+      'aa dd ff',
+      'aa dd ee',
+      'gg',
+    ]);
+  });
+
+  test('is a no-op at either end and without a fork', () => {
+    const tree = treeFromSGF(THREE_WAY);
+    const aa = nodeAt(tree, 'aa').id;
+    const ee = nodeAt(tree, 'ee').id;
+    expect(canShiftVariation(tree, aa, 'left')).toBe(false);
+    expect(shiftVariation(tree, aa, 'left')).toBeNull();
+    expect(canShiftVariation(tree, ee, 'right')).toBe(false);
+    expect(shiftVariation(tree, ee, 'right')).toBeNull();
+    expect(canShiftVariation(tree, tree.root.id, 'left')).toBe(false);
+
+    const single = treeFromSGF('(;SZ[19];B[aa];W[bb])');
+    expect(shiftVariation(single, nodeAt(single, 'aa bb').id, 'left')).toBeNull();
+  });
+
+  test('leaves the source tree untouched', () => {
+    const tree = treeFromSGF(THREE_WAY);
+    shiftVariation(tree, nodeAt(tree, 'ee').id, 'left');
+    expect(lines(tree)).toEqual(['aa bb', 'cc dd', 'ee']);
   });
 });
 

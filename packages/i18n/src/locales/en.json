@@ -791,6 +791,8 @@
       "edit.undo": "Undo",
       "edit.redo": "Redo",
       "edit.makeMainBranch": "Make Main Branch",
+      "edit.promoteVariation": "Promote Variation",
+      "edit.demoteVariation": "Demote Variation",
       "mark.good": "Mark move: Good move",
       "mark.veryGood": "Mark move: Very good move (tesuji)",
       "mark.interesting": "Mark move: Interesting move",

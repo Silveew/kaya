@@ -791,6 +791,8 @@
       "edit.undo": "Deshacer",
       "edit.redo": "Rehacer",
       "edit.makeMainBranch": "Establecer como rama principal",
+      "edit.promoteVariation": "Subir variante",
+      "edit.demoteVariation": "Bajar variante",
       "mark.good": "Marcar jugada: Buena jugada",
       "mark.veryGood": "Marcar jugada: Muy buena jugada (tesuji)",
       "mark.interesting": "Marcar jugada: Jugada interesante",
