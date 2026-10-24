@@ -807,6 +807,7 @@
       "view.toggleTheme": "切换深色模式",
       "game.pass": "停一手",
       "game.resign": "认输",
+      "ai.toggleEngine": "引擎分析",
       "ai.analyzeFullGame": "分析整盘棋",
       "ai.clearCache": "清除已保存的分析",
       "edit.copyBranch": "复制分支",

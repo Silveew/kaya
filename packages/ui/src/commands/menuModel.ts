@@ -180,6 +180,7 @@ export function buildMenuModel(isMac: boolean): MenuSection[] {
   const analysis: MenuSection = {
     title: 'analysis',
     items: [
+      toggle('ai.toggleEngine'),
       toggle('board.toggleAnalysis'),
       toggle('ai.analyzeFullGame'),
       SEP,

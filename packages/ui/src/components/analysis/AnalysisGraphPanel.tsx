@@ -27,6 +27,7 @@ import './AnalysisGraphPanelControls.css';
 import './AnalysisGraphPanelChart.css';
 import { DEFAULT_KOMI } from '@kaya/ai-engine';
 import { hasNativeMenuBar } from '../../commands/useNativeMenu';
+import { useRunCommand } from '../../commands/CommandsContext';
 
 export interface AnalysisGraphPanelProps {
   className?: string;
@@ -48,8 +49,8 @@ export const AnalysisGraphPanel: React.FC<AnalysisGraphPanelProps> = ({ classNam
     navigate,
     navigateToMove,
     analysisMode,
-    toggleAnalysisMode,
   } = useGameTree();
+  const runCommand = useRunCommand();
 
   const {
     analyzeFullGame,
@@ -223,7 +224,7 @@ export const AnalysisGraphPanel: React.FC<AnalysisGraphPanelProps> = ({ classNam
             {/* Analysis Mode Toggle */}
             <button
               className={`analysis-mode-indicator ${analysisMode ? 'active' : ''}`}
-              onClick={toggleAnalysisMode}
+              onClick={() => runCommand('ai.toggleEngine')}
               title={analysisMode ? t('analysis.analysisModeOn') : t('analysis.analysisModeOff')}
               aria-label={
                 analysisMode ? t('analysis.analysisModeOn') : t('analysis.analysisModeOff')

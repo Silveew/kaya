@@ -40,6 +40,7 @@ pub struct OnnxEngine {
     provider_name: String,
     /// Whether the model uses fp16 I/O tensors
     pub(crate) is_fp16: bool,
+    pub(crate) paused_search: Option<mcts::PausedSearch>,
 }
 
 /// Global engine instance (lazy loaded)
@@ -143,6 +144,7 @@ impl OnnxEngine {
             board_size: 19,
             provider_name: provider.name.clone(),
             is_fp16,
+            paused_search: None,
         };
 
         // Run a warm-up inference to catch failures early: fp16 model on an
@@ -208,6 +210,7 @@ impl OnnxEngine {
             board_size: 19,
             provider_name: provider.name.clone(),
             is_fp16,
+            paused_search: None,
         };
 
         // Run a warm-up inference to catch failures early: fp16 model on an

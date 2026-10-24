@@ -807,6 +807,7 @@
       "view.toggleTheme": "Attiva/disattiva modalità scura",
       "game.pass": "Passa",
       "game.resign": "Abbandona",
+      "ai.toggleEngine": "Analisi del motore",
       "ai.analyzeFullGame": "Analizza tutta la partita",
       "ai.clearCache": "Cancella analisi salvata",
       "edit.copyBranch": "Copia variante",

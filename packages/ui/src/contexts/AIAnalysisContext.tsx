@@ -22,6 +22,7 @@ import { useFullGameAnalysis } from './useFullGameAnalysis';
 import { buildHeatmap } from './ai/heatmapBuilder';
 import { computeNextMoveInfo, computeNextMoveVertex } from './ai/nextMoveInfoBuilder';
 import { DEFAULT_KOMI } from '@kaya/ai-engine';
+import { useCommand } from '../commands/CommandsContext';
 
 // Re-export public API
 export { useAIAnalysis } from './ai-analysis-types';
@@ -141,6 +142,37 @@ export const AIAnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     aiSettings.saveAnalysisToSgf,
     setIsDirty,
   ]);
+
+  // Lives in the provider so the shortcut works whichever panel or workspace is showing
+  // Off pauses: cached results stay, and a whole-game run picks up where it stopped
+  const resumeFullGameRef = useRef(false);
+  const toggleEngine = useCallback(() => {
+    if (!analysisMode) {
+      if (resumeFullGameRef.current) {
+        resumeFullGameRef.current = false;
+        analyzeFullGame();
+      } else {
+        setAnalysisMode(true);
+      }
+      return;
+    }
+    resumeFullGameRef.current = isFullGameAnalyzing || pendingFullGameAnalysis;
+    stopFullGameAnalysis();
+    queue?.cancelAll();
+    setAnalysisMode(false);
+  }, [
+    analysisMode,
+    setAnalysisMode,
+    analyzeFullGame,
+    stopFullGameAnalysis,
+    isFullGameAnalyzing,
+    pendingFullGameAnalysis,
+    queue,
+  ]);
+  useEffect(() => {
+    resumeFullGameRef.current = false;
+  }, [gameId]);
+  useCommand('ai.toggleEngine', toggleEngine, { checked: analysisMode });
 
   // Track if this is the first render (to avoid clearing on mount)
   const isFirstRenderRef = useRef(true);

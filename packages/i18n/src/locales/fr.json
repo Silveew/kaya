@@ -807,6 +807,7 @@
       "view.toggleTheme": "Basculer le mode sombre",
       "game.pass": "Passer",
       "game.resign": "Abandonner",
+      "ai.toggleEngine": "Analyse par le moteur",
       "ai.analyzeFullGame": "Analyser toute la partie",
       "ai.clearCache": "Effacer l'analyse en cache",
       "edit.copyBranch": "Copier la variante",
