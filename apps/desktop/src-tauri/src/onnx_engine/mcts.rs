@@ -110,6 +110,25 @@ impl MCTSNode {
     }
 }
 
+fn clear_virtual_loss(node: &mut MCTSNode) {
+    node.virtual_loss = 0;
+    if let Some(children) = node.children.as_mut() {
+        for (_, child) in children.iter_mut() {
+            clear_virtual_loss(child);
+        }
+    }
+}
+
+/// The tree of the last aborted search, so pausing the engine (or navigating
+/// away and back) continues that search instead of starting from zero visits.
+pub struct PausedSearch {
+    key: String,
+    root: MCTSNode,
+    ownership_sum: Vec<f64>,
+    ownership_count: usize,
+    completed: usize,
+}
+
 // --- Board logic (simplified Go rules for MCTS tree traversal) ---
 
 /// A lightweight board representation for MCTS tree traversal.
@@ -346,17 +365,20 @@ impl OnnxEngine {
         let history = &options.history;
         let root_board = Board::with_ko(sign_map, &options.ko_info);
 
-        // Root node
-        let mut root = MCTSNode::new(1.0);
-
-        // Ownership accumulator
         let board_area = size * size;
-        let mut ownership_sum = vec![0.0f64; board_area];
-        let mut ownership_count: usize = 0;
+        let key = format!(
+            "{:?}|{}|{}|{:?}|{:?}",
+            sign_map, next_pla, komi.to_bits(), history, options.ko_info
+        );
+        let (mut root, mut ownership_sum, mut ownership_count, mut completed) =
+            match self.paused_search.take() {
+                Some(p) if p.key == key => (p.root, p.ownership_sum, p.ownership_count, p.completed),
+                _ => (MCTSNode::new(1.0), vec![0.0f64; board_area], 0, 0),
+            };
 
-        // Emit initial progress (0/N) so the UI updates immediately
+        // Emit initial progress so the UI updates immediately
         progress_callback(MCTSProgress {
-            completed_visits: 0,
+            completed_visits: completed,
             total_visits: num_visits,
             best_move: String::new(),
             best_move_visits: 0,
@@ -365,7 +387,6 @@ impl OnnxEngine {
             top_moves: vec![],
         });
 
-        let mut completed: usize = 0;
         while completed < num_visits {
             if abort_flag.load(Ordering::Relaxed) { break; }
 
@@ -655,7 +676,19 @@ impl OnnxEngine {
         }
 
         // Build final result
-        self.build_mcts_result(&root, next_pla, &ownership_sum, ownership_count, size)
+        let result = self.build_mcts_result(&root, next_pla, &ownership_sum, ownership_count, size);
+        if abort_flag.load(Ordering::Relaxed) {
+            // An abort can land between leaf selection and backup.
+            clear_virtual_loss(&mut root);
+            self.paused_search = Some(PausedSearch {
+                key,
+                root,
+                ownership_sum,
+                ownership_count,
+                completed,
+            });
+        }
+        result
     }
 
     /// Run forced visits through the includeMove.

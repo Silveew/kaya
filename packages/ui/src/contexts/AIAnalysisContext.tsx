@@ -144,15 +144,34 @@ export const AIAnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   ]);
 
   // Lives in the provider so the shortcut works whichever panel or workspace is showing
+  // Off pauses: cached results stay, and a whole-game run picks up where it stopped
+  const resumeFullGameRef = useRef(false);
   const toggleEngine = useCallback(() => {
     if (!analysisMode) {
-      setAnalysisMode(true);
+      if (resumeFullGameRef.current) {
+        resumeFullGameRef.current = false;
+        analyzeFullGame();
+      } else {
+        setAnalysisMode(true);
+      }
       return;
     }
+    resumeFullGameRef.current = isFullGameAnalyzing || pendingFullGameAnalysis;
     stopFullGameAnalysis();
     queue?.cancelAll();
     setAnalysisMode(false);
-  }, [analysisMode, setAnalysisMode, stopFullGameAnalysis, queue]);
+  }, [
+    analysisMode,
+    setAnalysisMode,
+    analyzeFullGame,
+    stopFullGameAnalysis,
+    isFullGameAnalyzing,
+    pendingFullGameAnalysis,
+    queue,
+  ]);
+  useEffect(() => {
+    resumeFullGameRef.current = false;
+  }, [gameId]);
   useCommand('ai.toggleEngine', toggleEngine, { checked: analysisMode });
 
   // Track if this is the first render (to avoid clearing on mount)
