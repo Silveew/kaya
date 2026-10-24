@@ -1,0 +1,11 @@
+.library-preview {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 45%;
+  min-height: 120px;
+  pointer-events: none;
+}

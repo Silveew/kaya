@@ -1,8 +1,9 @@
 /**
  * LibraryGameDetails - the Library workspace's side panel.
  *
- * For the game on the board: its full, editable game info. For another
- * selected game: what the library knows about it, and a button to open it.
+ * For the game on the board: its final position and full, editable game info.
+ * For another selected game: its final position, what the library knows about
+ * it, and a button to open it.
  */
 
 import React from 'react';
@@ -15,6 +16,7 @@ import {
   GameInfoHeaderActions,
   useGameInfoEditMode,
 } from '../editors/GameInfoEditor';
+import { LibraryFilePreview, LoadedGamePreview } from './LibraryBoardPreview';
 import './LibraryGameDetails.css';
 
 interface LibraryGameDetailsProps {
@@ -38,6 +40,7 @@ export const LibraryGameDetails: React.FC<LibraryGameDetailsProps> = ({ onShowAn
           <h3>{t('panels.gameInfo')}</h3>
           <GameInfoHeaderActions isEditMode={isEditMode} onToggle={toggleEditMode} />
         </div>
+        <LoadedGamePreview />
         <div className="library-details__body">
           <GameInfoEditor isEditMode={isEditMode} onEditModeChange={setIsEditMode} />
         </div>
@@ -73,6 +76,7 @@ export const LibraryGameDetails: React.FC<LibraryGameDetailsProps> = ({ onShowAn
       <div className="library-details__header">
         <h3>{selectedFile.name}</h3>
       </div>
+      <LibraryFilePreview content={selectedFile.content} />
       <dl className="library-details__body library-details__facts">
         {rows
           .filter(([, value]) => value !== undefined && value !== '')

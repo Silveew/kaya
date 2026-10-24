@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "解析で開く",
     "boardSize": "碁盤",
-    "moveCount": "手数"
+    "moveCount": "手数",
+    "preview": "終局図"
   },
   "engineLines": {
     "title": "エンジン",

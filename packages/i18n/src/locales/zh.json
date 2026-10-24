@@ -671,7 +671,8 @@
   "gameDetails": {
     "open": "在分析中打开",
     "boardSize": "棋盘",
-    "moveCount": "手数"
+    "moveCount": "手数",
+    "preview": "终局图"
   },
   "engineLines": {
     "title": "引擎",
